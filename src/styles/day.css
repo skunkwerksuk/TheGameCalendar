@@ -1,0 +1,24 @@
+.calendar {
+  width: 80%;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.day {
+  border: 1px solid black;
+  display: inline-block;
+  width: 14.1%;
+  height: 100px;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.day.blank {
+  border: 1px solid lightgray;
+  color: lightgray;
+}
+
+.day .date {
+  padding: 5px;
+  text-align: left;
+}
