@@ -8,9 +8,12 @@
   border: 1px solid black;
   display: inline-block;
   width: 14.1%;
-  height: 100px;
+  height: 110px;
   display: inline-flex;
   flex-direction: column;
+  overflow: hidden;
+  margin-left: -1px;
+  margin-top: -1px;
 }
 
 .day.blank {
@@ -18,7 +21,24 @@
   color: lightgray;
 }
 
+.day.today {
+  background-color: aliceblue;
+}
+
 .day .date {
   padding: 5px;
   text-align: left;
+}
+
+.game-name {
+  text-align: left;
+  padding-left: 5px;
+  background: lightgray;
+  text-overflow: ellipsis;
+  height: 1.2em;
+  font-size: 1em;
+  margin-bottom: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
