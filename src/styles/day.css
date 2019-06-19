@@ -1,7 +1,14 @@
-.calendar {
+.month {
   width: 80%;
   margin: 0 auto;
   height: 100%;
+  display: flex;
+
+flex-wrap: wrap;
+}
+
+.month.is-hidden {
+  display: none;
 }
 
 .day {
@@ -14,6 +21,23 @@
   overflow: hidden;
   margin-left: -1px;
   margin-top: -1px;
+  z-index: 1;
+  background-color: white;
+}
+
+.games {
+  background-color: white;
+}
+
+.day:hover .games {
+  overflow: visible;
+  z-index: 2;
+  /* border-bottom: 1px solid black; */
+}
+
+.day:hover {
+  overflow: visible;
+  z-index: 2;
 }
 
 .day.blank {
