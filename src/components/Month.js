@@ -39,10 +39,13 @@ class Month extends React.Component {
     var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     for (let i = 1; i <= this.state.days; i++) {
-      if (date.getDate() === i) {
-        dateMap.push({ date: i, games: [], className: 'today'})
+      let dayDate = (new Date(2019, date.getMonth(), i)).getDay();
+      let classPlus = (dayDate == 6 || dayDate == 0) ? ' weekend' : '';
+      if (date.getDate() === i && this.props.monthId == (date.getMonth() + 1)) {
+        let className = 'today' + classPlus;
+        dateMap.push({ date: i, games: [], className: 'today', dayDate: dayDate})
       } else {
-        dateMap.push({ date: i, games: []})
+        dateMap.push({ date: i, games: [], className: classPlus, dayDate: dayDate})
       }
     }
     
@@ -61,8 +64,8 @@ class Month extends React.Component {
     for(let i = 0; i < firstDay - 1; i++) {
       dateMap.unshift({ date: 'blank', className: 'blank', games: [] });
     }
-    console.log('lastDay',lastDate)
-    console.log(this.props.monthId + ': '+ lastDay)
+    // console.log('lastDay',lastDate)
+    // console.log(this.props.monthId + ': '+ lastDay)
     if (lastDay != 0) {
       for(let i = lastDay; i < 7; i++) {
         dateMap.push({ date: 'blank', className: 'blank', games: [] });

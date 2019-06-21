@@ -6,14 +6,14 @@ class Calendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentMonth: new Date().getMonth()+1
+      currentMonth: (new Date().getMonth()+1)
     };
   }
 
   componentDidMount() {
     console.log('hey')
     var there = this;
-    axios.get('http://localhost:3001/')
+    axios.get('https://damp-waters-19516.herokuapp.com/')
     .then(function (response) {
       console.log(response.data);
 
@@ -34,10 +34,6 @@ class Calendar extends React.Component {
       }
 
       console.log(yearGames)
-
-
-
-
 
 
 
@@ -79,8 +75,17 @@ class Calendar extends React.Component {
         months.push(<Month className={i==this.state.currentMonth ? '' : 'is-hidden'} monthId={i} games={this.state.yearGames[i-1].games} />)
       }
     }
-    return <div className="">
-      <h1>The Game Calendar - {monthNames[this.state.currentMonth-1]}</h1>
+    return <div className="calender">
+      <h1 className="page-title">The Game Calendar - {monthNames[this.state.currentMonth-1]}</h1>
+      <div className="weekDayHeader">
+        <div>M</div>
+        <div>T</div>
+        <div>W</div>
+        <div>T</div>
+        <div>F</div>
+        <div className="weekend">S</div>
+        <div className="weekend">S</div>
+      </div>
       {months}
       <button onClick={() => this.prevMonth()}>PREVIOUS</button>
       <button onClick={() => this.nextMonth()}>NEXT</button>
