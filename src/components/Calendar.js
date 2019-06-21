@@ -77,6 +77,7 @@ class Calendar extends React.Component {
     }
     return <div className="calender">
       <h1 className="page-title">The Game Calendar - {monthNames[this.state.currentMonth-1]}</h1>
+      <h3 className="sub-title">Upcoming Video Game Releases</h3>
       <div className="weekDayHeader">
         <div>M</div>
         <div>T</div>
