@@ -25,8 +25,17 @@ class Month extends React.Component {
   componentDidMount() {
   }
 
+  displayModal = (games, date) => {
+    const months = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+      ];
+    const monthId = this.props.monthId-1;
+    this.props.displayDayModal(games, `${date} ${months[monthId]}`)
+  }
+
   render(){
     const gameList = this.state.games;
+    console.log(gameList)
     const dateMap = []
     const monthDays = [];
     let todaysDate = new Date();
@@ -45,8 +54,8 @@ class Month extends React.Component {
     
     if (gameList.length > 0) {
       for (let i = 0; i < gameList.length; i++) {
-        let releaseDate = moment(gameList[i].ReleaseDate);
-        const date = releaseDate.date();
+        let releaseDate = new Date(gameList[i].date*1000);
+        const date = releaseDate.getDate();
         dateMap[date-1].games.push(gameList[i]);
       }
     }
@@ -70,7 +79,7 @@ class Month extends React.Component {
     }
 
     dateMap.forEach((element, index) => {
-      monthDays.push(<Day key={index} foo={element} className={element.className} />);
+      monthDays.push(<Day displayModal={this.displayModal} key={index} foo={element} className={element.className} />);
     });
     
 

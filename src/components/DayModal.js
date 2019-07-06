@@ -12,11 +12,19 @@ class DayModal extends React.Component {
 
   }
 
-  render() {
-    return <div className="veil">
-      <div className="modal">
-      <h1>Hi, I’m a smart component!</h1>
+  closeModals() {
+    let modal = document.getElementById('modal');
+    modal.classList.add('is-hidden');
+    let calendar = document.getElementById('calendar');
+    calendar.classList.remove('modal-open');
+    let veil = document.getElementById('veil');
+    veil.classList.add('is-hidden');
+  }
 
+  render() {
+    return <div onClick={this.closeModals} className="veil is-hidden" id="veil">
+      <div className="modal is-hidden" id="modal">
+        <div id='dayModalContent'></div>
       </div>
     </div>;
   }

@@ -16,10 +16,16 @@ class Calendar extends React.Component {
     })
   }
 
+  displayDayModal = (games, date) => {
+    this.props.displayDayModal(games, date)
+  }
+
   componentDidMount() {
-    console.log('hey')
     var there = this;
-    axios.get('https://damp-waters-19516.herokuapp.com/')
+    // axios.get('https://damp-waters-19516.herokuapp.com/games')
+    let fromDate = new Date(2019, 6, 1, 0, 0, 0);
+    let toDate = new Date(2019, 6, 31, 23, 59, 59);
+    axios.get(`https://damp-waters-19516.herokuapp.com/release-dates?fromDate=${fromDate}&toDate=${toDate}`)
     .then(function (response) {
 
       let games = response.data;
@@ -28,8 +34,8 @@ class Calendar extends React.Component {
 
       for (let i = 1; i <= 12; i++) {
         const currentGames = games.filter((el) => {
-          let monthNo = parseInt(el.ReleaseDate.substring(5, 7));
-          return monthNo === i;
+          let monthNo = el.m;
+          return monthNo == i;
         })
         yearGames.push({
           month: i,
@@ -44,14 +50,21 @@ class Calendar extends React.Component {
     })
     .catch(function (error) {
       console.log(error);
-    })
+    });
   }
 
   render() {
     let months = [];
     if (this.state.games) {
       for (let i = 1; i <= 12; i++) {
-        months.push(<Month className={i==this.state.currentMonth ? '' : 'is-hidden'} monthId={i} games={this.state.yearGames[i-1].games} />)
+        months.push(
+          <Month
+            className={i==this.state.currentMonth ? '' : 'is-hidden'}
+            monthId={i}
+            games={this.state.yearGames[i-1].games}
+            displayDayModal={this.displayDayModal}
+          />
+        )
       }
     }
     return <div id="calendar" className="calendar">

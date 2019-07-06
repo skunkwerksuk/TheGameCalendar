@@ -30,8 +30,17 @@ class App extends React.Component {
     })
   }
 
-  showModal = () => {
-    document.getElementById('calendar').classList.add('modal-open');
+  displayDayModal = (games, date) => {
+    let dateEl = `<h1>${date}</h1>`
+    let gameList = games.map(el => `<div class="game-name">${el.game.name}</div>`).join('');
+    document.getElementById('dayModalContent').innerHTML = dateEl;
+    document.getElementById('dayModalContent').innerHTML += gameList;
+    let modal = document.getElementById('modal');
+    modal.classList.remove('is-hidden');
+    let calendar = document.getElementById('calendar');
+    calendar.classList.add('modal-open');
+    let veil = document.getElementById('veil');
+    veil.classList.remove('is-hidden');
   }
 
   render() {
@@ -44,7 +53,7 @@ class App extends React.Component {
             nextMonth={this.nextMonth}
             prevMonth={this.prevMonth}
           />
-          <Calendar currentMonth={this.state.currentMonth} showModal={this.showModal} />
+          <Calendar currentMonth={this.state.currentMonth} displayDayModal={this.displayDayModal} />
           <DayModal />
         </div>
       </div>
