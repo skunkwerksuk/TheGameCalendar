@@ -17,22 +17,25 @@ class App extends React.Component {
     };
   }
   nextMonth = () => {
-    console.log('wot')
     this.setState({
       currentMonth: this.state.currentMonth + 1
     })
   }
 
   prevMonth = () => {
-    console.log('wot')
     this.setState({
       currentMonth: this.state.currentMonth - 1
     })
   }
 
   displayDayModal = (games, date) => {
+    // this.props.history.push('/day')
     let dateEl = `<h1>${date}</h1>`
-    let gameList = games.map(el => `<div class="game-name">${el.game.name}</div>`).join('');
+    let gameList = games.map(el => {
+      let x = el.platform.map(pl => `<span class="platform-items">${pl.name}</span>`).join(' ');
+      return `<div class="game-name">${el.game.name}<div class="platform-wrapper">${x}</div></div>`
+    }).join('');
+    console.log(games)
     document.getElementById('dayModalContent').innerHTML = dateEl;
     document.getElementById('dayModalContent').innerHTML += gameList;
     let modal = document.getElementById('modal');

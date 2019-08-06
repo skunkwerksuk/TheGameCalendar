@@ -1,9 +1,19 @@
 import React from 'react';
 
 function Day(props) {
+  let gamelist = props.foo.games;
+  gamelist.sort((a, b) => {
+    if ( a.game.popularity > b.game.popularity ){
+      return -1;
+    }
+    if ( a.game.popularity < b.game.popularity ){
+      return 1;
+    }
+    return 0;
+  })
   let games = [];
 
-  props.foo.games.forEach(element => {
+  gamelist.forEach(element => {
     let y = element.platform.map(a => a.name);
     let x = y.join(', ');
     // let x = element.platform;

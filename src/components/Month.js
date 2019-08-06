@@ -17,6 +17,12 @@ class Month extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      games: nextProps.games
+    })
+  }
+
   daysInThisMonth() {
     const now = new Date();
     return new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
@@ -35,7 +41,6 @@ class Month extends React.Component {
 
   render(){
     const gameList = this.state.games;
-    console.log(gameList)
     const dateMap = []
     const monthDays = [];
     let todaysDate = new Date();
