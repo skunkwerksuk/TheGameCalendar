@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/App.scss';
-import Calendar from './Calendar';
+import Calendar from './CalendarTwo';
 import HeaderPanel from './HeaderPanel';
 import DayModal from './DayModal';
 import SidePanel from './SidePanel';
@@ -35,7 +35,7 @@ class App extends React.Component {
       let x = el.platform.map(pl => `<span class="platform-items">${pl.name}</span>`).join(' ');
       return `<div class="game-name">${el.game.name}<div class="platform-wrapper">${x}</div></div>`
     }).join('');
-    console.log(games)
+    // console.log(games)
     document.getElementById('dayModalContent').innerHTML = dateEl;
     document.getElementById('dayModalContent').innerHTML += gameList;
     let modal = document.getElementById('modal');

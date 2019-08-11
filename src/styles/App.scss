@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 body {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
@@ -86,6 +88,8 @@ body {
   width: 100%;
   @include for-tablet-landscape-up {
     width: 80vw;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
 }
 
@@ -110,6 +114,7 @@ nav {
   display: flex;
   flex-wrap: wrap;
   width: calc(100% + 2px);
+  min-height: 550px;
 
   &.shortened {
     .day {
@@ -275,34 +280,123 @@ nav {
   display: none;
 }
 
-.platform-items {
-  font-size: 11px;
-  font-style: italic;
-  color: #6b6b6b;
-  margin-top: -20px;
-  font-weight: 300;
+
+.page-panel {
+  display: flex;
+  flex-direction: column;
+  width: calc((100%/7) - 6px);
+  box-sizing: border-box;
+  justify-content: space-between;
+  margin: 3px;
+  overflow: hidden;
+
+  .game-item {
+    width: 100%
+  }
+
 }
 
-.platform-item {
-  content: ' ';
-  width: 10px;
-  height: 10px;
-  display: inline-block;
-  margin-right: 1px;
-  
-  &.xbox-one {
-    background-color: #7db700;
+
+.game-item {
+  border: 2px solid $game-item-border;
+  background-color: white;
+  font-size: 12px;
+  box-sizing: border-box;
+  height: 210px;
+
+  .popularity {
+    display: none;
+  }
+
+  .platforms {
+    display: flex;
+    flex-direction: row;
+    .icon-wrapper {
+      width: 20px;
+      height: 20px;
+      overflow: hidden;
+      display: inline-block;
+      margin-right: 2px;
+      
+      .platform-icon {
+        width: 20px;
+        height: 20px;
+      }
+    }
   }
   
-  &.pc {
-    background-color: orange;
+  &.half-item {
+    height: 49%;
+    min-height: 65px;
   }
-  
-  &.ps4 {
-    background-color: #003791;
+
+  &.third-item {
+    height: 32%;
+
+    .platforms {
+      display: none;
+    }
   }
-  
-  &.switch {
-    background-color: #e60012;
+
+  &.half-item, &.third-item {
+    .game-details {
+      padding: 4px 22px 4px 4px;
+      position: relative;
+
+      .game-date {
+        position: absolute;
+        top: -2px;
+        background-color: white;
+        right: -2px;
+        border: 2px solid $game-item-border;
+        padding: 0px 2px 0px 2px;
+        font-weight: 800;
+        font-size: 14px;
+      }
+    }
+  }
+
+  &.is-big {
+    border: 0;
+    padding: 0;
+    .game-cover {
+      height: 70%;
+      display: flex;
+      align-items: flex-start;
+      overflow: hidden;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      img {
+        width: 100%;
+      }
+    }
+    .game-details {
+      position: relative;
+      border-top: 2px solid $game-item-border;
+      margin-top: -2px;
+      border-right: 2px solid $game-item-border;
+      border-left: 2px solid $game-item-border;
+      height: calc(30% - 4px);
+      border-bottom: 2px solid $game-item-border;
+      padding: 2px 0 0 3px;
+
+      .game-date {
+        position: absolute;
+        bottom: 100%;
+        background-color: white;
+        right: -2px;
+        border-top: 2px solid $game-item-border;
+        border-left: 2px solid $game-item-border;
+        padding: 0px 2px 0px 2px;
+        font-weight: 800;
+        font-size: 14px;
+        border-right: 2px solid $game-item-border;
+      }
+
+      .platforms {
+        position: absolute;
+        bottom: 5px;
+      }
+    }
   }
 }
