@@ -1,13 +1,10 @@
-import React, { useRef } from 'react';
-import GameItem from './GameItem';
-import moment from 'moment';
+import React from 'react';
 import Day from './DayTwo';
 
 function daysInThisMonth(i) {
   var now = new Date();
   return new Date(now.getFullYear(), i, 0).getDate();
 }
-const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)   
 
 class Month extends React.Component {
   constructor(props) {
@@ -41,8 +38,7 @@ class Month extends React.Component {
     this.props.displayDayModal(games, `${date} ${months[monthId]}`)
   }
 
-  render(){
-    
+  render() {
     const gameList = this.state.games;
     const monthClasses = '';
     const dateMap = [];

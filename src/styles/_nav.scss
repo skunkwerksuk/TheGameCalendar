@@ -1,10 +1,89 @@
 
+// @mixin for-phone-only {
+
+// @mixin for-tablet-portrait-up {
+
+// @mixin for-tablet-landscape-up {
+
+// @mixin for-desktop-up {
+
+// @mixin for-big-desktop-up {
+
+
+.page-title {
+  font-family: 'Aldrich', sans-serif;
+  text-align: left;
+  margin: 0px;
+  font-size: 1em !important;
+  display: inline-block;
+  padding: 0 5px;
+  @include for-tablet-portrait-up {
+    font-size: 1.5em !important;
+
+  }
+  @include for-tablet-landscape-up {
+    display: none;
+  }
+}
+
+.sub-title {
+  text-align: left;
+  margin-top: 0px;
+  font-weight: normal;
+  font-size: 1.2em;
+  display: none;
+
+  // @include for-tablet-portrait-up {
+  //   display: none;
+  // }
+  @include for-tablet-landscape-up {
+    display: block;
+  }
+}
+
+.side-panel {
+  background-color: #363535;
+  color: white;
+  border-right: 1px solid gray;
+  z-index: 3;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: fixed;
+  height: 50px;
+  overflow: hidden;
+  width: 100vw;
+  justify-content: space-between;
+  
+  @include for-tablet-landscape-up {
+    flex-direction: column;
+    position: relative;
+    width: 20vw;
+    height: 100%;
+    justify-content: start;
+  }
+}
+
 .calendar-logo {
-  width: 100%;
+  height: 100%;
+  @include for-tablet-landscape-up {
+    width: 100%;
+    height: auto;
+  }
 }
 
 nav {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  
   .month-name {
+    display: none;
+    width: 49%;
+    text-align: center;
+  }
+  .month-name-short {
     display: inline-block;
     width: 49%;
     text-align: center;
@@ -14,5 +93,18 @@ nav {
     padding: 15px;
     background-color: #545454;
     cursor: pointer;
+  }
+  @include for-tablet-portrait-up {
+    width: 35%;
+    .month-name {
+      display: inline-block;
+    }
+    .month-name-short {
+      display: none;
+    }
+  }
+
+  @include for-tablet-landscape-up {
+    width: 100%;
   }
 }

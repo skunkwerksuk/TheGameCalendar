@@ -1,3 +1,4 @@
+@import './mixins.scss';
 @import './variables.scss';
 @import './nav.scss';
 @import './modal.scss';
@@ -15,22 +16,6 @@ code {
     monospace;
 }
 
-@mixin for-phone-only {
-  @media (max-width: 599px) { @content; }
-}
-@mixin for-tablet-portrait-up {
-  @media (min-width: 600px) { @content; }
-}
-@mixin for-tablet-landscape-up {
-  @media (min-width: 900px) { @content; }
-}
-@mixin for-desktop-up {
-  @media (min-width: 1200px) { @content; }
-}
-@mixin for-big-desktop-up {
-  @media (min-width: 1800px) { @content; }
-}
-
 
 body {
   background-color: #edfbff;
@@ -40,19 +25,6 @@ body {
   box-sizing: border-box;
 }
 
-.page-title {
-  font-family: 'Aldrich', sans-serif;
-  text-align: left;
-  margin: 0px;
-  font-size: 2.2em !important;
-}
-
-.sub-title {
-  text-align: left;
-  margin-top: 0px;
-  font-weight: normal;
-  font-size: 1.2em;
-}
 
 .header-panel {
   top: 0;
@@ -70,27 +42,16 @@ body {
   overflow: hidden;
 }
 
-.side-panel {
-  width: 20vw;
-  height: 100%;
-  background-color: #363535;
-  color: white;
-  border-right: 1px solid gray;
-  z-index: 3;
-  padding: 10px;
-  display: none;
-  @include for-tablet-landscape-up {
-    display: block;
-  }
-}
 
 .calendar {
+  margin-top: 50px;
   background-color: #edfbff;
   width: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
   @include for-tablet-landscape-up {
+    margin-top: 0;
     width: 80vw;
-    overflow-y: scroll;
-    overflow-x: hidden;
   }
 }
 

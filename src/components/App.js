@@ -13,7 +13,10 @@ class App extends React.Component {
       currentMonth: (new Date().getMonth()+1),
       months: ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
-      ]
+      ],
+      shortMonths: ["Jan", "Feb", "March", "April", "May", "June",
+        "July", "Aug", "Sept", "Oct", "Nov", "Dec"
+      ] 
     };
   }
   nextMonth = () => {
@@ -53,6 +56,7 @@ class App extends React.Component {
         <div className="body-panel">
           <SidePanel
             month={this.state.months[this.state.currentMonth-1]}
+            shortMonth={this.state.shortMonths[this.state.currentMonth-1]}
             nextMonth={this.nextMonth}
             prevMonth={this.prevMonth}
           />
