@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/App.scss';
-import Calendar from './CalendarTwo';
+import Calendar from './CalendarThree';
 import HeaderPanel from './HeaderPanel';
 import DayModal from './DayModal';
 import SidePanel from './SidePanel';

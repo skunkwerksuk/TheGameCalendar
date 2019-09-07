@@ -1,8 +1,11 @@
 @import './variables.scss';
+@import './nav.scss';
+@import './modal.scss';
 
 body {
   margin: 0;
-  font-family: 'Open Sans', sans-serif;
+  // font-family: 'Open Sans', sans-serif;
+  font-family: Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -11,8 +14,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-
 
 @mixin for-phone-only {
   @media (max-width: 599px) { @content; }
@@ -93,20 +94,6 @@ body {
   }
 }
 
-nav {
-  .month-name {
-    display: inline-block;
-    width: 49%;
-    text-align: center;
-  }
-  .month-nav {
-    border: 1px solid gray;
-    padding: 15px;
-    background-color: #545454;
-    cursor: pointer;
-  }
-}
-
 .month {
   // width: 100%;
   margin: 0 auto;
@@ -126,183 +113,24 @@ nav {
   }
 }
 
-
-
-.day {
-  border: 1px solid #565a71;
-  display: inline-block;
-  width: calc(20% + 1px);
-  height: 110px;
-  display: inline-flex;
-  flex-direction: column;
-  overflow: hidden;
-  margin-left: -1px;
-  margin-top: -1px;
-  z-index: 2;
-  background-color: white;
-  padding: 2px;
-  box-sizing: border-box;
-  cursor: pointer;
-
-  &:hover:not(.blank) {
-    background-color: #dedede;
-  }
-
-  &.blank {
-    border: 1px solid lightgray;
-    color: lightgray;
-    z-index: 1;
-    cursor: auto;
-  }
-
-
-  &.today {
-    -moz-box-shadow:    inset 0 0 6px#58b0f2;
-    -webkit-box-shadow: inset 0 0 6px#58b0f2;
-    box-shadow:         inset 0 0 6px#58b0f2;
-  }
-  
-  &.weekend {
-    display: none;
-  }
-  
-  .date {
-    padding: 5px;
-    text-align: left;
-  }
-
-  @include for-tablet-portrait-up {
-    height: calc(20% + 1px);
-      width:  calc(16.4% + 1px);
-
-    &.weekend {
-      display: initial;
-      width: 9%;
-    }
-  }
-}
-
-.games {
-  // background-color: white;
-}
-
-
-.game-name {
-  text-align: left;
-  padding: 2px 4px 2px 5px;
-  background: #f2f2f2;
-  // text-overflow: ellipsis;
-  // height: 1.2em;
-  font-size: .9em;
-  margin-bottom: 1px;
-  // overflow: hidden;
-  // white-space: nowrap;
-  flex-shrink: 0;
-  cursor: pointer;
-  border-radius: 4px;
-  border: 1px solid gray;
-  position: relative;
-
-  .text {
-    display: block;
-    margin-bottom: -3px;
-    font-size: 12px;
-  }
-
-  .platform-wrapper {
-    line-height: 1;
-    margin-bottom: 2px;
-  }
-}
-
-.weekDayHeader {
-  width: 100%;
-  height: 4%;
-  margin: 0 auto;
-  background-color: white;
-  // border: 1px solid gray;
-  box-sizing: border-box;
-  padding: 3px 0;
-
-  div {
-    display: inline-block;
-    width: 20%;
-    text-align: center;
-
-    &.weekend {
-      display: none;
-    }
-  }
-}
-@media only screen and (min-width: 600px) {
-  .weekDayHeader div {
-    width: 16.4%;
-  }
-  .weekDayHeader div.weekend {
-    width: 9%;
-    display: inline-block;
-  }
-}
-
-
-.calendar-logo {
-  width: 100%;
-}
-
-.calendar.modal-open {
-  -webkit-filter: blur(2px);
-  -moz-filter: blur(2px);
-  -o-filter: blur(2px);
-  -ms-filter: blur(2px);
-  filter: blur(2px);
-}
-
-.veil {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(204, 204, 204, 0.5);
-}
-
-.modal {
-  position: fixed;
-  left: calc(50% + 10vw);
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 5;
-  background-color: white;
-  border: 1px solid gray;
-  width: 300px;
-  padding: 10px;
-}
-
 .is-hidden {
   display: none;
 }
 
-
-.page-panel {
+.day-item {
+  width: 100%;
+  flex-wrap: wrap;
   display: flex;
-  flex-direction: column;
-  width: calc((100%/7) - 6px);
-  box-sizing: border-box;
-  justify-content: space-between;
-  margin: 3px;
-  overflow: hidden;
-
-  .game-item {
-    width: 100%
-  }
-
+  flex-direction: row;
+  justify-content: start;
 }
-
 
 .game-item {
   border: 2px solid $game-item-border;
   background-color: white;
   font-size: 12px;
   box-sizing: border-box;
-  height: 210px;
+  height: 283px;
 
   .popularity {
     display: none;
@@ -359,8 +187,12 @@ nav {
   &.is-big {
     border: 0;
     padding: 0;
+    margin: 5px;
+    width: 160px;
+
     .game-cover {
-      height: 70%;
+      // height: 70%;
+      height: 200px;
       display: flex;
       align-items: flex-start;
       overflow: hidden;
@@ -377,8 +209,10 @@ nav {
       border-right: 2px solid $game-item-border;
       border-left: 2px solid $game-item-border;
       height: calc(30% - 4px);
+      height: 82px;
       border-bottom: 2px solid $game-item-border;
-      padding: 2px 0 0 3px;
+      padding: 5px;
+      box-sizing: border-box;
 
       .game-date {
         position: absolute;
@@ -398,5 +232,14 @@ nav {
         bottom: 5px;
       }
     }
+  }
+}
+
+.list-day {
+  padding: 5px;
+
+  .date {
+    margin: 5px;
+    font-size: 20px;
   }
 }

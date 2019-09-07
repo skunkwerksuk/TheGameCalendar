@@ -1,0 +1,18 @@
+
+.calendar-logo {
+  width: 100%;
+}
+
+nav {
+  .month-name {
+    display: inline-block;
+    width: 49%;
+    text-align: center;
+  }
+  .month-nav {
+    border: 1px solid gray;
+    padding: 15px;
+    background-color: #545454;
+    cursor: pointer;
+  }
+}
