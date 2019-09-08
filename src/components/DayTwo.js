@@ -1,18 +1,11 @@
-import React, {useRef, useEffect} from 'react';
+import React from 'react';
 import GameItem from './GameItemTwo';
 import moment from 'moment';
 
-// const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
-// const useMountEffect = (fun) => useEffect(fun, [])
-
 function Day(props) {
-  // const myRef = useRef(null)
-	// useMountEffect(() => scrollToRef(myRef));
-
   let gamelist = props.foo.games;
   if (gamelist.length === 0) {
     return (<div></div>);
-    // return (<div id={rdate3.format('DD MMMM YYYY')}></div>);
   }
   gamelist.sort((a, b) => {
     if ( a.game.popularity > b.game.popularity ){
@@ -34,14 +27,13 @@ function Day(props) {
       );
   });
   if (rdate3.isSame(moment().subtract(1, 'day'), 'day')) {
-    {/* <div className='list-day' ref={myRef}> */}
     return (
       <div className='list-day' id={rdate3.format('DD MMMM YYYY')}>
         {/* <div className="date">{props.foo.date}</div> */}
         {/* <h2 className="date">{releaseDate2.format('dddd Do MMMM')}</h2> */}
-        <div>today</div>
+        {/* <div>today</div> */}
         <h2 className="date">{rdate3.format('dddd Do MMMM')}</h2>
-        <hr />
+        <hr className="hr" />
         <div className="games day-item">{games}</div>
       </div>
     );
@@ -51,7 +43,7 @@ function Day(props) {
       {/* <div className="date">{props.foo.date}</div> */}
       {/* <h2 className="date">{releaseDate2.format('dddd Do MMMM')}</h2> */}
       <h2 className="date">{rdate3.format('dddd Do MMMM')}</h2>
-      <hr />
+      <hr className="hr" />
       <div className="games day-item">{games}</div>
     </div>
   );

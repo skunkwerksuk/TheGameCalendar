@@ -45,10 +45,12 @@ body {
 
 .calendar {
   margin-top: 50px;
-  background-color: #edfbff;
+  background-color: white;
   width: 100%;
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
   overflow-x: hidden;
+  color: #313135;
   @include for-tablet-landscape-up {
     margin-top: 0;
     width: 80vw;
@@ -89,9 +91,10 @@ body {
 .game-item {
   border: 2px solid $game-item-border;
   background-color: white;
-  font-size: 12px;
+  font-size: 14px;
   box-sizing: border-box;
-  height: 283px;
+  height: 197px;
+  
 
   .popularity {
     display: none;
@@ -119,41 +122,44 @@ body {
     min-height: 65px;
   }
 
-  &.third-item {
-    height: 32%;
+  // &.third-item {
+  //   height: 32%;
 
-    .platforms {
-      display: none;
-    }
-  }
+  //   .platforms {
+  //     display: none;
+  //   }
+  // }
 
-  &.half-item, &.third-item {
-    .game-details {
-      padding: 4px 22px 4px 4px;
-      position: relative;
+  // &.half-item, &.third-item {
+  //   .game-details {
+  //     padding: 4px 22px 4px 4px;
+  //     position: relative;
 
-      .game-date {
-        position: absolute;
-        top: -2px;
-        background-color: white;
-        right: -2px;
-        border: 2px solid $game-item-border;
-        padding: 0px 2px 0px 2px;
-        font-weight: 800;
-        font-size: 14px;
-      }
-    }
-  }
+  //     .game-date {
+  //       position: absolute;
+  //       top: -2px;
+  //       background-color: white;
+  //       right: -2px;
+  //       border: 2px solid $game-item-border;
+  //       padding: 0px 2px 0px 2px;
+  //       font-weight: 800;
+  //       font-size: 14px;
+  //     }
+  //   }
+  // }
 
   &.is-big {
     border: 0;
     padding: 0;
     margin: 5px;
-    width: 160px;
-
+    // width: 30%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    width: 98px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19),0 6px 6px rgba(0,0,0,0.23);
     .game-cover {
       // height: 70%;
-      height: 200px;
+      height: 117px;
       display: flex;
       align-items: flex-start;
       overflow: hidden;
@@ -165,15 +171,26 @@ body {
     }
     .game-details {
       position: relative;
-      border-top: 2px solid $game-item-border;
+      // border-top: 2px solid $game-item-border;
       margin-top: -2px;
-      border-right: 2px solid $game-item-border;
-      border-left: 2px solid $game-item-border;
+      // border-right: 2px solid $game-item-border;
+      // border-left: 2px solid $game-item-border;
       height: calc(30% - 4px);
       height: 82px;
-      border-bottom: 2px solid $game-item-border;
-      padding: 5px;
+      // border-bottom: 2px solid $game-item-border;
+      padding: 8px;
       box-sizing: border-box;
+      overflow: hidden;
+
+      .game-title {
+        height: 65%;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        /* autoprefixer: off */
+        -webkit-box-orient: vertical;
+        /* autoprefixer: on */
+      }
 
       .game-date {
         position: absolute;
@@ -190,7 +207,18 @@ body {
 
       .platforms {
         position: absolute;
-        bottom: 5px;
+        bottom: 8px;
+      }
+    }
+
+  }
+  @include for-tablet-portrait-up {
+    height: 278px;
+    &.is-big {
+      width: 160px;
+
+      .game-cover {
+        height: 200px;
       }
     }
   }
@@ -202,5 +230,10 @@ body {
   .date {
     margin: 5px;
     font-size: 20px;
+  }
+
+  .hr {
+    border: 0;
+    border-top: 1px solid lightgray;
   }
 }

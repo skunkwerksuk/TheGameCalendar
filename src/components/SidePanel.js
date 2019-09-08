@@ -1,21 +1,11 @@
 import React from 'react';
 import Cal from '../images/GroupCal.svg';
-import axios from 'axios';
-
 
 class SidePanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
     };
-  }
-
-  apiCallTest() {
-
-  }
-
-  componentDidMount() {
-
   }
 
   render() {
@@ -29,7 +19,6 @@ class SidePanel extends React.Component {
         <h3 className="month-name-short">{this.props.shortMonth}</h3>
         <button className="month-nav" onClick={this.props.nextMonth}>&#62;&#62;</button>
       </nav>
-      {/* <button onClick={this.apiCallTest}>tester</button> */}
   </div>
   }
 }

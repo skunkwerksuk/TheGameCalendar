@@ -6,6 +6,7 @@ import pc from '../images/PC.svg';
 import mac from '../images/Mac.svg';
 import ios from '../images/iOS.svg';
 import linux from '../images/Linux.svg';
+import stadia from '../images/stadia.png';
 
 function getLogo(name) {
   switch (name) {
@@ -23,6 +24,8 @@ function getLogo(name) {
       return ios;
     case 'Linux':
       return linux;
+    case 'Google Stadia':
+      return stadia;
     default:
       return '';
   }
@@ -53,7 +56,8 @@ function GameItem(props) {
       <div className='game-cover'>{props.foo.game.cover && props.isbig ? <img src={coverUrl} /> : ''}</div>
       <div className='game-details'>
         {/* <div className='game-date'>{displayDate}</div> */}
-        <div className='game-title'><b>{gamelist.name}</b></div>
+        {/* <div className='game-title'><b>{gamelist.name}</b></div> */}
+        <div className='game-title'>{gamelist.name}</div>
         {/* <div className=''>[{Math.round(gamelist.popularity)}]</div> */}
         <div className='popularity'>{gamelist.id}</div>
         <div className='platforms'>{platformRenderList}</div>
