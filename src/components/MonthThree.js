@@ -60,7 +60,7 @@ class Month extends React.Component {
     }
 
     dateMap.forEach((element, index) => {
-      monthDays.push(<Day displayModal={this.displayModal} key={index} foo={element} className={element.className} />);
+      monthDays.push(<Day displayModal={this.displayModal} key={index} games={element.games} className={element.className} />);
     });
 
     return <div className={` ${monthClasses} ${this.props.className}`}>

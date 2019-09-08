@@ -3,7 +3,7 @@ import GameItem from './GameItemTwo';
 import moment from 'moment';
 
 function Day(props) {
-  let gamelist = props.foo.games;
+  let gamelist = props.games;
   if (gamelist.length === 0) {
     return (<div></div>);
   }
@@ -18,18 +18,18 @@ function Day(props) {
   })
   let games = [];
   
-  let rdate3 = moment(props.foo.games[0].date*1000);
+  let rdate3 = moment(props.games[0].date*1000);
   
   gamelist.forEach((element, idx) => {
     let releaseDate = new Date(element.game.date*1000);
     games.push(
-      <GameItem displayModal={props.displayModal} date={releaseDate} key={idx} foo={element} className='is-big' isbig={true}/>
+      <GameItem displayModal={props.displayModal} date={releaseDate} key={idx} game={element} className='is-big' isbig={true}/>
       );
   });
   if (rdate3.isSame(moment().subtract(1, 'day'), 'day')) {
     return (
       <div className='list-day' id={rdate3.format('DD MMMM YYYY')}>
-        {/* <div className="date">{props.foo.date}</div> */}
+        {/* <div className="date">{props.games.date}</div> */}
         {/* <h2 className="date">{releaseDate2.format('dddd Do MMMM')}</h2> */}
         {/* <div>today</div> */}
         <h2 className="date">{rdate3.format('dddd Do MMMM')}</h2>
@@ -40,7 +40,7 @@ function Day(props) {
   }
   return (
     <div className='list-day' id={rdate3.format('DD MMMM YYYY')}>
-      {/* <div className="date">{props.foo.date}</div> */}
+      {/* <div className="date">{props.games.date}</div> */}
       {/* <h2 className="date">{releaseDate2.format('dddd Do MMMM')}</h2> */}
       <h2 className="date">{rdate3.format('dddd Do MMMM')}</h2>
       <hr className="hr" />

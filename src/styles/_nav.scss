@@ -1,12 +1,8 @@
 
 // @mixin for-phone-only {
-
 // @mixin for-tablet-portrait-up {
-
 // @mixin for-tablet-landscape-up {
-
 // @mixin for-desktop-up {
-
 // @mixin for-big-desktop-up {
 
 
@@ -28,10 +24,11 @@
 
 .sub-title {
   text-align: left;
-  margin-top: 0px;
+  margin: 10px;
   font-weight: normal;
   font-size: 1.2em;
   display: none;
+  text-align: center;
 
   // @include for-tablet-portrait-up {
   //   display: none;
@@ -42,7 +39,8 @@
 }
 
 .side-panel {
-  background-color: #363535;
+  // background-color: #363535;
+  background-color: #0e1c22;
   color: white;
   border-right: 1px solid gray;
   z-index: 3;
@@ -55,6 +53,15 @@
   overflow: hidden;
   width: 100vw;
   justify-content: space-between;
+
+  .hr {
+    display: none;
+  }
+
+  .filters {
+    display: none;
+    width: 100%;
+  }
   
   @include for-tablet-landscape-up {
     flex-direction: column;
@@ -62,6 +69,14 @@
     width: 20vw;
     height: 100%;
     justify-content: start;
+
+    .hr {
+      display: block;
+    }
+
+    .filters {
+      display: block;
+    }
   }
 }
 
@@ -83,17 +98,20 @@ nav {
     width: 49%;
     text-align: center;
   }
+
   .month-name-short {
     display: inline-block;
     width: 49%;
     text-align: center;
   }
+
   .month-nav {
-    border: 1px solid gray;
+    border: 0;
     padding: 15px;
-    background-color: #545454;
+    background-color: #445d68;
     cursor: pointer;
   }
+
   @include for-tablet-portrait-up {
     width: 35%;
     .month-name {
@@ -103,8 +121,26 @@ nav {
       display: none;
     }
   }
-
+  
   @include for-tablet-landscape-up {
     width: 100%;
+    .month-name {
+      display: none;
+    }
+    .month-name-short {
+      display: inline-block;
+    }
+  }
+  
+  @include for-desktop-up {
+    .month-name {
+      display: inline-block;
+    }
+    .month-name-short {
+      display: none;
+    }
+  }
+  
+  @include for-desktop-up {
   }
 }

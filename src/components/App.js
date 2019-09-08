@@ -16,7 +16,10 @@ class App extends React.Component {
       ],
       shortMonths: ["Jan", "Feb", "March", "April", "May", "June",
         "July", "Aug", "Sept", "Oct", "Nov", "Dec"
-      ] 
+      ] ,
+      filterProps: {
+        platforms: [ ]
+      }
     };
   }
   nextMonth = () => {
@@ -31,14 +34,48 @@ class App extends React.Component {
     })
   }
 
+  filterTest = (ev) => {
+    const input = ev.target;
+    if (ev.target.checked) {
+      this.setState(state => {
+        const platforms = state.filterProps.platforms;
+        platforms.push(input.value);
+        return {
+          filterProps: {
+            platforms: platforms
+          }
+        }
+      })
+    } else {
+      this.setState(state => {
+        const platforms = state.filterProps.platforms.filter(platform => platform != input.value);
+        return {
+          filterProps: {
+            platforms: platforms
+          }
+        }
+      })
+    }
+  }
+
+  clearFilters = () => {
+    let checkboxes = document.getElementsByClassName('filter-checkbox');
+    for(let i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = false;
+    }
+    this.setState({
+      filterProps: {
+        platforms: [ ]
+      }
+    })
+  }
+
   displayDayModal = (games, date) => {
-    // this.props.history.push('/day')
     let dateEl = `<h1>${date}</h1>`
     let gameList = games.map(el => {
       let x = el.platform.map(pl => `<span class="platform-items">${pl.name}</span>`).join(' ');
       return `<div class="game-name">${el.game.name}<div class="platform-wrapper">${x}</div></div>`
     }).join('');
-    // console.log(games)
     document.getElementById('dayModalContent').innerHTML = dateEl;
     document.getElementById('dayModalContent').innerHTML += gameList;
     let modal = document.getElementById('modal');
@@ -52,15 +89,20 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        {/* <HeaderPanel month={this.state.months[this.state.currentMonth-1]} /> */}
         <div className="body-panel">
           <SidePanel
             month={this.state.months[this.state.currentMonth-1]}
             shortMonth={this.state.shortMonths[this.state.currentMonth-1]}
             nextMonth={this.nextMonth}
             prevMonth={this.prevMonth}
+            filterTest={this.filterTest}
+            clearFilters={this.clearFilters}
           />
-          <Calendar currentMonth={this.state.currentMonth} displayDayModal={this.displayDayModal} />
+          <Calendar
+            currentMonth={this.state.currentMonth}
+            displayDayModal={this.displayDayModal}
+            filterProps={this.state.filterProps}
+          />
           <DayModal />
         </div>
       </div>

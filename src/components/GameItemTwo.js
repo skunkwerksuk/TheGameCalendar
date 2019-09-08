@@ -32,9 +32,9 @@ function getLogo(name) {
 }
 
 function GameItem(props) {
-  const gamelist = props.foo.game;
-  const releaseDate = new Date(props.foo.date*1000);
-  const platformList = props.foo.platform.sort((ela, elb) => {
+  const gamelist = props.game.game;
+  const releaseDate = new Date(props.game.date*1000);
+  const platformList = props.game.platform.sort((ela, elb) => {
     if ( ela.name < elb.name ){
       return 1;
     }
@@ -47,13 +47,13 @@ function GameItem(props) {
   const platformRenderList = [];
 
   platformList.map(el => platformRenderList.push(<div className='icon-wrapper'><img title={el.name} alt={el.name} className='platform-icon' src={getLogo(el.name)} /></div>));
-  let coverUrl = props.foo.game.cover ? props.foo.game.cover.url.replace('thumb', 'cover_big') : '';
+  let coverUrl = props.game.game.cover ? props.game.game.cover.url.replace('thumb', 'cover_big') : '';
   let displayDate = releaseDate.getDate();
   displayDate = displayDate < 10 ? `0${displayDate}` : displayDate;
 
   return (
     <div style={props.style} className={'game-item ' + props.className}>
-      <div className='game-cover'>{props.foo.game.cover && props.isbig ? <img src={coverUrl} /> : ''}</div>
+      <div className='game-cover'>{props.game.game.cover && props.isbig ? <img src={coverUrl} /> : ''}</div>
       <div className='game-details'>
         {/* <div className='game-date'>{displayDate}</div> */}
         {/* <div className='game-title'><b>{gamelist.name}</b></div> */}

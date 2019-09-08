@@ -6,12 +6,15 @@ class Calendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentMonth: this.props.currentMonth
+      currentMonth: this.props.currentMonth,
+      filterProps: this.props.filterProps
     };
   }
   componentWillReceiveProps(props) {
+    console.log(props.filterProps)
     this.setState({
-      currentMonth: props.currentMonth
+      currentMonth: props.currentMonth,
+      filterProps: props.filterProps
     }, () => {
       this.padMonths();
     })
@@ -38,13 +41,23 @@ class Calendar extends React.Component {
       let yearGames = [];
 
       for (let i = 1; i <= 12; i++) {
-        const currentGames = games.filter((el) => {
-          let monthNo = el.m;
-          return monthNo == i;
-        })
+        const originalGames = games.filter((currentGame) => currentGame.m == i);
+
+        const currentGames = originalGames.filter((currentGame) => {
+          let monthNo = currentGame.m;
+          if (there.props.filterProps.platforms.length > 0) {
+            let arrayCount = currentGame.platform.filter((platformEl) => {
+              return there.props.filterProps.platforms.includes(platformEl.name);
+            }).length;
+            return arrayCount > 0;
+          }
+          return true;
+        });
+
         yearGames.push({
           month: i,
-          games: currentGames
+          games: currentGames,
+          originalGames: originalGames
         })
       }
       
@@ -73,6 +86,7 @@ class Calendar extends React.Component {
       .then((response) => {
         this.setState(state => {
           let foo = state.yearGames;
+          foo[nextMonth-1].originalGames = foo[nextMonth-1].originalGames.concat(response.data);
           foo[nextMonth-1].games = foo[nextMonth-1].games.concat(response.data);
           return {
             yearGames: foo
@@ -89,12 +103,44 @@ class Calendar extends React.Component {
       .then((response) => {
         this.setState(state => {
           let foo = state.yearGames;
+          foo[lastMonth-1].originalGames = foo[lastMonth-1].originalGames.concat(response.data);
           foo[lastMonth-1].games = foo[lastMonth-1].games.concat(response.data);
           return {
             yearGames: foo
           }
         })
       })
+    }
+    this.filterTest();
+  }
+
+  filterTest() {
+    var there = this;
+    if (there.props.filterProps.platforms.length > 0) {
+      this.setState(state => {
+        let foo = state.yearGames;
+        for (let i = 0; i < foo.length; i++) {
+          foo[i].games = foo[i].originalGames.filter(currentGame => {
+            let arrayCount = currentGame.platform.filter((platformEl) => {
+              return there.props.filterProps.platforms.includes(platformEl.name);
+            }).length;
+            return arrayCount > 0;
+          })
+        }
+        return {
+          yearGames: foo
+        }
+      });
+    } else {
+      this.setState(state => {
+        let foo = state.yearGames;
+        for (let i = 0; i < foo.length; i++) {
+          foo[i].games = foo[i].originalGames;
+        }
+        return {
+          yearGames: foo
+        }
+      });
     }
   }
 

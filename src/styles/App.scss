@@ -91,7 +91,7 @@ body {
 .game-item {
   border: 2px solid $game-item-border;
   background-color: white;
-  font-size: 14px;
+  font-size: 12px;
   box-sizing: border-box;
   height: 197px;
   
@@ -152,13 +152,12 @@ body {
     border: 0;
     padding: 0;
     margin: 5px;
-    // width: 30%;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     width: 98px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19),0 6px 6px rgba(0,0,0,0.23);
+
     .game-cover {
-      // height: 70%;
       height: 117px;
       display: flex;
       align-items: flex-start;
@@ -171,13 +170,9 @@ body {
     }
     .game-details {
       position: relative;
-      // border-top: 2px solid $game-item-border;
       margin-top: -2px;
-      // border-right: 2px solid $game-item-border;
-      // border-left: 2px solid $game-item-border;
       height: calc(30% - 4px);
       height: 82px;
-      // border-bottom: 2px solid $game-item-border;
       padding: 8px;
       box-sizing: border-box;
       overflow: hidden;
@@ -214,6 +209,7 @@ body {
   }
   @include for-tablet-portrait-up {
     height: 278px;
+    font-size: 14px;
     &.is-big {
       width: 160px;
 
@@ -232,8 +228,10 @@ body {
     font-size: 20px;
   }
 
-  .hr {
-    border: 0;
-    border-top: 1px solid lightgray;
-  }
+}
+
+.hr {
+  border: 0;
+  border-top: 1px solid lightgray;
+  width: 100%;
 }
