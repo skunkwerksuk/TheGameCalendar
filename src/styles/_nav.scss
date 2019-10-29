@@ -11,17 +11,25 @@
   font-family: 'GoodTimes', sans-serif;
   text-align: left;
   margin: 0px;
-  font-size: 1em !important;
+  font-size: 2em !important;
   display: inline-block;
   padding: 0 5px;
+
+  br {
+    display: none;
+  }
+
   @include for-tablet-portrait-up {
-    font-size: 3.5em !important;
+    font-size: 2.5em !important;
     line-height: 1;
     text-align: center;
     padding-bottom: 10px;
   }
   @include for-tablet-landscape-up {
-    // display: none;
+    font-size: 3.5em !important;
+    br {
+      display: initial;
+    }
   }
 }
 
@@ -72,9 +80,13 @@
     color: gray;
     font-size: 12px;
     text-align: center;
+    display: none;
 
     a {
       color: gray;
+    }
+    @include for-tablet-landscape-up {
+      display: block;
     }
   }
   
@@ -110,7 +122,7 @@ nav {
   
   .month-name {
     display: none;
-    width: 49%;
+    // width: 49%;
     text-align: center;
   }
 
