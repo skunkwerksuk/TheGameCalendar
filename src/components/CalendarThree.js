@@ -7,6 +7,7 @@ class Calendar extends React.Component {
     super(props);
     this.state = {
       currentMonth: this.props.currentMonth,
+      currentYear: this.props.currentYear,
       filterProps: this.props.filterProps
     };
   }
@@ -14,6 +15,7 @@ class Calendar extends React.Component {
     console.log(props.filterProps)
     this.setState({
       currentMonth: props.currentMonth,
+      currentYear: props.currentYear,
       filterProps: props.filterProps
     }, () => {
       this.padMonths();
@@ -33,8 +35,8 @@ class Calendar extends React.Component {
     var there = this;
     // const url = 'http://localhost:3001/';
     const url = 'http://game-calendar-web-service.us-east-2.elasticbeanstalk.com/'
-    let fromDate = new Date(2019, this.state.currentMonth-1, 1, 0, 0, 0);
-    let toDate = new Date(2019, this.state.currentMonth-1, this.daysInThisMonth(this.state.currentMonth), 23, 59, 59);
+    let fromDate = new Date(this.state.currentYear, this.state.currentMonth-1, 1, 0, 0, 0);
+    let toDate = new Date(this.state.currentYear, this.state.currentMonth-1, this.daysInThisMonth(this.state.currentMonth), 23, 59, 59);
     axios.get(`${url}release-dates?fromDate=${fromDate}&toDate=${toDate}`)
     .then(function (response) {
       let games = response.data;
@@ -75,13 +77,16 @@ class Calendar extends React.Component {
 
   padMonths() {
     let thisMonth = this.state.currentMonth;
-    let nextMonth = thisMonth + 1;
-    let lastMonth = thisMonth - 1;
+    let thisYear = this.state.currentYear;
+    let nextMonth = thisMonth === 12 ? 1 : thisMonth + 1;
+    let lastMonth = thisMonth === 1 ? 12 : thisMonth - 1;
+    let nextYear = thisMonth === 12 ? thisYear + 1 : thisYear;
+    let lastYear = thisMonth === 1 ? thisYear - 1 : thisYear;
     // const url = 'http://localhost:3001/';
     const url = 'http://game-calendar-web-service.us-east-2.elasticbeanstalk.com/';
     if (this.state.yearGames[nextMonth-1].games.length == 0) {
-      let fromDate = new Date(2019, nextMonth-1, 1, 0, 0, 0);
-      let toDate = new Date(2019, nextMonth-1, this.daysInThisMonth(nextMonth), 23, 59, 59);
+      let fromDate = new Date(nextYear, nextMonth-1, 1, 0, 0, 0);
+      let toDate = new Date(nextYear, nextMonth-1, this.daysInThisMonth(nextMonth), 23, 59, 59);
       axios.get(`${url}release-dates?fromDate=${fromDate}&toDate=${toDate}`)
       .then((response) => {
         this.setState(state => {
@@ -97,8 +102,8 @@ class Calendar extends React.Component {
     }
     
     if (this.state.yearGames[lastMonth-1].games.length == 0) {
-      let fromDate = new Date(2019, lastMonth-1, 1, 0, 0, 0);
-      let toDate = new Date(2019, lastMonth-1, this.daysInThisMonth(lastMonth), 23, 59, 59);
+      let fromDate = new Date(lastYear, lastMonth-1, 1, 0, 0, 0);
+      let toDate = new Date(lastYear, lastMonth-1, this.daysInThisMonth(lastMonth), 23, 59, 59);
       axios.get(`${url}release-dates?fromDate=${fromDate}&toDate=${toDate}`)
       .then((response) => {
         this.setState(state => {

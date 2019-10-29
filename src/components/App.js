@@ -11,6 +11,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       currentMonth: (new Date().getMonth()+1),
+      currentYear: (new Date().getFullYear()),
+      yearBoundary: 0,
       months: ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
       ],
@@ -23,15 +25,35 @@ class App extends React.Component {
     };
   }
   nextMonth = () => {
-    this.setState({
-      currentMonth: this.state.currentMonth + 1
-    })
+    if (this.state.yearBoundary < 4) {
+      this.state.yearBoundary++;
+      if (this.state.currentMonth === 12) {
+        this.setState({
+          currentMonth: 1,
+          currentYear: this.state.currentYear + 1
+        })
+      } else {
+        this.setState({
+          currentMonth: this.state.currentMonth + 1
+        })
+      }
+    }
   }
 
   prevMonth = () => {
-    this.setState({
-      currentMonth: this.state.currentMonth - 1
-    })
+    if (this.state.yearBoundary > -4) {
+      this.state.yearBoundary--;
+      if (this.state.currentMonth === 1) {
+        this.setState({
+          currentMonth: 12,
+          currentYear: this.state.currentYear - 1
+        })
+      } else {
+        this.setState({
+          currentMonth: this.state.currentMonth - 1
+        })
+      }
+    }
   }
 
   filterTest = (ev) => {
@@ -92,7 +114,9 @@ class App extends React.Component {
         <div className="body-panel">
           <SidePanel
             month={this.state.months[this.state.currentMonth-1]}
+            currentYear={this.state.currentYear}
             shortMonth={this.state.shortMonths[this.state.currentMonth-1]}
+            yearBoundary={this.state.yearBoundary}
             nextMonth={this.nextMonth}
             prevMonth={this.prevMonth}
             filterTest={this.filterTest}
@@ -100,6 +124,7 @@ class App extends React.Component {
           />
           <Calendar
             currentMonth={this.state.currentMonth}
+            currentYear={this.state.currentYear}
             displayDayModal={this.displayDayModal}
             filterProps={this.state.filterProps}
           />

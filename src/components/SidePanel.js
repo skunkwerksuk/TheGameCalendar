@@ -10,16 +10,19 @@ class SidePanel extends React.Component {
 
   render() {
     return <div className="side-panel">
-      <img src={Cal} className="calendar-logo" alt="cal icon" />
+      {/* <img src={Cal} className="calendar-logo" alt="cal icon" /> */}
+      <h1 className="page-title">GAME<br/>CAL</h1>
       <hr className="hr" />
-      <h1 className="page-title">The Game Calendar</h1>
       <h2 className="sub-title">Upcoming Video Game Releases</h2>
       <hr className="hr" />
       <nav>
-        <button className="month-nav" onClick={this.props.prevMonth}>&#60;&#60;</button>
-        <h3 className="month-name">{this.props.month}</h3>
-        <h3 className="month-name-short">{this.props.shortMonth}</h3>
-        <button className="month-nav" onClick={this.props.nextMonth}>&#62;&#62;</button>
+        {this.props.yearBoundary === -4 ? <button className="month-nav disabled" disabled>&#60;&#60;</button> : <button className="month-nav" onClick={this.props.prevMonth}>&#60;&#60;</button>}
+        <div>
+          <h3 className="month-name">{this.props.month}</h3>
+          <h3 className="month-name-short">{this.props.shortMonth}</h3>
+          <h4 className="month-name">{this.props.currentYear}</h4>
+        </div>
+        {this.props.yearBoundary === 4 ? <button className="month-nav disabled" disabled>&#62;&#62;</button> : <button className="month-nav" onClick={this.props.nextMonth}>&#62;&#62;</button>}
       </nav>
       <hr className="hr" />
       <div className="filters">
@@ -53,7 +56,11 @@ class SidePanel extends React.Component {
         </div>
         <button onClick={this.props.clearFilters}>Clear</button>
       </div>
-  </div>
+      <div className="signature">
+        <p>Developed by: <a href="https://github.com/skunkwerksuk">@skunkwerksuk</a></p>
+        <p>Powered by: <a href="https://www.igdb.com/api">IGDB API</a></p>
+      </div>
+    </div>
   }
 }
 

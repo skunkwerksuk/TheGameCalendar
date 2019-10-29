@@ -1,2 +1,8 @@
 
 $game-item-border: black;
+
+@font-face {
+  font-family: 'GoodTimes';
+  src: url(../fonts/good_timing_bd-webfont.woff2) format('woff2');
+  src: url(../fonts/good_timing_bd-webfont.woff) format('woff');
+}
