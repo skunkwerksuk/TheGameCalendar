@@ -122,8 +122,8 @@ class GameViewModal extends React.Component {
               </div>
             </div>
           </div>
-          <p><b>Description:</b></p>
-          <p>{displayGame.summary}</p>
+          <div><b>Description:</b></div>
+          <p className="game-description">{displayGame.summary}</p>
         </div>
       </div>
       }

@@ -28,14 +28,18 @@
   border: 1px solid gray;
   width: 90%;
   padding: 10px;
+  max-height: 75vh;
+  overflow: hidden;
 
   .modal-content {
     .game-summary {
       display: flex;
       justify-content: space-between;
+      flex-wrap: wrap;
 
       .game-cover {
         width: 160px;
+        order: 1;
 
         img {
           width: 100%;
@@ -45,6 +49,7 @@
       .game-details {
         padding: 5px;
         min-width: 50%;
+        order: 3;
 
         p {
           font-size: 14px;
@@ -52,19 +57,46 @@
       }
 
       .score-wrapper {
-        margin-right: 0;
-        margin-left: auto;
+        margin: auto;
+        order: 2;
       }
+    }
+    .game-description {
+      max-height: 90px;
+      overflow-y: scroll;
     }
   }
 
   @include for-tablet-portrait-up {
     width: 75%;
 
+    .modal-content {
+      .game-summary {
+        flex-wrap: nowrap;
+  
+        .game-cover {
+          order: 1;
+        }
+  
+        .game-details {
+          order: 2;
+        }
+  
+        .score-wrapper {
+          order: 3;
+        }
+      }
+      .game-description {
+        max-height: 250px;
+      }
+    }
+
   }
   @include for-tablet-landscape-up {
     left: calc(50% + 10vw);
     width: 50%;
+
+    
   }
 }
 .close {

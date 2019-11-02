@@ -99,19 +99,14 @@ class App extends React.Component {
     this.setState({
       loading: true
     });
-    console.log('pre-call', platforms)
-    // console.log(`${apiUrl}game?id=${game.id}`)
     axios.get(`${apiUrl}game?id=${game.id}`)
     .then(function (response) {
       let gameResponse = response.data;
-      // console.log('gamereponse name', gameResponse.name)
       if (gameResponse.name === undefined) {
-        // console.log('applying name')
         gameResponse[0].name = game.name;
       }
       gameResponse[0].jsReleaseDate = date;
       gameResponse[0].platforms = platforms;
-      // console.log('GAME RESPONSE', gameResponse)
       that.setState({
         modalGame: gameResponse[0],
         loading: false
@@ -120,7 +115,6 @@ class App extends React.Component {
     .catch(function (err) {
       console.log(err)
     })
-    // console.log(game)
     let modal = document.getElementById('modal');
     let calendar = document.getElementById('calendar');
     let veil = document.getElementById('veil');
