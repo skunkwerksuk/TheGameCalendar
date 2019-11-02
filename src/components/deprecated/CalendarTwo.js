@@ -1,5 +1,5 @@
 import React from 'react';
-import Month from './MonthTwo';
+import Month from '../MonthTwo';
 import axios from 'axios';
 
 class Calendar extends React.Component {

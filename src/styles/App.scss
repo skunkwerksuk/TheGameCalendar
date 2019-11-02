@@ -88,6 +88,23 @@ body {
   justify-content: start;
 }
 
+.platforms {
+  display: flex;
+  flex-direction: row;
+  .icon-wrapper {
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+    display: inline-block;
+    margin-right: 2px;
+    
+    .platform-icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
 .game-item {
   border: 2px solid $game-item-border;
   background-color: white;
@@ -99,54 +116,11 @@ body {
   .popularity {
     display: none;
   }
-
-  .platforms {
-    display: flex;
-    flex-direction: row;
-    .icon-wrapper {
-      width: 20px;
-      height: 20px;
-      overflow: hidden;
-      display: inline-block;
-      margin-right: 2px;
-      
-      .platform-icon {
-        width: 20px;
-        height: 20px;
-      }
-    }
-  }
   
   &.half-item {
     height: 49%;
     min-height: 65px;
   }
-
-  // &.third-item {
-  //   height: 32%;
-
-  //   .platforms {
-  //     display: none;
-  //   }
-  // }
-
-  // &.half-item, &.third-item {
-  //   .game-details {
-  //     padding: 4px 22px 4px 4px;
-  //     position: relative;
-
-  //     .game-date {
-  //       position: absolute;
-  //       top: -2px;
-  //       background-color: white;
-  //       right: -2px;
-  //       border: 2px solid $game-item-border;
-  //       padding: 0px 2px 0px 2px;
-  //       font-weight: 800;
-  //       font-size: 14px;
-  //     }
-  //   }
-  // }
 
   &.is-big {
     border: 0;
@@ -156,6 +130,15 @@ body {
     border-top-right-radius: 5px;
     width: 98px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19),0 6px 6px rgba(0,0,0,0.23);
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 0 10px 25px rgba(0,0,0,0.49),0 6px 6px rgba(0,0,0,0.23);
+    }
+
+    &:active {
+      box-shadow: 0 0 10px rgba(0,0,0,0.19),0 6px 6px rgba(0,0,0,0.23);
+    }
 
     .game-cover {
       height: 117px;
@@ -164,6 +147,7 @@ body {
       overflow: hidden;
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
+      background-color: #171717;
       img {
         width: 100%;
       }

@@ -1,11 +1,11 @@
 import React from 'react';
 import '../styles/App.scss';
-import Calendar from './CalendarThree';
-import HeaderPanel from './HeaderPanel';
-import DayModal from './DayModal';
+import Calendar from './ListCalendar';
+import GameViewModal from './GameViewModal';
 import SidePanel from './SidePanel';
+import axios from 'axios';
 
-// function App() {
+const apiUrl = 'http://game-calendar-web-service.us-east-2.elasticbeanstalk.com/';
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +21,9 @@ class App extends React.Component {
       ] ,
       filterProps: {
         platforms: [ ]
-      }
+      },
+      modalGame: {},
+      loading: false
     };
   }
   nextMonth = () => {
@@ -92,19 +94,38 @@ class App extends React.Component {
     })
   }
 
-  displayDayModal = (games, date) => {
-    let dateEl = `<h1>${date}</h1>`
-    let gameList = games.map(el => {
-      let x = el.platform.map(pl => `<span class="platform-items">${pl.name}</span>`).join(' ');
-      return `<div class="game-name">${el.game.name}<div class="platform-wrapper">${x}</div></div>`
-    }).join('');
-    document.getElementById('dayModalContent').innerHTML = dateEl;
-    document.getElementById('dayModalContent').innerHTML += gameList;
+  displayDayModal = (game, date, platforms) => {
+    const that = this;
+    this.setState({
+      loading: true
+    });
+    console.log('pre-call', platforms)
+    // console.log(`${apiUrl}game?id=${game.id}`)
+    axios.get(`${apiUrl}game?id=${game.id}`)
+    .then(function (response) {
+      let gameResponse = response.data;
+      // console.log('gamereponse name', gameResponse.name)
+      if (gameResponse.name === undefined) {
+        // console.log('applying name')
+        gameResponse[0].name = game.name;
+      }
+      gameResponse[0].jsReleaseDate = date;
+      gameResponse[0].platforms = platforms;
+      // console.log('GAME RESPONSE', gameResponse)
+      that.setState({
+        modalGame: gameResponse[0],
+        loading: false
+      });
+    })
+    .catch(function (err) {
+      console.log(err)
+    })
+    // console.log(game)
     let modal = document.getElementById('modal');
-    modal.classList.remove('is-hidden');
     let calendar = document.getElementById('calendar');
-    calendar.classList.add('modal-open');
     let veil = document.getElementById('veil');
+    modal.classList.remove('is-hidden');
+    calendar.classList.add('modal-open');
     veil.classList.remove('is-hidden');
   }
 
@@ -128,7 +149,10 @@ class App extends React.Component {
             displayDayModal={this.displayDayModal}
             filterProps={this.state.filterProps}
           />
-          <DayModal />
+          <GameViewModal
+            game={this.state.modalGame}
+            loading={this.state.loading}
+          />
         </div>
       </div>
     );

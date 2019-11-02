@@ -27,9 +27,9 @@ class Calendar extends React.Component {
     return new Date(now.getFullYear(), inMonth, 0).getDate();
   }
 
-  displayDayModal = (games, date) => {
-    this.props.displayDayModal(games, date)
-  }
+  // displayDayModal = (games, date) => {
+  //   this.props.displayDayModal(games, date)
+  // }
 
   componentDidMount() {
     var there = this;
@@ -158,7 +158,7 @@ class Calendar extends React.Component {
             className={i==this.state.currentMonth ? '' : 'is-hidden'}
             monthId={i}
             games={this.state.yearGames[i-1].games}
-            displayDayModal={this.displayDayModal}
+            displayDayModal={this.props.displayDayModal}
           />
         )
       }

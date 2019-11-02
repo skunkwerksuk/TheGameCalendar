@@ -1,5 +1,5 @@
 import React from 'react';
-import GameItem from './GameItemTwo';
+import GameListItem from './GameListItem';
 import moment from 'moment';
 
 function Day(props) {
@@ -21,9 +21,8 @@ function Day(props) {
   let rdate3 = moment(props.games[0].date*1000);
   
   gamelist.forEach((element, idx) => {
-    let releaseDate = new Date(element.game.date*1000);
     games.push(
-      <GameItem displayModal={props.displayModal} date={releaseDate} key={idx} game={element} className='is-big' isbig={true}/>
+      <GameListItem displayModal={props.displayModal} date={rdate3.format('DD MMMM YYYY')} key={idx} game={element} className='is-big' isbig={true}/>
       );
   });
   if (rdate3.isSame(moment().subtract(1, 'day'), 'day')) {

@@ -34,11 +34,17 @@ function getLogo(name) {
 function GameItem(props) {
   const gamelist = props.game.game;
   const releaseDate = new Date(props.game.date*1000);
-  const platformList = props.game.platform.sort((ela, elb) => {
-    if ( ela.name < elb.name ){
+  var result = props.game.platform.reduce((unique, o) => {
+    if(!unique.some(obj => obj.name === o.name)) {
+      unique.push(o);
+    }
+    return unique;
+  },[]); 
+  const platformList = result.sort((ela, elb) => {
+    if ( ela.name < elb.name ) {
       return 1;
     }
-    if ( ela.name > elb.name ){
+    if ( ela.name > elb.name ) {
       return -1;
     }
     return 0;
@@ -48,17 +54,12 @@ function GameItem(props) {
 
   platformList.map(el => platformRenderList.push(<div className='icon-wrapper'><img title={el.name} alt={el.name} className='platform-icon' src={getLogo(el.name)} /></div>));
   let coverUrl = props.game.game.cover ? props.game.game.cover.url.replace('thumb', 'cover_big') : '';
-  let displayDate = releaseDate.getDate();
-  displayDate = displayDate < 10 ? `0${displayDate}` : displayDate;
 
   return (
-    <div style={props.style} className={'game-item ' + props.className}>
+    <div onClick={() => props.displayModal(gamelist, props.date, platformList)} style={props.style} className={'game-item ' + props.className}>
       <div className='game-cover'>{props.game.game.cover && props.isbig ? <img src={coverUrl} /> : ''}</div>
       <div className='game-details'>
-        {/* <div className='game-date'>{displayDate}</div> */}
-        {/* <div className='game-title'><b>{gamelist.name}</b></div> */}
         <div className='game-title'>{gamelist.name}</div>
-        {/* <div className=''>[{Math.round(gamelist.popularity)}]</div> */}
         <div className='popularity'>{gamelist.id}</div>
         <div className='platforms'>{platformRenderList}</div>
       </div>

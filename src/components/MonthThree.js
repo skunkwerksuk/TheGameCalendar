@@ -30,13 +30,13 @@ class Month extends React.Component {
   componentDidMount() {
   }
 
-  displayModal = (games, date) => {
-    const months = ["January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-      ];
-    const monthId = this.props.monthId-1;
-    this.props.displayDayModal(games, `${date} ${months[monthId]}`)
-  }
+  // displayModal = (games, date) => {
+  //   const months = ["January", "February", "March", "April", "May", "June",
+  //       "July", "August", "September", "October", "November", "December"
+  //     ];
+  //   const monthId = this.props.monthId-1;
+  //   this.props.displayDayModal(games, `${date} ${months[monthId]}`)
+  // }
 
   render() {
     const gameList = this.state.games;
@@ -60,7 +60,7 @@ class Month extends React.Component {
     }
 
     dateMap.forEach((element, index) => {
-      monthDays.push(<Day displayModal={this.displayModal} key={index} games={element.games} className={element.className} />);
+      monthDays.push(<Day displayModal={this.props.displayDayModal} key={index} games={element.games} className={element.className} />);
     });
 
     return <div className={` ${monthClasses} ${this.props.className}`}>

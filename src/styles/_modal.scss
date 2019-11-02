@@ -14,14 +14,224 @@
   background-color: rgba(204, 204, 204, 0.5);
 }
 
+.modal-title {
+  margin: 5px auto;
+}
+
 .modal {
   position: fixed;
-  left: calc(50% + 10vw);
+  left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 5;
   background-color: white;
   border: 1px solid gray;
-  width: 300px;
+  width: 90%;
   padding: 10px;
+
+  .modal-content {
+    .game-summary {
+      display: flex;
+      justify-content: space-between;
+
+      .game-cover {
+        width: 160px;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      .game-details {
+        padding: 5px;
+        min-width: 50%;
+
+        p {
+          font-size: 14px;
+        }
+      }
+
+      .score-wrapper {
+        margin-right: 0;
+        margin-left: auto;
+      }
+    }
+  }
+
+  @include for-tablet-portrait-up {
+    width: 75%;
+
+  }
+  @include for-tablet-landscape-up {
+    left: calc(50% + 10vw);
+    width: 50%;
+  }
+}
+.close {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+  cursor: pointer;
+}
+.close:hover {
+  opacity: 1;
+}
+.close:before, .close:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: #333;
+}
+.close:before {
+  transform: rotate(45deg);
+}
+.close:after {
+  transform: rotate(-45deg);
+}
+
+// ***** PIE *****
+
+.js-simple-pie.score--avg {
+  font-size: 5.5em;
+}
+
+.js-simple-pie {
+  height: 1em;
+  width: 1em;
+  float: left;
+  margin: 15px;
+  position: relative;
+  font-size: 4em;
+}
+
+.js-simple-pie .pie {
+  height: 100%;
+  width: 100%;
+  clip: rect(0, 1em, 1em, 0.5em);
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+.js-simple-pie .pie.pie--over-fifty {
+  clip: rect(auto, auto, auto, auto);
+}
+
+.js-simple-pie label {
+  background: white;
+  border-radius: 50%;
+  bottom: 0.4em;
+  color: #808080;
+  cursor: default;
+  display: block;
+  font-size: 0.25em;
+  left: 0.4em;
+  line-height: 3.3em;
+  position: absolute;
+  right: 0.4em;
+  text-align: center;
+  top: 0.4em;
+}
+
+.js-simple-pie .pie .half-circle {
+  height: 100%;
+  width: 100%;
+  border: 0.1em solid #3498db;
+  border-radius: 50%;
+  clip: rect(0, 0.5em, 1em, 0);
+  left: 0;
+  position: absolute;
+  top: 0;
+  box-sizing: border-box;
+}
+
+.js-simple-pie .pie.pie--over-fifty .right-circle {
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.js-simple-pie .shadow {
+  height: 100%;
+  width: 100%;
+  border: 0.1em solid #bdc3c7;
+  border-radius: 50%;
+}
+
+.score--user-a.js-simple-pie .pie .half-circle {
+  border-color: #500DA1;
+}
+
+.score--user-b.js-simple-pie .pie .half-circle {
+  border-color: #DA0000;
+}
+
+.score--user-c.js-simple-pie .pie .half-circle {
+  border-color: #66A5AD;
+}
+
+.score--avg.js-simple-pie .pie .half-circle {
+  border-color: orange;
+}
+
+.score--avg.js-simple-pie label {
+  background: #606060;
+  color: white;
+  font-weight: 500;
+}
+
+// CSS LOADER
+
+.loader-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  height: 80px;
+  width: 80px;
+  transform: translate(-50%, -50%);
+  @include for-tablet-landscape-up {
+    left: calc(50% + 10vw);
+  }
+}
+
+#loader-1:before, #loader-1:after{
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  border: 10px solid transparent;
+  border-top-color: #e3e3e3;
+  box-sizing: border-box;
+}
+
+#loader-1:before{
+  z-index: 100;
+  animation: spin 1s infinite;
+}
+
+#loader-1:after{
+  border: 10px solid #ccc;
+}
+
+@keyframes spin{
+  0%{
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100%{
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
