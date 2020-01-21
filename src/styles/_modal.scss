@@ -1,10 +1,10 @@
 
 .calendar.modal-open {
-  -webkit-filter: blur(2px);
-  -moz-filter: blur(2px);
-  -o-filter: blur(2px);
-  -ms-filter: blur(2px);
-  filter: blur(2px);
+  // -webkit-filter: blur(2px);
+  // -moz-filter: blur(2px);
+  // -o-filter: blur(2px);
+  // -ms-filter: blur(2px);
+  // filter: blur(2px);
 }
 
 .side-panel.modal-open {
@@ -32,14 +32,19 @@
   z-index: 5;
   background-color: white;
   border: 1px solid gray;
-  width: 92%;
+  // width: 92%;
   padding: 10px;
-  max-height: 85vh;
+  // max-height: 85vh;
   overflow: hidden;
-  top: 70px;
-  left: 4%;
-  right: 4%;
+  // top: 70px;
+  // left: 4%;
+  // right: 4%;
   box-sizing: border-box;
+  top: 50px;
+  left: 0;
+  height: calc(100vh - 50px);
+
+
 
   .modal-content {
     .game-summary {
@@ -78,10 +83,14 @@
   }
 
   @include for-tablet-portrait-up {
-    left: 50%;
-    width: 75%;
-    transform: translate(-50%, -50%);
-    top: 50%;
+    // left: 50%;
+    // width: 75%;
+    // transform: translate(-50%, -50%);
+    // top: 50%;
+    top: 50px;
+    left: 0;
+    width: 100vw;
+    // height: 100vh;
 
 
     .modal-content {
@@ -108,10 +117,14 @@
   }
   @include for-tablet-landscape-up {
     // left: calc(50% + 10vw);
-    left: 50%;
-    width: 60%;
-    top: 50%;
-    max-width: 850px;
+    // left: 50%;
+    // width: 60%;
+    // top: 50%;
+    // max-width: 850px;
+    top: 0;
+    left: 20vw;
+    width: 80vw;
+    height: 100vh;
   }
 }
 .close {
