@@ -37,8 +37,8 @@ class SidePanel extends React.Component {
         <input id="searchBox" className="input" onChange={this.props.search} placeholder="Search" />
       </div>
       <hr className="hr" />
-      <label>Platforms:</label>
       <div className="filters">
+        <label>Platforms:</label>
         <div className="checkbox-wrapper">
           <input onChange={this.props.setFilters} type="checkbox" name="xboxOne" value="Xbox One" id="xboxOne" className="filter-checkbox" />
           <label for="xboxOne" id="xboxOneCheckbox">Xbox One</label>

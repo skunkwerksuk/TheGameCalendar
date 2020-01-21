@@ -187,6 +187,7 @@ class App extends React.Component {
     document.getElementById('modal').classList.remove('is-hidden');
     document.getElementById('calendar').classList.add('modal-open');
     document.getElementById('sidePanel').classList.add('modal-open');
+    document.getElementById('body').classList.add('modal-open');
     document.getElementById('veil').classList.remove('is-hidden');
   }
 

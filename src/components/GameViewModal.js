@@ -121,6 +121,7 @@ class GameViewModal extends React.Component {
       document.getElementById('modal').classList.add('is-hidden');
       document.getElementById('calendar').classList.remove('modal-open');
       document.getElementById('sidePanel').classList.remove('modal-open');
+      document.getElementById('body').classList.remove('modal-open');
       document.getElementById('veil').classList.add('is-hidden');
     }
   }
@@ -145,6 +146,8 @@ class GameViewModal extends React.Component {
     const displayGame = this.state.game;
     let platformRenderList = [];
     let coverUrl = displayGame.cover ? displayGame.cover.url.replace('thumb', 'cover_big') : '';
+    console.log(displayGame)
+    const screenshotUrl = displayGame.screenshots ? displayGame.screenshots[0] .url.replace('thumb', 'screenshot_big_2x') : '';
     const genres = displayGame.genres ? displayGame.genres.map((item, idx) => <span key={idx}>{(idx ? ', ' : '') + item.name}</span>) : <span></span>;
     const developers = displayGame.involved_companies ? displayGame.involved_companies.filter(item => item.developer).map((item, idx) => <span>{(idx ? ', ' : '') + item.company.name}</span>) : <span></span>;
     const publishers = displayGame.involved_companies ? displayGame.involved_companies.filter(item => item.publisher).map((item, idx) => <span>{(idx ? ', ' : '') + item.company.name}</span>) : <span></span>;
@@ -167,11 +170,12 @@ class GameViewModal extends React.Component {
       : <div className="modal" id="modal">
         <div className="modal-content">
           <a id="modalClose" onClick={this.closeModals} className="close"></a>
+          <img class="screen-splash" src={screenshotUrl} />
           <div className="game-summary">
             <div className="game-cover"><img src={coverUrl} /></div>
             <div className="game-details">
               <h2 className="modal-title">{displayGame.name}</h2>
-              <span>Released: <b>{displayGame.jsReleaseDate}</b></span>
+              <div>Release Date: <b>{displayGame.jsReleaseDate}</b></div>
               <div className="platforms">{platformRenderList}</div>
               <hr className="hr" />
               <p><em>Genres: </em>{genres}</p>

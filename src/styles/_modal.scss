@@ -1,4 +1,3 @@
-
 .calendar.modal-open {
   // -webkit-filter: blur(2px);
   // -moz-filter: blur(2px);
@@ -8,18 +7,18 @@
 }
 
 .side-panel.modal-open {
-  -webkit-filter: blur(2px);
-  -moz-filter: blur(2px);
-  -o-filter: blur(2px);
-  -ms-filter: blur(2px);
-  filter: blur(2px);
+  // -webkit-filter: blur(2px);
+  // -moz-filter: blur(2px);
+  // -o-filter: blur(2px);
+  // -ms-filter: blur(2px);
+  // filter: blur(2px);
 }
 
 .veil {
   position: fixed;
   width: 100%;
   height: 100%;
-  background-color: rgba(204, 204, 204, 0.5);
+  // background-color: rgba(204, 204, 204, 0.5);
   z-index: 3;
 }
 
@@ -31,9 +30,9 @@
   position: fixed;
   z-index: 5;
   background-color: white;
-  border: 1px solid gray;
+  // border: 1px solid gray;
   // width: 92%;
-  padding: 10px;
+  // padding: 10px;
   // max-height: 85vh;
   overflow: hidden;
   // top: 70px;
@@ -47,24 +46,40 @@
 
 
   .modal-content {
+    .screen-splash {
+      width: 100%;
+      object-fit: cover;
+      height: 120px;
+      background-color: lightgray;
+    }
+
     .game-summary {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
+      padding: 0 20px;
+
+      margin-top: -50px;
 
       .game-cover {
         width: 160px;
+        min-width: 160px;
         order: 1;
+        border-radius: 5px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 
         img {
           width: 100%;
+          height: 100%;
+          border-radius: 5px;
+          object-fit: cover;
         }
       }
 
       .game-details {
-        padding: 5px;
         min-width: 50%;
         order: 3;
+        padding: 10px 0;
 
         p {
           font-size: 14px;
@@ -76,33 +91,43 @@
         order: 2;
       }
     }
+
     .game-description {
       max-height: 150px;
+      padding: 0 20px;
       overflow-y: auto;
     }
   }
 
   @include for-tablet-portrait-up {
-    // left: 50%;
-    // width: 75%;
-    // transform: translate(-50%, -50%);
-    // top: 50%;
     top: 50px;
     left: 0;
     width: 100vw;
-    // height: 100vh;
-
 
     .modal-content {
+      .screen-splash {
+        height: 200px;
+      }
+
       .game-summary {
         flex-wrap: nowrap;
+        margin-bottom: 20px;
   
         .game-cover {
           order: 1;
+          
         }
   
         .game-details {
           order: 2;
+          padding: 26px 20px 20px 20px;
+
+          .modal-title {
+            background-color: white;
+            display: inline-block;
+            padding: 5px;
+            border-radius: 2px;
+          }
         }
   
         .score-wrapper {
@@ -116,17 +141,13 @@
 
   }
   @include for-tablet-landscape-up {
-    // left: calc(50% + 10vw);
-    // left: 50%;
-    // width: 60%;
-    // top: 50%;
-    // max-width: 850px;
     top: 0;
     left: 20vw;
     width: 80vw;
     height: 100vh;
   }
 }
+
 .close {
   position: absolute;
   right: 5px;
@@ -135,24 +156,31 @@
   height: 32px;
   opacity: 0.3;
   cursor: pointer;
+  background-color: gray;
+  border-radius: 50%;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:before, &:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 33px;
+    width: 2px;
+    background-color: #333;
+  }
+
+  &:before {
+    transform: rotate(45deg);
+  }
+
+  &:after {
+    transform: rotate(-45deg);
+  }
 }
-.close:hover {
-  opacity: 1;
-}
-.close:before, .close:after {
-  position: absolute;
-  left: 15px;
-  content: ' ';
-  height: 33px;
-  width: 2px;
-  background-color: #333;
-}
-.close:before {
-  transform: rotate(45deg);
-}
-.close:after {
-  transform: rotate(-45deg);
-}
+
 
 // ***** PIE *****
 

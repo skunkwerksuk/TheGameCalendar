@@ -13,13 +13,16 @@ body {
   font-family: Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  &.modal-open {
+    overflow: hidden;
+  }
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
 
 body {
   background-color: #edfbff;
@@ -31,7 +34,7 @@ body {
 
 .body-panel {
   display: flex;
-  height: 100vh;
+  // height: 100vh;
   z-index: 4;
   -webkit-overflow-scrolling: touch;
 }
