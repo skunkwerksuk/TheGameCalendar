@@ -7,11 +7,20 @@
   filter: blur(2px);
 }
 
+.side-panel.modal-open {
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  -o-filter: blur(2px);
+  -ms-filter: blur(2px);
+  filter: blur(2px);
+}
+
 .veil {
   position: fixed;
   width: 100%;
   height: 100%;
   background-color: rgba(204, 204, 204, 0.5);
+  z-index: 3;
 }
 
 .modal-title {
@@ -20,16 +29,17 @@
 
 .modal {
   position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
   z-index: 5;
   background-color: white;
   border: 1px solid gray;
-  width: 90%;
+  width: 92%;
   padding: 10px;
-  max-height: 75vh;
+  max-height: 85vh;
   overflow: hidden;
+  top: 70px;
+  left: 4%;
+  right: 4%;
+  box-sizing: border-box;
 
   .modal-content {
     .game-summary {
@@ -62,13 +72,17 @@
       }
     }
     .game-description {
-      max-height: 90px;
-      overflow-y: scroll;
+      max-height: 150px;
+      overflow-y: auto;
     }
   }
 
   @include for-tablet-portrait-up {
+    left: 50%;
     width: 75%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+
 
     .modal-content {
       .game-summary {
@@ -93,10 +107,11 @@
 
   }
   @include for-tablet-landscape-up {
-    left: calc(50% + 10vw);
-    width: 50%;
-
-    
+    // left: calc(50% + 10vw);
+    left: 50%;
+    width: 60%;
+    top: 50%;
+    max-width: 850px;
   }
 }
 .close {

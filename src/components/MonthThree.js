@@ -1,5 +1,6 @@
 import React from 'react';
 import Day from './DayTwo';
+import moment from 'moment';
 
 function daysInThisMonth(i) {
   var now = new Date();
@@ -28,24 +29,17 @@ class Month extends React.Component {
   }
 
   componentDidMount() {
+    let currentDate = moment().format('DD MMMM YYYY');
+    if (document.getElementById(currentDate)) {
+      document.getElementById(currentDate).scrollIntoView();
+    }
   }
-
-  // displayModal = (games, date) => {
-  //   const months = ["January", "February", "March", "April", "May", "June",
-  //       "July", "August", "September", "October", "November", "December"
-  //     ];
-  //   const monthId = this.props.monthId-1;
-  //   this.props.displayDayModal(games, `${date} ${months[monthId]}`)
-  // }
 
   render() {
     const gameList = this.state.games;
     const monthClasses = '';
     const dateMap = [];
     const monthDays = [];
-    let gameCount = gameList.length;
-    let className = `page-panel`;
-
 
     for (let i = 1; i <= this.state.days; i++) {
       dateMap.push({ date: i, games: []})
@@ -60,10 +54,10 @@ class Month extends React.Component {
     }
 
     dateMap.forEach((element, index) => {
-      monthDays.push(<Day displayModal={this.props.displayDayModal} key={index} games={element.games} className={element.className} />);
+      monthDays.push(<Day displayModal={this.props.displayDayModal} key={index} games={element.games} className={element.className} dayId={element.date} monthId={this.props.monthId}/>);
     });
 
-    return <div className={` ${monthClasses} ${this.props.className}`}>
+    return <div id="monthView" className={`${monthClasses}${this.props.className}`}>
       {monthDays}
     </div>;
   }

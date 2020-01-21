@@ -33,33 +33,31 @@ function getLogo(name) {
 
 function GameItem(props) {
   const gamelist = props.game.game;
-  const releaseDate = new Date(props.game.date*1000);
-  var result = props.game.platform.reduce((unique, o) => {
-    if(!unique.some(obj => obj.name === o.name)) {
+  const platformRenderList = [];
+
+  // Remove any duplicate platform names
+  const reducedPlatforms = props.game.platform.reduce((unique, o) => {
+    if (!unique.some(obj => obj.name === o.name)) {
       unique.push(o);
     }
     return unique;
   },[]); 
-  const platformList = result.sort((ela, elb) => {
-    if ( ela.name < elb.name ) {
-      return 1;
-    }
-    if ( ela.name > elb.name ) {
-      return -1;
-    }
+
+  const platformList = reducedPlatforms.sort((ela, elb) => {
+    if ( ela.name < elb.name ) { return 1; }
+    if ( ela.name > elb.name ) { return -1; }
     return 0;
   });
 
-  const platformRenderList = [];
-
-  platformList.map(el => platformRenderList.push(<div className='icon-wrapper'><img title={el.name} alt={el.name} className='platform-icon' src={getLogo(el.name)} /></div>));
-  let coverUrl = props.game.game.cover ? props.game.game.cover.url.replace('thumb', 'cover_big') : '';
+  platformList.map((el, idx) => platformRenderList.push(<div key={idx} className='icon-wrapper'><img title={el.name} alt={el.name} className='platform-icon' src={getLogo(el.name)} /></div>));
+  const coverUrl = props.game.game.cover ? props.game.game.cover.url.replace('thumb', 'cover_big') : '';
 
   return (
     <div onClick={() => props.displayModal(gamelist, props.date, platformList)} style={props.style} className={'game-item ' + props.className}>
-      <div className='game-cover'>{props.game.game.cover && props.isbig ? <img src={coverUrl} /> : ''}</div>
+      <div className='game-cover'>{props.game.game.cover && props.isbig ? <img src={coverUrl} alt={`${gamelist.name} cover art`} /> : ''}</div>
       <div className='game-details'>
         <div className='game-title'>{gamelist.name}</div>
+        <div className='popularity'>{props.game.id}</div>
         <div className='popularity'>{gamelist.id}</div>
         <div className='platforms'>{platformRenderList}</div>
       </div>

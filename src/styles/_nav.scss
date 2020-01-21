@@ -6,6 +6,7 @@
   font-size: 2em !important;
   display: inline-block;
   padding: 0 5px;
+  cursor: pointer;
 
   br {
     display: none;
@@ -84,10 +85,11 @@
   
   @include for-tablet-landscape-up {
     flex-direction: column;
-    position: relative;
+    position: fixed;
     width: 20vw;
     height: 100%;
     justify-content: start;
+    max-width: 300px;
 
     .hr {
       display: block;
@@ -129,6 +131,8 @@ nav {
     padding: 15px;
     background-color: #445d68;
     cursor: pointer;
+    text-decoration: none;
+    color: white;
 
     &.disabled {
       background-color: #1f3640;
@@ -170,3 +174,15 @@ nav {
   @include for-desktop-up {
   }
 }
+
+.search {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .search-label {
+    font-size: 14px;
+    font-style: italic;
+  }
+}
+
