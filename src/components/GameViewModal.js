@@ -1,4 +1,5 @@
 import React from 'react';
+import leftArrow from '../images/left-arrow.svg';
 import xbox from '../images/xbox.svg';
 import nSwitch from '../images/switch.svg';
 import ps from '../images/ps.svg';
@@ -170,7 +171,8 @@ class GameViewModal extends React.Component {
         <div className='loader-wrapper'><div className="loader" id="loader-1"></div></div>
       : <div className="modal" id="modal">
         <div className="modal-content">
-          <a id="modalClose" onClick={this.closeModals} className="close"></a>
+          {/* <a id="modalClose" onClick={this.closeModals} className="close"></a> */}
+          <a id="modalClose" className="return" onClick={this.closeModals}><img src={leftArrow}/></a>
           <img class="screen-splash" src={bannerScreenshotUrl} />
           <div className="game-summary">
             <div className="game-cover"><img src={coverUrl} /></div>
