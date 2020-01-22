@@ -175,10 +175,10 @@ class GameViewModal extends React.Component {
             <div className="game-cover"><img src={coverUrl} /></div>
             <div className="game-details">
               <h2 className="modal-title">{displayGame.name}</h2>
-              <div>Release Date: <b>{displayGame.jsReleaseDate}</b></div>
-              <div className="platforms">{platformRenderList}</div>
+              <div className="release-date grey-text">Release Date: <b>{displayGame.jsReleaseDate}</b></div>
+              <p className="platforms">{platformRenderList}</p>
               <hr className="hr" />
-              <p><em>Genres: </em>{genres}</p>
+              <p className="grey-text">{/*<em>Genres: </em>*/}{genres}</p>
               <p><em>Developer(s): </em>{developers}</p>
               <p><em>Publisher(s): </em>{publishers}</p>
               <hr className="hr" />
@@ -194,7 +194,7 @@ class GameViewModal extends React.Component {
             </div>
           </div>
           <div className="game-description">
-            <div><b>Description:</b></div>
+            {/* <div><b>Description:</b></div> */}
             <p>{displayGame.summary}</p>
             {officialSiteLink}
             <div className="socials">{websites}</div>
