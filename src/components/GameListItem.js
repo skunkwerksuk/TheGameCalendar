@@ -1,35 +1,5 @@
 import React from 'react';
-import xbox from '../images/xbox.svg';
-import nSwitch from '../images/switch.svg';
-import ps from '../images/ps.svg';
-import pc from '../images/PC.svg';
-import mac from '../images/Mac.svg';
-import ios from '../images/iOS.svg';
-import linux from '../images/Linux.svg';
-import stadia from '../images/stadia.png';
-
-function getLogo(name) {
-  switch (name) {
-    case 'Xbox One':
-      return xbox;
-    case 'PlayStation 4':
-      return ps;
-    case 'Nintendo Switch':
-      return nSwitch;
-    case 'PC (Microsoft Windows)':
-      return pc;
-    case 'Mac':
-      return mac;
-    case 'iOS':
-      return ios;
-    case 'Linux':
-      return linux;
-    case 'Google Stadia':
-      return stadia;
-    default:
-      return '';
-  }
-}
+import { getPlatformLogo } from '../utils/ImageService';
 
 function GameItem(props) {
   const platformRenderList = [];
@@ -51,7 +21,7 @@ function GameItem(props) {
     return 0;
   });
 
-  sortedPlatformList.map((el, idx) => platformRenderList.push(<div key={idx} className='icon-wrapper'><img title={el.name} alt={el.name} className='platform-icon' src={getLogo(el.name)} /></div>));
+  sortedPlatformList.map((el, idx) => platformRenderList.push(<div key={idx} className='icon-wrapper'><img title={el.name} alt={el.name} className='platform-icon' src={getPlatformLogo(el.name)} /></div>));
 
   return (
     <div id={props.game.id} onClick={() => props.displayModal(gamelist, props.date, sortedPlatformList)} style={props.style} className={'game-item ' + props.className}>
