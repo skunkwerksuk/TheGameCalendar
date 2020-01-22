@@ -10,6 +10,12 @@ import SidePanel from './SidePanel';
 import axios from 'axios';
 import { createBrowserHistory } from 'history';
 import ReactGA from 'react-ga';
+import { 
+  submitFilterAnalytic,
+  submitSearchAnalytic,
+  submitModalAnalytic,
+  submitPageViewAnalytic
+} from '../utils/Analytics';
 
 const history = createBrowserHistory();
 const host = window.location.hostname;
@@ -49,52 +55,56 @@ class App extends React.Component {
   }
 
   nextMonth = () => {
+    // If we are within the 4 month navigation limit
     if (this.state.yearBoundary < 4) {
       this.state.yearBoundary++;
+      // If the current month is Dec then cycle the year and reset to Jan
       if (this.state.currentMonth === 12) {
         this.setState({
           currentMonth: 1,
           currentYear: this.state.currentYear + 1
         })
       } else {
+        // Else navigate to next month
         this.setState({
           currentMonth: this.state.currentMonth + 1
         })
       }
+      // Return to the top of the page
       document.getElementById('monthView').scrollIntoView();
     }
   }
 
   prevMonth = () => {
+    // If we are within the 4 month navigation limit
     if (this.state.yearBoundary > -4) {
       this.state.yearBoundary--;
+      // If the current month is Jan then cycle the year back and reset to Dec
       if (this.state.currentMonth === 1) {
         this.setState({
           currentMonth: 12,
           currentYear: this.state.currentYear - 1
         })
       } else {
+        // Else navigate to previous month
         this.setState({
           currentMonth: this.state.currentMonth - 1
         })
       }
+      // Return to the top of the page
       document.getElementById('monthView').scrollIntoView();
     }
   }
 
   search = (ev) => {
-    if (ev.target && ev.target.value.length > 2) {
-      // If not running locally, submit a ping for this search
-      if (host != "localhost") {
-        ReactGA.event({
-          category: 'search',
-          action: 'Searched for a game',
-          value: ev.target.value
-        });
-      }
-      const inputText = ev.target.value;
+    const input = ev.target;
+    // Only execute search for 3 or more characters
+    if (input && input.value.length > 2) {
+      // If not running locally, submit a ping for this search term
+      submitSearchAnalytic(host, ReactGA, input.value);
+
       this.setState(oldState => {
-        oldState.filterProps.nameText = inputText;
+        oldState.filterProps.nameText = input.value;
         return oldState;
       });
     } else {
@@ -109,13 +119,8 @@ class App extends React.Component {
     const input = ev.target;
     if (ev.target.checked) {
       // If not running locally, submit a ping for this filter
-      if (host != "localhost") {
-        ReactGA.event({
-          category: 'filter',
-          action: 'Filtered by platform',
-          value: input.value
-        });
-      }
+      submitFilterAnalytic(host, ReactGA, input.value);
+
       this.setState(state => {
         const platforms = state.filterProps.platforms;
         platforms.push(input.value);
@@ -163,9 +168,8 @@ class App extends React.Component {
     axios.get(`${apiUrl}game?id=${game.id}`)
     .then(function (response) {
       // If not running locally, submit a ping for this game
-      if (host != "localhost") {
-        ReactGA.modalview(game.name);
-      }
+      submitModalAnalytic(host, ReactGA, game.name)
+
       let gameResponse = response.data;
       // If no name has been provided, use the previously displayed name
       if (gameResponse.name === undefined) {
@@ -192,7 +196,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    ReactGA.pageview(window.location.pathname + window.location.search);
+    submitPageViewAnalytic(host, ReactGA, window.location.pathname + window.location.search);
   }
 
   render() {

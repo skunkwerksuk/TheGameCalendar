@@ -129,16 +129,15 @@ class GameViewModal extends React.Component {
   componentDidUpdate() {
     const pies = document.getElementsByClassName('js-simple-pie');
     if (pies.length > 0) {
-      let val = pies[0].querySelector('label').textContent.trim();
-      let rotation = (val / 100) * 360;
-      if (val > 50) {
+      const leftCircle = pies[0].querySelector('.left-circle');
+      const pieScore = pies[0].querySelector('label').textContent.trim();
+      const rotation = (pieScore / 100) * 360;
+
+      if (pieScore > 50) {
         pies[0].querySelector('.pie').classList.add('pie--over-fifty');
-        let el = pies[0].querySelector('.left-circle');
-        el.style.transform = 'rotate('+rotation+'deg)';
-      } else {
-        let el = pies[0].querySelector('.left-circle');
-        el.style.transform = 'rotate('+rotation+'deg)';
       }
+
+      leftCircle.style.transform = `rotate(${rotation}deg)`;
     }
   }
 
@@ -147,7 +146,8 @@ class GameViewModal extends React.Component {
     let platformRenderList = [];
     let coverUrl = displayGame.cover ? displayGame.cover.url.replace('thumb', 'cover_big') : '';
     console.log(displayGame)
-    const screenshotUrl = displayGame.screenshots ? displayGame.screenshots[0] .url.replace('thumb', 'screenshot_big_2x') : '';
+
+    const bannerScreenshotUrl = displayGame.screenshots ? displayGame.screenshots[0].url.replace('thumb', 'screenshot_big_2x') : '';
     const genres = displayGame.genres ? displayGame.genres.map((item, idx) => <span key={idx}>{(idx ? ', ' : '') + item.name}</span>) : <span></span>;
     const developers = displayGame.involved_companies ? displayGame.involved_companies.filter(item => item.developer).map((item, idx) => <span>{(idx ? ', ' : '') + item.company.name}</span>) : <span></span>;
     const publishers = displayGame.involved_companies ? displayGame.involved_companies.filter(item => item.publisher).map((item, idx) => <span>{(idx ? ', ' : '') + item.company.name}</span>) : <span></span>;
@@ -157,20 +157,21 @@ class GameViewModal extends React.Component {
     ) : <span></span>;
 
     const officialSite = displayGame.websites ? displayGame.websites.find(item => item.category === 1) : 0;
-
     const officialSiteLink = officialSite ? <div className="m-b-10"><a href={officialSite.url} target="_blank">Official Website</a></div> : <span></span>;
 
     if (displayGame.platforms) {
       displayGame.platforms.map(el => platformRenderList.push(<div className='icon-wrapper'><img title={el.name} alt={el.name} className='platform-icon' src={getLogo(el.name)} /></div>));
     }
 
+    const screenshots = displayGame.screenshots ? displayGame.screenshots.map((item, idx) => <img className="screenshot" src={item.url.replace('thumb', 'screenshot_med')} key={idx} />) : '';
+    
     return <div onClick={this.closeModals} className="veil is-hidden" id="veil">
       {this.state.loading ? 
         <div className='loader-wrapper'><div className="loader" id="loader-1"></div></div>
       : <div className="modal" id="modal">
         <div className="modal-content">
           <a id="modalClose" onClick={this.closeModals} className="close"></a>
-          <img class="screen-splash" src={screenshotUrl} />
+          <img class="screen-splash" src={bannerScreenshotUrl} />
           <div className="game-summary">
             <div className="game-cover"><img src={coverUrl} /></div>
             <div className="game-details">
@@ -198,6 +199,9 @@ class GameViewModal extends React.Component {
             <p>{displayGame.summary}</p>
             {officialSiteLink}
             <div className="socials">{websites}</div>
+          </div>
+          <div className="screenshot-gallery">
+            {screenshots}
           </div>
         </div>
       </div>

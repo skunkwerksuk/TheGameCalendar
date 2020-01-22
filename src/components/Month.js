@@ -1,5 +1,5 @@
 import React from 'react';
-import Day from './DayTwo';
+import Day from './Day';
 import moment from 'moment';
 
 function daysInThisMonth(i) {
@@ -29,7 +29,7 @@ class Month extends React.Component {
   }
 
   componentDidMount() {
-    let currentDate = moment().format('DD MMMM YYYY');
+    const currentDate = moment().format('DD MMMM YYYY');
     if (document.getElementById(currentDate)) {
       document.getElementById(currentDate).scrollIntoView();
     }

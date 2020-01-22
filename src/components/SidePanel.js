@@ -12,7 +12,7 @@ class SidePanel extends React.Component {
   }
 
   render() {
-    const monthNames = ["January", "February", "March", "April", "May", "June",
+    const monthNames = [ "January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
     ];
     const nextMonthId = this.props.monthId === 12 ? 0 : this.props.monthId;

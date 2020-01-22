@@ -32,29 +32,30 @@ function getLogo(name) {
 }
 
 function GameItem(props) {
-  const gamelist = props.game.game;
   const platformRenderList = [];
+  const gamelist = props.game.game;
+  const coverUrl = gamelist.cover ? gamelist.cover.url.replace('thumb', 'cover_big') : '';
 
   // Remove any duplicate platform names
-  const reducedPlatforms = props.game.platform.reduce((unique, o) => {
-    if (!unique.some(obj => obj.name === o.name)) {
-      unique.push(o);
+  const reducedPlatforms = props.game.platform.reduce((uniqueList, current) => {
+    if (!uniqueList.some(obj => obj.name === current.name)) {
+      uniqueList.push(current);
     }
-    return unique;
+    return uniqueList;
   },[]); 
 
-  const platformList = reducedPlatforms.sort((ela, elb) => {
+  // Sort platforms by name
+  const sortedPlatformList = reducedPlatforms.sort((ela, elb) => {
     if ( ela.name < elb.name ) { return 1; }
     if ( ela.name > elb.name ) { return -1; }
     return 0;
   });
 
-  platformList.map((el, idx) => platformRenderList.push(<div key={idx} className='icon-wrapper'><img title={el.name} alt={el.name} className='platform-icon' src={getLogo(el.name)} /></div>));
-  const coverUrl = props.game.game.cover ? props.game.game.cover.url.replace('thumb', 'cover_big') : '';
+  sortedPlatformList.map((el, idx) => platformRenderList.push(<div key={idx} className='icon-wrapper'><img title={el.name} alt={el.name} className='platform-icon' src={getLogo(el.name)} /></div>));
 
   return (
-    <div onClick={() => props.displayModal(gamelist, props.date, platformList)} style={props.style} className={'game-item ' + props.className}>
-      <div className='game-cover'>{props.game.game.cover && props.isbig ? <img src={coverUrl} alt={`${gamelist.name} cover art`} /> : ''}</div>
+    <div id={props.game.id} onClick={() => props.displayModal(gamelist, props.date, sortedPlatformList)} style={props.style} className={'game-item ' + props.className}>
+      <div className='game-cover'>{gamelist.cover && props.isbig ? <img src={coverUrl} alt={`${gamelist.name} cover art`} /> : ''}</div>
       <div className='game-details'>
         <div className='game-title'>{gamelist.name}</div>
         <div className='popularity'>{props.game.id}</div>

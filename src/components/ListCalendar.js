@@ -4,7 +4,7 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import Month from './MonthThree';
+import Month from './Month';
 import axios from 'axios';
 
 class Calendar extends React.Component {
@@ -45,7 +45,6 @@ class Calendar extends React.Component {
 
   componentDidMount() {
     const there = this;
-    // const url = 'http://localhost:3001/';
     const url = 'http://game-calendar-web-service.us-east-2.elasticbeanstalk.com/'
     let fromDate = new Date(this.state.currentYear, this.state.currentMonth-1, 1, 0, 0, 0);
     let toDate = new Date(this.state.currentYear, this.state.currentMonth-1, this.daysInThisMonth(this.state.currentMonth), 23, 59, 59);
@@ -96,7 +95,6 @@ class Calendar extends React.Component {
     let lastYear = thisMonth === 1 ? thisYear - 1 : thisYear;
     let callArray = [];
 
-    // const url = 'http://localhost:3001/';
     const url = 'http://game-calendar-web-service.us-east-2.elasticbeanstalk.com/';
 
     if (this.state.yearGames[nextMonth-1].games.length == 0) {
