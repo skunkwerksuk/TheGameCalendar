@@ -1,76 +1,6 @@
 import React from 'react';
 import leftArrow from '../images/left-arrow.svg';
-import xbox from '../images/xbox.svg';
-import nSwitch from '../images/switch.svg';
-import ps from '../images/ps.svg';
-import pc from '../images/PC.svg';
-import mac from '../images/Mac.svg';
-import ios from '../images/iOS.svg';
-import linux from '../images/Linux.svg';
-import stadia from '../images/stadia.png';
-import wikiaLogo from '../images/fandom.svg';
-import wikipediaLogo from '../images/wikipedia.svg';
-import facebookLogo from '../images/facebook.svg';
-import twitterLogo from '../images/twitter.svg';
-import twitchLogo from '../images/twitch.png';
-import instagramLogo from '../images/instagram.svg';
-import youtubeLogo from '../images/youtube.svg';
-import steamLogo from '../images/steam.svg';
-import redditLogo from '../images/reddit.svg';
-import epicLogo from '../images/epic.svg';
-import gogLogo from '../images/gog.svg';
-
-function getLogo(name) {
-  switch (name) {
-    case 'Xbox One':
-      return xbox;
-    case 'PlayStation 4':
-      return ps;
-    case 'Nintendo Switch':
-      return nSwitch;
-    case 'PC (Microsoft Windows)':
-      return pc;
-    case 'Mac':
-      return mac;
-    case 'iOS':
-      return ios;
-    case 'Linux':
-      return linux;
-    case 'Google Stadia':
-      return stadia;
-    default:
-      return '';
-  }
-}
-
-function getSocialIcon(id) {
-  switch (id) {
-    case 2:
-      return wikiaLogo;
-    case 3:
-      return wikipediaLogo;
-    case 4:
-      return facebookLogo;
-    case 5:
-      return twitterLogo;
-    case 6:
-      return twitchLogo;
-    case 8:
-      return instagramLogo;
-    case 9:
-      return youtubeLogo;
-    case 13:
-      return steamLogo;
-    case 14:
-      return redditLogo;
-    case 16:
-      return epicLogo;
-    case 17:
-      return gogLogo;
-    default:
-      return '';
-  }
-}
+import { getPlatformLogo, getSocialIcon } from '../utils/ImageService';
 
 function getSocialName(id) {
   switch (id) {
@@ -145,33 +75,27 @@ class GameViewModal extends React.Component {
   render() {
     const displayGame = this.state.game;
     let platformRenderList = [];
-    let coverUrl = displayGame.cover ? displayGame.cover.url.replace('thumb', 'cover_big') : '';
-    console.log(displayGame)
-
+    const coverUrl = displayGame.cover ? `${displayGame.cover.url.replace('thumb', 'cover_big')}` : '';
     const bannerScreenshotUrl = displayGame.screenshots ? displayGame.screenshots[0].url.replace('thumb', 'screenshot_big_2x') : '';
+    const screenshots = displayGame.screenshots ? displayGame.screenshots.map((item, idx) => <img className="screenshot" src={item.url.replace('thumb', 'screenshot_med')} key={idx} />) : '';
     const genres = displayGame.genres ? displayGame.genres.map((item, idx) => <span key={idx}>{(idx ? ', ' : '') + item.name}</span>) : <span></span>;
     const developers = displayGame.involved_companies ? displayGame.involved_companies.filter(item => item.developer).map((item, idx) => <span>{(idx ? ', ' : '') + item.company.name}</span>) : <span></span>;
     const publishers = displayGame.involved_companies ? displayGame.involved_companies.filter(item => item.publisher).map((item, idx) => <span>{(idx ? ', ' : '') + item.company.name}</span>) : <span></span>;
-
+    const officialSite = displayGame.websites ? displayGame.websites.find(item => item.category === 1) : 0;
+    const officialSiteLink = officialSite ? <div className="m-b-10"><a href={officialSite.url} target="_blank">Official Website</a></div> : <span></span>;
     const websites = displayGame.websites ? displayGame.websites.map((item, idx) =>
       item.category !== 1 ? <div className='icon-wrapper' key={idx}><a target="_blank" href={item.url}><img title={getSocialName(item.category)} alt={getSocialName(item.category)} className='platform-icon' src={getSocialIcon(item.category)} /></a></div> : <span></span>
     ) : <span></span>;
 
-    const officialSite = displayGame.websites ? displayGame.websites.find(item => item.category === 1) : 0;
-    const officialSiteLink = officialSite ? <div className="m-b-10"><a href={officialSite.url} target="_blank">Official Website</a></div> : <span></span>;
-
     if (displayGame.platforms) {
-      displayGame.platforms.map(el => platformRenderList.push(<div className='icon-wrapper'><img title={el.name} alt={el.name} className='platform-icon' src={getLogo(el.name)} /></div>));
+      displayGame.platforms.map(el => platformRenderList.push(<div className='icon-wrapper'><img title={el.name} alt={el.name} className='platform-icon' src={getPlatformLogo(el.name)} /></div>));
     }
 
-    const screenshots = displayGame.screenshots ? displayGame.screenshots.map((item, idx) => <img className="screenshot" src={item.url.replace('thumb', 'screenshot_med')} key={idx} />) : '';
-    
     return <div onClick={this.closeModals} className="veil is-hidden" id="veil">
       {this.state.loading ? 
         <div className='loader-wrapper'><div className="loader" id="loader-1"></div></div>
       : <div className="modal" id="modal">
         <div className="modal-content">
-          {/* <a id="modalClose" onClick={this.closeModals} className="close"></a> */}
           <a id="modalClose" className="return" onClick={this.closeModals}><img src={leftArrow}/></a>
           <img class="screen-splash" src={bannerScreenshotUrl} />
           <div className="game-summary">
@@ -181,7 +105,7 @@ class GameViewModal extends React.Component {
               <div className="release-date grey-text">Release Date: <b>{displayGame.jsReleaseDate}</b></div>
               <p className="platforms">{platformRenderList}</p>
               <hr className="hr" />
-              <p className="grey-text">{/*<em>Genres: </em>*/}{genres}</p>
+              <p className="grey-text">{genres}</p>
               <p><em>Developer(s): </em>{developers}</p>
               <p><em>Publisher(s): </em>{publishers}</p>
               <hr className="hr" />
@@ -197,7 +121,6 @@ class GameViewModal extends React.Component {
             </div>
           </div>
           <div className="game-description">
-            {/* <div><b>Description:</b></div> */}
             <p>{displayGame.summary}</p>
             {officialSiteLink}
             <div className="socials">{websites}</div>
@@ -206,8 +129,7 @@ class GameViewModal extends React.Component {
             {screenshots}
           </div>
         </div>
-      </div>
-      }
+      </div>}
     </div>;
   }
 }

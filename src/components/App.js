@@ -4,7 +4,7 @@ import {
   Route,
 } from "react-router-dom";
 import '../styles/App.scss';
-import Calendar from './ListCalendar';
+import Calendar from './Calendar';
 import GameViewModal from './GameViewModal';
 import SidePanel from './SidePanel';
 import axios from 'axios';
