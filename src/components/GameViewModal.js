@@ -1,4 +1,5 @@
 import React from 'react';
+import ImageGallery from './ImageGallery';
 import leftArrow from '../images/left-arrow.svg';
 import { getPlatformLogo, getSocialIcon } from '../utils/ImageService';
 
@@ -77,7 +78,6 @@ class GameViewModal extends React.Component {
     let platformRenderList = [];
     const coverUrl = displayGame.cover ? `${displayGame.cover.url.replace('thumb', 'cover_big')}` : '';
     const bannerScreenshotUrl = displayGame.screenshots ? displayGame.screenshots[0].url.replace('thumb', 'screenshot_big_2x') : '';
-    const screenshots = displayGame.screenshots ? displayGame.screenshots.map((item, idx) => <img className="screenshot" src={item.url.replace('thumb', 'screenshot_med')} key={idx} />) : '';
     const genres = displayGame.genres ? displayGame.genres.map((item, idx) => <span key={idx}>{(idx ? ', ' : '') + item.name}</span>) : <span></span>;
     const developers = displayGame.involved_companies ? displayGame.involved_companies.filter(item => item.developer).map((item, idx) => <span>{(idx ? ', ' : '') + item.company.name}</span>) : <span></span>;
     const publishers = displayGame.involved_companies ? displayGame.involved_companies.filter(item => item.publisher).map((item, idx) => <span>{(idx ? ', ' : '') + item.company.name}</span>) : <span></span>;
@@ -125,9 +125,7 @@ class GameViewModal extends React.Component {
             {officialSiteLink}
             <div className="socials">{websites}</div>
           </div>
-          <div className="screenshot-gallery">
-            {screenshots}
-          </div>
+          <ImageGallery images={displayGame.screenshots} galleryId="screenshots" />
         </div>
       </div>}
     </div>;

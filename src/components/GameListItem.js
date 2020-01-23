@@ -4,7 +4,7 @@ import { getPlatformLogo } from '../utils/ImageService';
 function GameItem(props) {
   const platformRenderList = [];
   const gamelist = props.game.game;
-  const coverUrl = gamelist.cover ? gamelist.cover.url.replace('thumb', 'cover_big') : '';
+  const coverUrl = gamelist.cover ? `https:${gamelist.cover.url.replace('thumb', 'cover_big')}` : '';
 
   // Remove any duplicate platform names
   const reducedPlatforms = props.game.platform.reduce((uniqueList, current) => {
