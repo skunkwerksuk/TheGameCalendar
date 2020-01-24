@@ -1,5 +1,5 @@
 import React from 'react';
-import Month from './MonthTwo';
+import Month from './Month';
 import axios from 'axios';
 
 class Calendar extends React.Component {
@@ -28,11 +28,11 @@ class Calendar extends React.Component {
 
   componentDidMount() {
     var there = this;
-    // const url = 'http://localhost:3001/';
-    const url = 'http://game-calendar-web-service.us-east-2.elasticbeanstalk.com/'
     let fromDate = new Date(2019, this.state.currentMonth-1, 1, 0, 0, 0);
     let toDate = new Date(2019, this.state.currentMonth-1, this.daysInThisMonth(this.state.currentMonth), 23, 59, 59);
-    axios.get(`${url}release-dates?fromDate=${fromDate}&toDate=${toDate}`)
+    // axios.get(`http://localhost:3001/release-dates?fromDate=${fromDate}&toDate=${toDate}`)
+    // axios.get(`https://damp-waters-19516.herokuapp.com/release-dates?fromDate=${fromDate}&toDate=${toDate}`)
+    axios.get(`http://game-calendar-web-service.us-east-2.elasticbeanstalk.com/release-dates?fromDate=${fromDate}&toDate=${toDate}`)
     .then(function (response) {
       let games = response.data;
       let yearGames = [];
@@ -64,12 +64,12 @@ class Calendar extends React.Component {
     let thisMonth = this.state.currentMonth;
     let nextMonth = thisMonth + 1;
     let lastMonth = thisMonth - 1;
-    // const url = 'http://localhost:3001/';
-    const url = 'http://game-calendar-web-service.us-east-2.elasticbeanstalk.com/';
     if (this.state.yearGames[nextMonth-1].games.length == 0) {
       let fromDate = new Date(2019, nextMonth-1, 1, 0, 0, 0);
       let toDate = new Date(2019, nextMonth-1, this.daysInThisMonth(nextMonth), 23, 59, 59);
-      axios.get(`${url}release-dates?fromDate=${fromDate}&toDate=${toDate}`)
+      // axios.get(`http://localhost:3001/release-dates?fromDate=${fromDate}&toDate=${toDate}`)
+      // axios.get(`https://damp-waters-19516.herokuapp.com/release-dates?fromDate=${fromDate}&toDate=${toDate}`)
+      axios.get(`http://game-calendar-web-service.us-east-2.elasticbeanstalk.com/release-dates?fromDate=${fromDate}&toDate=${toDate}`)
       .then((response) => {
         this.setState(state => {
           let foo = state.yearGames;
@@ -85,7 +85,9 @@ class Calendar extends React.Component {
     if (this.state.yearGames[lastMonth-1].games.length == 0) {
       let fromDate = new Date(2019, lastMonth-1, 1, 0, 0, 0);
       let toDate = new Date(2019, lastMonth-1, this.daysInThisMonth(lastMonth), 23, 59, 59);
-      axios.get(`${url}release-dates?fromDate=${fromDate}&toDate=${toDate}`)
+      // axios.get(`http://localhost:3001/release-dates?fromDate=${fromDate}&toDate=${toDate}`)
+      // axios.get(`https://damp-waters-19516.herokuapp.com/release-dates?fromDate=${fromDate}&toDate=${toDate}`)
+      axios.get(`http://game-calendar-web-service.us-east-2.elasticbeanstalk.com/release-dates?fromDate=${fromDate}&toDate=${toDate}`)
       .then((response) => {
         this.setState(state => {
           let foo = state.yearGames;
@@ -113,6 +115,15 @@ class Calendar extends React.Component {
       }
     }
     return <div id="calendar" className="calendar">
+      <div className="weekDayHeader">
+        <div className="weekend">S</div>
+        <div>M</div>
+        <div>T</div>
+        <div>W</div>
+        <div>T</div>
+        <div>F</div>
+        <div className="weekend">S</div>
+      </div>
       {months}
     </div>;
   }

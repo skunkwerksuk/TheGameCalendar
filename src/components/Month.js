@@ -29,34 +29,22 @@ class Month extends React.Component {
   }
 
   componentDidMount() {
+    const currentDate = moment().format('DD MMMM YYYY');
+    if (document.getElementById(currentDate)) {
+      document.getElementById(currentDate).scrollIntoView();
+    }
   }
 
-  displayModal = (games, date) => {
-    const months = ["January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-      ];
-    const monthId = this.props.monthId-1;
-    this.props.displayDayModal(games, `${date} ${months[monthId]}`)
-  }
-
-  render(){
+  render() {
     const gameList = this.state.games;
-    const dateMap = []
+    const monthClasses = '';
+    const dateMap = [];
     const monthDays = [];
-    let todaysDate = new Date();
-    let firstDate = new Date(todaysDate.getFullYear(), this.props.monthId-1, 1);
-    let monthClasses = '';
-    let firstDay = firstDate.getDay();
-    let lastDate = new Date(todaysDate.getFullYear(), this.props.monthId, 0);
-    let lastDay = lastDate.getDay();
 
     for (let i = 1; i <= this.state.days; i++) {
-      let dayDate = (new Date(2019, this.props.monthId-1, i)).getDay();
-      let classPlus = (dayDate === 6 || dayDate === 0) ? ' weekend' : '';
-      classPlus = (todaysDate.getDate() === i && this.props.monthId === (todaysDate.getMonth() + 1)) ? classPlus + ' today' : classPlus;
-      dateMap.push({ date: i, games: [], className: classPlus, dayDate: dayDate})
+      dateMap.push({ date: i, games: []})
     }
-    
+
     if (gameList.length > 0) {
       for (let i = 0; i < gameList.length; i++) {
         let releaseDate = new Date(gameList[i].date*1000);
@@ -65,30 +53,11 @@ class Month extends React.Component {
       }
     }
 
-    for(let i = 0; i < firstDay; i++) {
-      let dayDate = (new Date(2019, this.props.monthId-1, 0 - i)).getDay();
-      let x = (dayDate === 6 || dayDate === 0) ? 'blank weekend' : 'blank';
-      dateMap.unshift({ date: ' ', className: x, games: [] });
-    }
-
-    if (dateMap.length > 35) {
-      monthClasses = 'shortened';
-    }
-    
-    let j = 1;
-    for(let i = lastDay; i < 7; i++) {
-      let foo = new Date(2019, this.props.monthId-1, lastDate.getDate() + j++);
-      let dayDate = (foo).getDay();
-      let x = (dayDate === 6 || dayDate === 0) ? 'blank weekend' : 'blank';
-      dateMap.push({ date: ' ' , className: x, games: [] });
-    }
-
     dateMap.forEach((element, index) => {
-      monthDays.push(<Day displayModal={this.displayModal} key={index} foo={element} className={element.className} />);
+      monthDays.push(<Day displayModal={this.props.displayDayModal} key={index} games={element.games} className={element.className} dayId={element.date} monthId={this.props.monthId}/>);
     });
-    
 
-    return <div className={`month ${monthClasses} ${this.props.className}`}>
+    return <div id="monthView" className={`${monthClasses}${this.props.className}`}>
       {monthDays}
     </div>;
   }

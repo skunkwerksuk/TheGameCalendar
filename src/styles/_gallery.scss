@@ -1,0 +1,86 @@
+.gallery-thumbnails {
+  padding: 10px;
+
+  .image {
+    margin: 10px;
+    width: 110px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.19), 0 5px 6px rgba(0, 0, 0, 0.23);
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.49), 0 6px 6px rgba(0, 0, 0, 0.23);
+    }
+
+    &:active {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    }
+  }
+}
+
+.gallery {
+  position: fixed;
+  background-color: rgba( 1, 1, 1, .8);
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+
+  &.show {
+    display: flex;
+  }
+
+  .gallery-nav {
+    position: absolute;
+    top: 50%;
+    background-color: rgba( 200, 200, 200, .5);
+    border: 0;
+    font-size: 40px;
+    transform: translateY(-50%);
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba( 200, 200, 200, .8);
+    }
+
+    &.next {
+      right: 10px;
+    }
+  
+    &.prev {
+      left: 10px;
+    }
+
+    &.close {
+      top: 10px;
+      right: 10px;
+      font-size: 30px;
+      cursor: pointer;
+      transform: none;
+    }
+  }
+
+  .image {
+    flex-shrink: 0;
+    object-fit: contain;
+    display: none;
+    // pointer-events: none;
+    max-width: 100%;
+
+    &.show {
+      display: block;
+    }
+  }
+
+  @include for-tablet-landscape-up {
+    .gallery-nav {
+      font-size: 60px;
+    }
+  }
+}

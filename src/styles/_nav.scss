@@ -1,27 +1,28 @@
 
-// @mixin for-phone-only {
-// @mixin for-tablet-portrait-up {
-// @mixin for-tablet-landscape-up {
-// @mixin for-desktop-up {
-// @mixin for-big-desktop-up {
-
-
-
 .page-title {
   font-family: 'GoodTimes', sans-serif;
   text-align: left;
   margin: 0px;
-  font-size: 1em !important;
+  font-size: 2em !important;
   display: inline-block;
   padding: 0 5px;
+  cursor: pointer;
+
+  br {
+    display: none;
+  }
+
   @include for-tablet-portrait-up {
-    font-size: 3.5em !important;
+    font-size: 2.5em !important;
     line-height: 1;
     text-align: center;
     padding-bottom: 10px;
   }
   @include for-tablet-landscape-up {
-    // display: none;
+    font-size: 3.5em !important;
+    br {
+      display: initial;
+    }
   }
 }
 
@@ -45,7 +46,7 @@
   // background-color: #363535;
   background-color: #0e1c22;
   color: white;
-  border-right: 1px solid gray;
+  // border-right: 1px solid gray;
   z-index: 3;
   padding: 10px;
   display: flex;
@@ -72,18 +73,23 @@
     color: gray;
     font-size: 12px;
     text-align: center;
+    display: none;
 
     a {
       color: gray;
+    }
+    @include for-tablet-landscape-up {
+      display: block;
     }
   }
   
   @include for-tablet-landscape-up {
     flex-direction: column;
-    position: relative;
+    position: fixed;
     width: 20vw;
     height: 100%;
     justify-content: start;
+    max-width: 300px;
 
     .hr {
       display: block;
@@ -110,7 +116,7 @@ nav {
   
   .month-name {
     display: none;
-    width: 49%;
+    // width: 49%;
     text-align: center;
   }
 
@@ -125,6 +131,8 @@ nav {
     padding: 15px;
     background-color: #445d68;
     cursor: pointer;
+    text-decoration: none;
+    color: white;
 
     &.disabled {
       background-color: #1f3640;
@@ -166,3 +174,19 @@ nav {
   @include for-desktop-up {
   }
 }
+
+.search {
+  width: 100%;
+  display: none;
+
+  .search-label {
+    font-size: 14px;
+    font-style: italic;
+  }
+  
+  @include for-tablet-landscape-up {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
