@@ -3,7 +3,7 @@ import {
   Switch,
   Route,
   Redirect
-} from "react-router-dom";
+} from 'react-router-dom';
 import Month from './Month';
 import axios from 'axios';
 
@@ -49,39 +49,39 @@ class Calendar extends React.Component {
     let fromDate = new Date(this.state.currentYear, this.state.currentMonth-1, 1, 0, 0, 0);
     let toDate = new Date(this.state.currentYear, this.state.currentMonth-1, this.daysInThisMonth(this.state.currentMonth), 23, 59, 59);
     axios.get(`${url}release-dates?fromDate=${fromDate}&toDate=${toDate}`)
-    .then(function (response) {
-      const games = response.data;
-      const yearGames = [];
+      .then(function (response) {
+        const games = response.data;
+        const yearGames = [];
 
-      for (let i = 1; i <= 12; i++) {
-        const originalGames = games.filter((currentGame) => currentGame.m == i);
-        const currentGames = originalGames.filter((currentGame) => {
-          if (there.props.filterProps.platforms.length > 0) {
-            let arrayCount = currentGame.platform.filter((platformEl) => {
-              return there.props.filterProps.platforms.includes(platformEl.name);
-            }).length;
-            return arrayCount > 0;
-          }
-          return true;
-        });
+        for (let i = 1; i <= 12; i++) {
+          const originalGames = games.filter((currentGame) => currentGame.m == i);
+          const currentGames = originalGames.filter((currentGame) => {
+            if (there.props.filterProps.platforms.length > 0) {
+              let arrayCount = currentGame.platform.filter((platformEl) => {
+                return there.props.filterProps.platforms.includes(platformEl.name);
+              }).length;
+              return arrayCount > 0;
+            }
+            return true;
+          });
 
-        yearGames.push({
-          month: i,
-          games: currentGames,
-          originalGames: originalGames
-        });
-      }
+          yearGames.push({
+            month: i,
+            games: currentGames,
+            originalGames: originalGames
+          });
+        }
       
-      there.setState({
-        yearGames
+        there.setState({
+          yearGames
+        });
+      })
+      .then(() => {
+        this.padMonths();
+      })
+      .catch(function (error) {
+        console.error(error);
       });
-    })
-    .then(() => {
-      this.padMonths();
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
   }
 
   padMonths() {
@@ -136,7 +136,7 @@ class Calendar extends React.Component {
 
         return {
           yearGames: stateGames
-        }
+        };
       });
     });
 
@@ -161,13 +161,13 @@ class Calendar extends React.Component {
           } else {
             return arrayCount > 0;
           }
-        })
-        allGames = allGames.concat(bar)
+        });
+        allGames = allGames.concat(bar);
       }
       this.setState({
         searching: true,
         results: allGames
-      })
+      });
     // FILTER: PLATFORM ONLY
     } else if (there.props.filterProps.platforms.length > 0) {
       for (let i = 0; i < stateGames.length; i++) {
@@ -176,7 +176,7 @@ class Calendar extends React.Component {
             return there.props.filterProps.platforms.includes(platformEl.name);
           }).length;
           return arrayCount > 0;
-        })
+        });
       }
       this.setState({
         yearGames: stateGames
@@ -190,31 +190,31 @@ class Calendar extends React.Component {
           let name = currentGame.game.name.toLowerCase();
           let searchText = there.props.filterProps.nameText.toLowerCase();
           return name.indexOf(searchText) > -1;
-        })  
-        allGames = allGames.concat(bar)
+        });
+        allGames = allGames.concat(bar);
       }
 
       this.setState({
         searching: true,
         results: allGames
-      })
+      });
     // FILTER: NONE (Return to default)
     } else {
       for (let i = 0; i < stateGames.length; i++) {
         stateGames[i].games = stateGames[i].originalGames;
       }
       this.setState({
-          yearGames: stateGames,
-          searching: false,
-          results: []
+        yearGames: stateGames,
+        searching: false,
+        results: []
       });
     }
   }
 
   render() {
     let months = [];
-    const monthNames = ["January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
     ];
     if (this.state.searching) {
       months.push(

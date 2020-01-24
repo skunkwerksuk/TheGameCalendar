@@ -20,7 +20,7 @@ class Month extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       games: nextProps.games
-    })
+    });
   }
 
   daysInThisMonth() {

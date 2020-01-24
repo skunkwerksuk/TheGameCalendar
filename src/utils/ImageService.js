@@ -20,53 +20,53 @@ import gogLogo from '../images/gog.svg';
 
 export function getPlatformLogo(name) {
   switch (name) {
-    case 'Xbox One':
-      return xbox;
-    case 'PlayStation 4':
-      return ps;
-    case 'Nintendo Switch':
-      return nSwitch;
-    case 'PC (Microsoft Windows)':
-      return pc;
-    case 'Mac':
-      return mac;
-    case 'iOS':
-      return ios;
-    case 'Linux':
-      return linux;
-    case 'Google Stadia':
-      return stadia;
-    default:
-      return '';
+  case 'Xbox One':
+    return xbox;
+  case 'PlayStation 4':
+    return ps;
+  case 'Nintendo Switch':
+    return nSwitch;
+  case 'PC (Microsoft Windows)':
+    return pc;
+  case 'Mac':
+    return mac;
+  case 'iOS':
+    return ios;
+  case 'Linux':
+    return linux;
+  case 'Google Stadia':
+    return stadia;
+  default:
+    return '';
   }
 }
 
 
 export function getSocialIcon(id) {
   switch (id) {
-    case 2:
-      return wikiaLogo;
-    case 3:
-      return wikipediaLogo;
-    case 4:
-      return facebookLogo;
-    case 5:
-      return twitterLogo;
-    case 6:
-      return twitchLogo;
-    case 8:
-      return instagramLogo;
-    case 9:
-      return youtubeLogo;
-    case 13:
-      return steamLogo;
-    case 14:
-      return redditLogo;
-    case 16:
-      return epicLogo;
-    case 17:
-      return gogLogo;
-    default:
-      return '';
+  case 2:
+    return wikiaLogo;
+  case 3:
+    return wikipediaLogo;
+  case 4:
+    return facebookLogo;
+  case 5:
+    return twitterLogo;
+  case 6:
+    return twitchLogo;
+  case 8:
+    return instagramLogo;
+  case 9:
+    return youtubeLogo;
+  case 13:
+    return steamLogo;
+  case 14:
+    return redditLogo;
+  case 16:
+    return epicLogo;
+  case 17:
+    return gogLogo;
+  default:
+    return '';
   }
 }
