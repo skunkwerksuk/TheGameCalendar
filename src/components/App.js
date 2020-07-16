@@ -39,10 +39,10 @@ class App extends React.Component {
       currentMonth: (new Date().getMonth()+1),
       currentYear: (new Date().getFullYear()),
       yearBoundary: 0,
-      months: ["January", "February", "March", "April", "May", "June",
+      months: [ "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
       ],
-      shortMonths: ["Jan", "Feb", "March", "April", "May", "June",
+      shortMonths: [ "Jan", "Feb", "March", "April", "May", "June",
         "July", "Aug", "Sept", "Oct", "Nov", "Dec"
       ] ,
       filterProps: {
@@ -100,7 +100,7 @@ class App extends React.Component {
     const input = ev.target;
     // Only execute search for 3 or more characters
     if (input && input.value.length > 2) {
-      // If not running locally, submit a ping for this search term
+      // submit a ping for this search term
       submitSearchAnalytic(host, ReactGA, input.value);
 
       this.setState(oldState => {
@@ -118,7 +118,7 @@ class App extends React.Component {
   setFilters = (ev) => {
     const input = ev.target;
     if (ev.target.checked) {
-      // If not running locally, submit a ping for this filter
+      // submit a ping for this filter
       submitFilterAnalytic(host, ReactGA, input.value);
 
       this.setState(state => {
@@ -167,7 +167,7 @@ class App extends React.Component {
     // Get the selected game's details
     axios.get(`${apiUrl}game?id=${game.id}`)
     .then(function (response) {
-      // If not running locally, submit a ping for this game
+      // submit a ping for this game
       submitModalAnalytic(host, ReactGA, game.name)
 
       let gameResponse = response.data;
@@ -175,7 +175,7 @@ class App extends React.Component {
       if (gameResponse.name === undefined) {
         gameResponse[0].name = game.name;
       }
-      // Attach the release date and platforms to the new api response
+      // Attach the relevant release date and platforms to the new api response
       gameResponse[0].jsReleaseDate = date;
       gameResponse[0].platforms = platforms;
       that.setState({

@@ -48,7 +48,7 @@ class ImageGallery extends React.Component {
       : '';
 
     const gallery = this.state.images
-    ? this.state.images.map((item, idx) => <img onClick={() => this.closeGallery()} className="image" src={`https:${item.url.replace('thumb', '720p')}`} key={idx} />)
+    ? this.state.images.map((item, idx) => <img onClick={() => this.closeGallery()} className="image" src={`https:${item.url.replace('thumb', '1080p')}`} key={idx} />)
     : '';
 
     return <>
