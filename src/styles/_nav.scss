@@ -46,7 +46,6 @@
   // background-color: #363535;
   background-color: #0e1c22;
   color: white;
-  // border-right: 1px solid gray;
   z-index: 3;
   padding: 10px;
   display: flex;
@@ -99,6 +98,8 @@
 
     .filters {
       display: block;
+      text-align: center;
+      
     }
   }
 }
@@ -174,6 +175,8 @@ nav {
   }
   
   @include for-desktop-up {
+    margin-bottom: 30px;
+
     .month-name {
       display: block;
       width: 100%;
