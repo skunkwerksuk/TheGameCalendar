@@ -35,6 +35,7 @@ export function getPlatformLogo(name) {
   case 'Linux':
     return linux;
   case 'Google Stadia':
+  case 'Stadia':
     return stadia;
   default:
     return '';
