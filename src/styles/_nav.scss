@@ -65,6 +65,8 @@
   .filters {
     display: none;
     width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
   }
 
   .signature {
@@ -113,6 +115,7 @@ nav {
   width: 70%;
   display: flex;
   justify-content: space-between;
+  line-height: 1em;
   
   .month-name {
     display: none;
@@ -128,11 +131,21 @@ nav {
 
   .month-nav {
     border: 0;
-    padding: 15px;
-    background-color: #445d68;
+    padding: 16px;
     cursor: pointer;
     text-decoration: none;
     color: white;
+    border-radius: 50%;
+    font-weight: bold;
+
+    &:hover {
+      background-image: radial-gradient(
+        circle closest-side,
+        #445d68,
+        #0e1c22
+      );
+      background-color: #445d68;
+    }
 
     &.disabled {
       background-color: #1f3640;
@@ -178,6 +191,8 @@ nav {
 .search {
   width: 100%;
   display: none;
+  padding: 0 10px;
+  box-sizing: border-box;
 
   .search-label {
     font-size: 14px;

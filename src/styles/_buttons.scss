@@ -3,9 +3,10 @@
   
     &.primary {
       background-color: #445d68;
-      border: 1px solid #6c8591;
-      padding: 4px 10px;
+      border: 0;
+      padding: 4px 20px;
       font-size: 15px;
       color: white;
+      border-radius: 15px;
     }
   }

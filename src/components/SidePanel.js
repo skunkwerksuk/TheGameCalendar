@@ -17,12 +17,11 @@ class SidePanel extends React.Component {
     ];
     const nextMonthId = this.props.monthId === 12 ? 0 : this.props.monthId;
     const prevMonthId = this.props.monthId === 1 ? 11 : this.props.monthId - 2;
+
     return <div className="side-panel" id="sidePanel">
       <h1 className="page-title" onClick={refresh}>GAME<br/>CAL</h1>
-      <hr className="hr" />
-      <h2 className="sub-title">Upcoming Video Game Releases</h2>
-      <hr className="hr" />
-      <nav>
+      <h2 className="sub-title m-b-40">Upcoming Video Game Releases</h2>
+      <nav className="m-b-30">
         {this.props.yearBoundary === -4 ? <button className="month-nav disabled" disabled>&#60;&#60;</button> : <Link className="month-nav" to={monthNames[prevMonthId]} onClick={this.props.prevMonth}>&#60;&#60;</Link>}
         <div>
           <h3 className="month-name">{this.props.month}</h3>
@@ -31,12 +30,12 @@ class SidePanel extends React.Component {
         </div>
         {this.props.yearBoundary === 4 ? <button className="month-nav disabled" disabled>&#62;&#62;</button> : <Link className="month-nav" to={monthNames[nextMonthId]} onClick={this.props.nextMonth}>&#62;&#62;</Link>}
       </nav>
-      <hr className="hr" />
-      <div className="search">
-        <label htmlFor="searchBox" className="search-label">Look for games in the next few months:</label>
+
+      <div className="search m-b-30">
+        <label htmlFor="searchBox" className="search-label">Search for upcoming games</label>
         <input id="searchBox" className="input" onChange={this.props.search} placeholder="Search" />
       </div>
-      <hr className="hr" />
+      
       <div className="filters">
         <label>Platforms:</label>
         <div className="checkbox-wrapper">
