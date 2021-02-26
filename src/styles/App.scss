@@ -89,15 +89,15 @@ body {
   display: flex;
   flex-direction: row;
   .icon-wrapper {
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     overflow: hidden;
     display: inline-block;
     margin-right: 2px;
     
     .platform-icon {
-      width: 20px;
-      height: 20px;
+      width: 25px;
+      height: 25px;
     }
   }
 }

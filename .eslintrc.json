@@ -22,8 +22,12 @@
     "plugins": [
         "react"
     ],
-    "ignorePatterns": ["node_modules/","src/components/deprecated/"],
+    "ignorePatterns": [
+        "node_modules/",
+        "src/components/deprecated/"
+    ],
     "rules": {
+        "react/prop-types": 0,
         "indent": [
             "error",
             2

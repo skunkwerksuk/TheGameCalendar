@@ -32,7 +32,7 @@ class Calendar extends React.Component {
     let toDate = new Date(2019, this.state.currentMonth-1, this.daysInThisMonth(this.state.currentMonth), 23, 59, 59);
     // axios.get(`http://localhost:3001/release-dates?fromDate=${fromDate}&toDate=${toDate}`)
     // axios.get(`https://damp-waters-19516.herokuapp.com/release-dates?fromDate=${fromDate}&toDate=${toDate}`)
-    axios.get(`http://game-calendar-web-service.us-east-2.elasticbeanstalk.com/release-dates?fromDate=${fromDate}&toDate=${toDate}`)
+    axios.get(`https://6ogt74v5b6.execute-api.us-east-2.amazonaws.com/dev/release-dates?fromDate=${fromDate}&toDate=${toDate}`)
     .then(function (response) {
       let games = response.data;
       let yearGames = [];
@@ -87,7 +87,7 @@ class Calendar extends React.Component {
       let toDate = new Date(2019, lastMonth-1, this.daysInThisMonth(lastMonth), 23, 59, 59);
       // axios.get(`http://localhost:3001/release-dates?fromDate=${fromDate}&toDate=${toDate}`)
       // axios.get(`https://damp-waters-19516.herokuapp.com/release-dates?fromDate=${fromDate}&toDate=${toDate}`)
-      axios.get(`http://game-calendar-web-service.us-east-2.elasticbeanstalk.com/release-dates?fromDate=${fromDate}&toDate=${toDate}`)
+      axios.get(`https://6ogt74v5b6.execute-api.us-east-2.amazonaws.com/dev/release-dates?fromDate=${fromDate}&toDate=${toDate}`)
       .then((response) => {
         this.setState(state => {
           let foo = state.yearGames;

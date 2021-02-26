@@ -8,7 +8,9 @@ import Calendar from './Calendar';
 import GameViewModal from './GameViewModal';
 import SidePanel from './SidePanel';
 import axios from 'axios';
-import { createBrowserHistory } from 'history';
+import {
+  createBrowserHistory
+} from 'history';
 import ReactGA from 'react-ga';
 import { 
   submitFilterAnalytic,
@@ -19,7 +21,9 @@ import {
 
 const history = createBrowserHistory();
 const host = window.location.hostname;
-const apiUrl = 'http://game-calendar-web-service.us-east-2.elasticbeanstalk.com/';
+// const apiUrl = 'http://game-calendar-web-service.us-east-2.elasticbeanstalk.com/';
+// const apiUrl = 'http://localhost:3001/';
+const apiUrl = 'https://6ogt74v5b6.execute-api.us-east-2.amazonaws.com/dev/';
 
 if (host != "localhost") {
   const trackingId = "UA-142536846-1";
@@ -58,7 +62,7 @@ class App extends React.Component {
     // If we are within the 4 month navigation limit
     if (this.state.yearBoundary < 4) {
       this.state.yearBoundary++;
-      // If the current month is Dec then cycle the year and reset to Jan
+      // If the current month is Dec then cycle the year and reset to January
       if (this.state.currentMonth === 12) {
         this.setState({
           currentMonth: 1,
@@ -70,7 +74,7 @@ class App extends React.Component {
           currentMonth: this.state.currentMonth + 1
         })
       }
-      // Return to the top of the page
+      // Scroll to the top of the page
       document.getElementById('monthView').scrollIntoView();
     }
   }
@@ -79,19 +83,19 @@ class App extends React.Component {
     // If we are within the 4 month navigation limit
     if (this.state.yearBoundary > -4) {
       this.state.yearBoundary--;
-      // If the current month is Jan then cycle the year back and reset to Dec
+      // If the current month is Jan then cycle the year back and reset to December
       if (this.state.currentMonth === 1) {
         this.setState({
           currentMonth: 12,
           currentYear: this.state.currentYear - 1
-        })
+        });
       } else {
         // Else navigate to previous month
         this.setState({
           currentMonth: this.state.currentMonth - 1
-        })
+        });
       }
-      // Return to the top of the page
+      // Scroll to the top of the page
       document.getElementById('monthView').scrollIntoView();
     }
   }
@@ -100,7 +104,7 @@ class App extends React.Component {
     const input = ev.target;
     // Only execute search for 3 or more characters
     if (input && input.value.length > 2) {
-      // submit a ping for this search term
+      // Submit a GA ping for this search term
       submitSearchAnalytic(host, ReactGA, input.value);
 
       this.setState(oldState => {
@@ -118,7 +122,7 @@ class App extends React.Component {
   setFilters = (ev) => {
     const input = ev.target;
     if (ev.target.checked) {
-      // submit a ping for this filter
+      // Submit a GA ping for this filter
       submitFilterAnalytic(host, ReactGA, input.value);
 
       this.setState(state => {
@@ -160,30 +164,28 @@ class App extends React.Component {
   }
 
   displayDayModal = (game, date, platforms) => {
-    const that = this;
-    this.setState({
-      loading: true
-    });
+    this.setState({ loading: true });
+
     // Get the selected game's details
     axios.get(`${apiUrl}game?id=${game.id}`)
-    .then(function (response) {
-      // submit a ping for this game
-      submitModalAnalytic(host, ReactGA, game.name)
+    .then(response => {
+      const gameResponse = response.data;
 
-      let gameResponse = response.data;
+      // Submit a GA ping for this game
+      submitModalAnalytic(host, ReactGA, game.name);
+
       // If no name has been provided, use the previously displayed name
-      if (gameResponse.name === undefined) {
-        gameResponse[0].name = game.name;
-      }
       // Attach the relevant release date and platforms to the new api response
+      gameResponse[0].name = gameResponse.name === undefined ? game.name : gameResponse[0].name;
       gameResponse[0].jsReleaseDate = date;
       gameResponse[0].platforms = platforms;
-      that.setState({
+
+      this.setState({
         modalGame: gameResponse[0],
         loading: false
       });
     })
-    .catch(function (err) {
+    .catch(err => {
       console.log(err)
     });
 
