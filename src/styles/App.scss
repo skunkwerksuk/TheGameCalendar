@@ -45,7 +45,7 @@ body {
   background-color: white;
   width: 100%;
   -webkit-overflow-scrolling: touch;
-  color: #313135;
+  color: #000;
 
   @include for-tablet-landscape-up {
     margin-top: 0;
@@ -126,6 +126,7 @@ body {
   .date {
     margin: 5px;
     font-size: 20px;
+    color: $app-primary;
   }
 
   &.today {
@@ -137,7 +138,7 @@ body {
 
 .hr {
   border: 0;
-  border-top: 1px solid lightgray;
+  border-top: 1px solid $app-primary;
   width: 100%;
 }
 

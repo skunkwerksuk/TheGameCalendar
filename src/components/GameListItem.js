@@ -40,7 +40,7 @@ function GameListItem(props) {
         {gamelist.status ? <div className='game-status'>{status[gamelist.status]}</div> : ''}
       </div>
       <div className='game-details'>
-        <div className='game-title'>{gamelist.name}</div>
+        <div className='game-title'>{gamelist.name} - ({gamelist.follows},{gamelist.hypes})</div>
         <div className='popularity'>{props.game.id}</div>
         <div className='popularity'>{gamelist.id}</div>
         <div className='platforms'>{platformRenderList}</div>

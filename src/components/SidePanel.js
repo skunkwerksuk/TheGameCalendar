@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import rArrow from '../images/rArrow.svg';
+import lArrow from '../images/lArrow.svg';
 
 function refresh() {
   window.location.reload();
@@ -20,19 +22,27 @@ class SidePanel extends React.Component {
 
     return <div className="side-panel" id="sidePanel">
       <h1 className="page-title" onClick={refresh}>GAME<br/>CAL</h1>
-      <h2 className="sub-title m-b-40">Upcoming Video Game Releases</h2>
+      <h2 className="sub-title m-b-40">Video Game Releases</h2>
       <nav className="">
-        {this.props.yearBoundary === -4 ? <button className="month-nav disabled" disabled>&#60;&#60;</button> : <Link className="month-nav" to={monthNames[prevMonthId]} onClick={this.props.prevMonth}>&#60;&#60;</Link>}
+        {
+          this.props.yearBoundary === -4 ?
+            <button className="month-nav disabled" disabled><img src={lArrow} /></button> :
+            <Link className="month-nav" to={monthNames[prevMonthId]} onClick={this.props.prevMonth}><img src={lArrow} /></Link>
+        }
         <div>
           <h3 className="month-name">{this.props.month}</h3>
           <h3 className="month-name-short">{this.props.shortMonth}</h3>
           <h4 className="month-name">{this.props.currentYear}</h4>
         </div>
-        {this.props.yearBoundary === 4 ? <button className="month-nav disabled" disabled>&#62;&#62;</button> : <Link className="month-nav" to={monthNames[nextMonthId]} onClick={this.props.nextMonth}>&#62;&#62;</Link>}
+        {
+          this.props.yearBoundary === 4 ?
+            <button className="month-nav disabled" disabled><img src={rArrow} /></button> :
+            <Link className="month-nav" to={monthNames[nextMonthId]} onClick={this.props.nextMonth}><img src={rArrow} /></Link>
+        }
       </nav>
 
       <div className="search m-b-30">
-        <label htmlFor="searchBox" className="search-label">Search for upcoming games</label>
+        <label htmlFor="searchBox" className="search-label u-display-none">Search for upcoming games</label>
         <input id="searchBox" className="input" onChange={this.props.search} placeholder="Search" />
       </div>
       
@@ -66,7 +76,7 @@ class SidePanel extends React.Component {
         <p>Developed by: <a href="https://github.com/skunkwerksuk">@skunkwerksuk</a></p>
         <p>Powered by: <a href="https://www.igdb.com/api">IGDB API</a></p>
       </div>
-    </div>
+    </div>;
   }
 }
 

@@ -16,8 +16,8 @@ function Day(props) {
   let dateText = '';
 
   gamelist.sort((a, b) => {
-    if ( a.game.popularity > b.game.popularity ){ return -1; }
-    if ( a.game.popularity < b.game.popularity ){ return 1; }
+    if ( a.game.hypes > b.game.hypes ){ return -1; }
+    if ( a.game.hypes < b.game.hypes ){ return 1; }
     return 0;
   });
   
