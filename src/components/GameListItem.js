@@ -1,7 +1,17 @@
 import React from 'react';
 import { getPlatformLogo } from '../utils/ImageService';
 
-function GameItem(props) {
+const status = {
+  0: 'Released',
+  2: 'Alpha',
+  3: 'Beta',
+  4: 'Early Access',
+  5: 'Offline',
+  6: 'Cancelled',
+  7: 'Rumored' 	
+};
+
+function GameListItem(props) {
   const platformRenderList = [];
   const gamelist = props.game.game;
   const coverUrl = gamelist.cover ? `https:${gamelist.cover.url.replace('thumb', 'cover_big')}` : '';
@@ -25,7 +35,10 @@ function GameItem(props) {
 
   return (
     <div id={props.game.id} onClick={() => props.displayModal(gamelist, props.date, sortedPlatformList)} style={props.style} className={'game-item ' + props.className}>
-      <div className='game-cover'>{gamelist.cover && props.isbig ? <img src={coverUrl} alt={`${gamelist.name} cover art`} /> : ''}</div>
+      <div className='game-cover'>
+        {gamelist.cover ? <img src={coverUrl} alt={`${gamelist.name} cover art`} /> : ''}
+        {gamelist.status ? <div className='game-status'>{status[gamelist.status]}</div> : ''}
+      </div>
       <div className='game-details'>
         <div className='game-title'>{gamelist.name}</div>
         <div className='popularity'>{props.game.id}</div>
@@ -36,4 +49,4 @@ function GameItem(props) {
   );
 }
 
-export default GameItem;
+export default GameListItem;

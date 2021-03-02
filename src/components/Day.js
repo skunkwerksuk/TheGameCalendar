@@ -6,7 +6,7 @@ function Day(props) {
   let gamelist = props.games;
 
   if (gamelist.length === 0) {
-    let currentDate = moment(props.monthId, "MM")
+    let currentDate = moment(props.monthId, 'MM');
     currentDate.date(props.dayId);
     return (<div id={currentDate.format('DD MMMM YYYY')}></div>);
   }
@@ -29,7 +29,6 @@ function Day(props) {
         key={idx}
         game={element}
         className='is-big'
-        isbig={true}
       />
     );
   });

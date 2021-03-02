@@ -41,6 +41,16 @@
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
       background-color: #171717;
+      position: relative;
+
+      .game-status {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background-color: #ff8237ed;
+        color: black;
+        padding: 2px 8px;
+      }
 
       img {
         width: 100%;
