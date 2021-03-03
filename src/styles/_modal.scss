@@ -131,13 +131,18 @@
         // max-height: 250px;
       }
     }
-
   }
+
   @include for-tablet-landscape-up {
     top: 0;
     left: 20vw;
     width: 80vw;
     height: 100vh;
+  }
+
+  @include for-big-desktop-up {
+    left: 15vw;
+    width: 85vw;
   }
 }
 
