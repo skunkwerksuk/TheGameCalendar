@@ -3,20 +3,17 @@
   
     &.primary {
       // background-color: #445d68;
-      background-color: #0e1c22;
+      background-color: white;
+      color: $app-primary;
       border: 0;
       padding: 4px 20px;
       font-size: 15px;
-      color: white;
+      // color: white;
       border-radius: 15px;
 
       &:hover {
-        background-image: radial-gradient(
-          circle farthest-corner,
-          #445d68,
-          #0e1c22
-        );
-        background-color: #445d68;
+        background-color: #B4ACCC;
+        // color: white;
       }
     }
   }

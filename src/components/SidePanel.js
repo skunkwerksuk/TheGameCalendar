@@ -7,6 +7,37 @@ function refresh() {
   window.location.reload();
 }
 
+const filters = [
+  {
+    name: 'Xbox One',
+    value: 'xboxOne'
+  },
+  {
+    name: 'Xbox Series',
+    value: 'xboxSeries'
+  },
+  {
+    name: 'PlayStation 4',
+    value: 'ps4'
+  },
+  {
+    name: 'PlayStation 5',
+    value: 'ps5'
+  },
+  {
+    name: 'Nintendo Switch',
+    value: 'nintendoSwitch'
+  },
+  {
+    name: 'PC',
+    value: 'pc'
+  },
+  {
+    name: 'Stadia',
+    value: 'stadia'
+  },
+];
+
 class SidePanel extends React.Component {
   constructor(props) {
     super(props);
@@ -19,6 +50,8 @@ class SidePanel extends React.Component {
     ];
     const nextMonthId = this.props.monthId === 12 ? 0 : this.props.monthId;
     const prevMonthId = this.props.monthId === 1 ? 11 : this.props.monthId - 2;
+
+
 
     return <div className="side-panel" id="sidePanel">
       <h1 className="page-title" onClick={refresh}>GAME<br/>CAL</h1>
@@ -48,7 +81,15 @@ class SidePanel extends React.Component {
       
       <div className="filters">
         <label>Filter</label>
-        <div className="icons m-b-5">
+        <div>
+          {filters.map((filterItem, index) => (
+            <span className="checkable" key={index}>
+              <input onChange={this.props.setFilters} type="checkbox" name={filterItem.value} value={filterItem.name} id={filterItem.value} className="filter-checkbox" />
+              <label htmlFor={filterItem.value} id="xboxOneCheckbox">{filterItem.name}</label>
+            </span>
+          ))}
+        </div>
+        {/* <div className="icons m-b-5">
           <div className="checkbox-wrapper">
             <input onChange={this.props.setFilters} type="checkbox" name="xboxOne" value="Xbox One" id="xboxOne" className="filter-checkbox" />
             <label htmlFor="xboxOne" id="xboxOneCheckbox"></label>
@@ -69,8 +110,8 @@ class SidePanel extends React.Component {
             <input onChange={this.props.setFilters} type="checkbox" name="stadia" value="Google Stadia" id="stadia" className="filter-checkbox" />
             <label htmlFor="stadia" id="stadiaCheckbox"></label>
           </div>
-        </div>
-        <button className="button primary" onClick={this.props.clearFilters}>Clear Filters</button>
+        </div> */}
+        <button className="button primary m-t-10" onClick={this.props.clearFilters}>Clear</button>
       </div>
       <div className="signature">
         <p>Developed by: <a href="https://github.com/skunkwerksuk">@skunkwerksuk</a></p>

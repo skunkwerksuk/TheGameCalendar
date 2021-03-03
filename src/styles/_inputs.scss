@@ -13,6 +13,33 @@
       justify-content: center;
     }
 
+    .checkable {
+
+      input {
+        display: none;
+
+        &:checked + label {
+          color: white;
+          background-color: $app-primary-highlighted;
+        }
+      }
+
+      label {
+        padding: 5px;
+        background-color: white;
+        display: inline-block;
+        color: $app-primary;
+        cursor: pointer;
+        margin: 2px;
+        border-radius: 5px;
+
+        &:hover {
+          // font-weight: bold;
+          background-color: #B4ACCC;
+        }
+      }
+    }
+
     .checkbox-wrapper {
       position: relative;
   
@@ -27,6 +54,7 @@
         line-height: 1.8;
         margin: 3px 5px;
         width: 35px;
+
       }
   
       input[type=checkbox]:checked + label {

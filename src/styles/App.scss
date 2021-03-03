@@ -21,8 +21,7 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 body {
@@ -52,6 +51,11 @@ body {
     width: 80vw;
     margin-left: 20vw;
     overflow: auto;
+  }
+
+  @include for-big-desktop-up {
+    width: 85vw;
+    margin-left: 15vw;
   }
 }
 
