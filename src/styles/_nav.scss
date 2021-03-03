@@ -34,9 +34,6 @@
   display: none;
   text-align: center;
 
-  // @include for-tablet-portrait-up {
-  //   display: none;
-  // }
   @include for-tablet-landscape-up {
     display: block;
   }

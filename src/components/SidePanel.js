@@ -85,32 +85,10 @@ class SidePanel extends React.Component {
           {filters.map((filterItem, index) => (
             <span className="checkable" key={index}>
               <input onChange={this.props.setFilters} type="checkbox" name={filterItem.value} value={filterItem.name} id={filterItem.value} className="filter-checkbox" />
-              <label htmlFor={filterItem.value} id="xboxOneCheckbox">{filterItem.name}</label>
+              <label htmlFor={filterItem.value} id={filterItem.value + 'checkbox'}>{filterItem.name}</label>
             </span>
           ))}
         </div>
-        {/* <div className="icons m-b-5">
-          <div className="checkbox-wrapper">
-            <input onChange={this.props.setFilters} type="checkbox" name="xboxOne" value="Xbox One" id="xboxOne" className="filter-checkbox" />
-            <label htmlFor="xboxOne" id="xboxOneCheckbox"></label>
-          </div>
-          <div className="checkbox-wrapper">
-            <input onChange={this.props.setFilters} type="checkbox" name="ps4" value="PlayStation 4" id="ps4" className="filter-checkbox" />
-            <label htmlFor="ps4" id="ps4Checkbox"></label>
-          </div>
-          <div className="checkbox-wrapper">
-            <input onChange={this.props.setFilters} type="checkbox" name="nintendoSwitch" value="Nintendo Switch" id="nintendoSwitch" className="filter-checkbox" />
-            <label htmlFor="nintendoSwitch" id="nintendoSwitchCheckbox"></label>
-          </div>
-          <div className="checkbox-wrapper">
-            <input onChange={this.props.setFilters} type="checkbox" name="pc" value="PC (Microsoft Windows)" id="pc" className="filter-checkbox" />
-            <label htmlFor="pc" id="pcCheckbox"></label>
-          </div>
-          <div className="checkbox-wrapper">
-            <input onChange={this.props.setFilters} type="checkbox" name="stadia" value="Google Stadia" id="stadia" className="filter-checkbox" />
-            <label htmlFor="stadia" id="stadiaCheckbox"></label>
-          </div>
-        </div> */}
         <button className="button primary m-t-10" onClick={this.props.clearFilters}>Clear</button>
       </div>
       <div className="signature">

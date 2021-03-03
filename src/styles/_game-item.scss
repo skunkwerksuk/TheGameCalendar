@@ -5,14 +5,8 @@
   box-sizing: border-box;
   height: 197px;
 
-
   .popularity {
     display: none;
-  }
-
-  &.half-item {
-    height: 49%;
-    min-height: 65px;
   }
 
   &.is-big {
@@ -74,19 +68,6 @@
         /* autoprefixer: off */
         -webkit-box-orient: vertical;
         /* autoprefixer: on */
-      }
-
-      .game-date {
-        position: absolute;
-        bottom: 100%;
-        background-color: white;
-        right: -2px;
-        border-top: 2px solid $game-item-border;
-        border-left: 2px solid $game-item-border;
-        padding: 0px 2px 0px 2px;
-        font-weight: 800;
-        font-size: 14px;
-        border-right: 2px solid $game-item-border;
       }
 
       .platforms {

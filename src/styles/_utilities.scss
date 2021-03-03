@@ -17,3 +17,13 @@ $sides: (top, bottom, left, right); // Leave this variable alone
 .u-display-none {
   display: none;
 }
+
+.hr {
+  border: 0;
+  border-top: 1px solid $app-primary;
+  width: 100%;
+}
+
+.grey-text {
+  color: #4D4D4D;
+}

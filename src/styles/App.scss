@@ -34,7 +34,6 @@ body {
 
 .body-panel {
   display: flex;
-  // height: 100vh;
   z-index: 4;
   -webkit-overflow-scrolling: touch;
 }
@@ -67,11 +66,6 @@ body {
   width: calc(100% + 2px);
   min-height: 550px;
 
-  &.shortened {
-    .day {
-      height: calc(16.7% + 1px);
-    }
-  }
   &.is-hidden {
     display: none;
   }
@@ -109,6 +103,7 @@ body {
 .socials {
   display: flex;
   flex-direction: row;
+
   .icon-wrapper {
     width: 30px;
     height: 30px;
@@ -138,14 +133,4 @@ body {
       text-decoration: underline;
     }
   }
-}
-
-.hr {
-  border: 0;
-  border-top: 1px solid $app-primary;
-  width: 100%;
-}
-
-.grey-text {
-  color: #4D4D4D;
 }
