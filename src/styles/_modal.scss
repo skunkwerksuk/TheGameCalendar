@@ -150,13 +150,12 @@
   position: absolute;
   left: 20px;
   top: 10px;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   opacity: 0.8;
   cursor: pointer;
   background-color: gray;
   border-radius: 5px;
-  padding: 6px;
 
   &:hover {
     opacity: 1;
@@ -165,6 +164,8 @@
 
   img {
     pointer-events: none;
+    height: 100%;
+    width: 100%;
   }
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import ImageGallery from './ImageGallery';
-import leftArrow from '../images/left-arrow.svg';
+import closeIcon from '../images/cross.svg';
 import { getPlatformLogo, getSocialIcon } from '../utils/ImageService';
 
 function getSocialName(id) {
@@ -99,7 +99,7 @@ class GameViewModal extends React.Component {
         <div className='loader-wrapper'><div className="loader" id="loader-1"></div></div>
         : <div className="modal" id="modal">
           <div className="modal-content">
-            <a id="modalClose" className="return" onClick={this.closeModals}><img src={leftArrow}/></a>
+            <a id="modalClose" className="return" onClick={this.closeModals}><img src={closeIcon}/></a>
             <img className="screen-splash" src={bannerScreenshotUrl} />
             <div className="game-summary">
               <div className="game-cover"><img src={coverUrl} /></div>
