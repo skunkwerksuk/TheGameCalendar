@@ -43,7 +43,7 @@ class GameViewModal extends React.Component {
     };
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     this.setState({
       game: props.game,
       loading: props.loading
@@ -82,12 +82,12 @@ class GameViewModal extends React.Component {
     const coverUrl = displayGame.cover ? `https:${displayGame.cover.url.replace('thumb', 'cover_big')}` : '';
     const bannerScreenshotUrl = displayGame.screenshots ? `https:${displayGame.screenshots[0].url.replace('thumb', 'screenshot_big_2x')}` : '';
     const genres = displayGame.genres ? displayGame.genres.map((item, idx) => <span key={idx}>{(idx ? ', ' : '') + item.name}</span>) : <span></span>;
-    const developers = displayGame.involved_companies ? displayGame.involved_companies.filter(item => item.developer).map((item, idx) => <span>{(idx ? ', ' : '') + item.company.name}</span>) : <span></span>;
-    const publishers = displayGame.involved_companies ? displayGame.involved_companies.filter(item => item.publisher).map((item, idx) => <span>{(idx ? ', ' : '') + item.company.name}</span>) : <span></span>;
+    const developers = displayGame.involved_companies ? displayGame.involved_companies.filter(item => item.developer).map((item, idx) => <span key={idx}>{(idx ? ', ' : '') + item.company.name}</span>) : <span></span>;
+    const publishers = displayGame.involved_companies ? displayGame.involved_companies.filter(item => item.publisher).map((item, idx) => <span key={idx}>{(idx ? ', ' : '') + item.company.name}</span>) : <span></span>;
     const officialSite = displayGame.websites ? displayGame.websites.find(item => item.category === 1) : 0;
-    const officialSiteLink = officialSite ? <div className="m-b-10"><a href={officialSite.url} target="_blank">Official Website</a></div> : <span></span>;
+    const officialSiteLink = officialSite ? <div className="m-b-10"><a href={officialSite.url} target="_blank" rel="noopener noreferrer">Official Website</a></div> : <span></span>;
     const websites = displayGame.websites ? displayGame.websites.map((item, idx) =>
-      item.category !== 1 ? <div className='icon-wrapper' key={idx}><a target="_blank" href={item.url}><img title={getSocialName(item.category)} alt={getSocialName(item.category)} className='platform-icon' src={getSocialIcon(item.category)} /></a></div> : <span></span>
+      item.category !== 1 ? <div className='icon-wrapper' key={idx}><a target="_blank" rel="noopener noreferrer" href={item.url}><img title={getSocialName(item.category)} alt={getSocialName(item.category)} className='platform-icon' src={getSocialIcon(item.category)} /></a></div> : <span></span>
     ) : <span></span>;
 
     if (displayGame.platforms) {

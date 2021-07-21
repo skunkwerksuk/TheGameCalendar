@@ -3,12 +3,12 @@ import GameListItem from './GameListItem';
 import moment from 'moment';
 
 function Day(props) {
-  let gamelist = props.games;
+  const gamelist = props.games;
 
   if (gamelist.length === 0) {
     let currentDate = moment(props.monthId, 'MM');
     currentDate.date(props.dayId);
-    return (<div id={currentDate.format('DD MMMM YYYY')}></div>);
+    return (<div id={currentDate.format('DDMMMMYYYY')}></div>);
   }
 
   let games = [];  
@@ -42,7 +42,7 @@ function Day(props) {
   }
 
   return (
-    <div className='list-day' id={currentDate.format('DD MMMM YYYY')}>
+    <div className='list-day' id={currentDate.format('DDMMMMYYYY')}>
       <h2 className="date">{dateText}</h2>
       <hr className="hr" />
       <div className="games day-item">{games}</div>

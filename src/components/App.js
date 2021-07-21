@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Router as Router,
   Route,
-} from "react-router-dom";
+} from 'react-router-dom';
 import '../styles/App.scss';
 import Calendar from './Calendar';
 import GameViewModal from './GameViewModal';
@@ -25,8 +25,8 @@ const host = window.location.hostname;
 // const apiUrl = 'http://localhost:3001/';
 const apiUrl = 'https://6ogt74v5b6.execute-api.us-east-2.amazonaws.com/dev/';
 
-if (host != "localhost") {
-  const trackingId = "UA-142536846-1";
+if (host != 'localhost') {
+  const trackingId = 'UA-142536846-1';
   ReactGA.initialize(trackingId, {
     debug: false,
   });
@@ -43,12 +43,12 @@ class App extends React.Component {
       currentMonth: (new Date().getMonth()+1),
       currentYear: (new Date().getFullYear()),
       yearBoundary: 0,
-      months: [ "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
+      months: [ 'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
       ],
-      shortMonths: [ "Jan", "Feb", "March", "April", "May", "June",
-        "July", "Aug", "Sept", "Oct", "Nov", "Dec"
-      ] ,
+      shortMonths: [ 'Jan', 'Feb', 'March', 'April', 'May', 'June',
+        'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'
+      ],
       filterProps: {
         platforms: [ ],
         nameText: ''
@@ -61,18 +61,21 @@ class App extends React.Component {
   nextMonth = () => {
     // If we are within the 4 month navigation limit
     if (this.state.yearBoundary < 4) {
-      this.state.yearBoundary++;
+      this.setState({
+        yearBoundary: this.state.yearBoundary + 1
+      });
+      // this.state.yearBoundary++;
       // If the current month is Dec then cycle the year and reset to January
       if (this.state.currentMonth === 12) {
         this.setState({
           currentMonth: 1,
           currentYear: this.state.currentYear + 1
-        })
+        });
       } else {
         // Else navigate to next month
         this.setState({
           currentMonth: this.state.currentMonth + 1
-        })
+        });
       }
       // Scroll to the top of the page
       document.getElementById('monthView').scrollIntoView();
@@ -82,7 +85,10 @@ class App extends React.Component {
   prevMonth = () => {
     // If we are within the 4 month navigation limit
     if (this.state.yearBoundary > -4) {
-      this.state.yearBoundary--;
+      this.setState({
+        yearBoundary: this.state.yearBoundary - 1
+      });
+      // this.state.yearBoundary--;
       // If the current month is Jan then cycle the year back and reset to December
       if (this.state.currentMonth === 1) {
         this.setState({
@@ -106,17 +112,15 @@ class App extends React.Component {
     if (input && input.value.length > 2) {
       // Submit a GA ping for this search term
       submitSearchAnalytic(host, ReactGA, input.value);
-
-      this.setState(oldState => {
-        oldState.filterProps.nameText = input.value;
-        return oldState;
-      });
-    } else {
-      this.setState(oldState => {
-        oldState.filterProps.nameText = '';
-        return oldState;
-      });
     }
+    this.setState(oldState => {
+      return {
+        filterProps: {
+          platforms: oldState.filterProps.platforms,
+          nameText: (input && input.value.length > 2) ? input.value : ''
+        }
+      };
+    });
   }
 
   setFilters = (ev) => {
@@ -159,7 +163,7 @@ class App extends React.Component {
           platforms: [ ],
           nameText: state.filterProps.nameText
         }
-      }
+      };
     });
   }
 
@@ -168,26 +172,26 @@ class App extends React.Component {
 
     // Get the selected game's details
     axios.get(`${apiUrl}game?id=${game.id}`)
-    .then(response => {
-      const gameResponse = response.data;
+      .then(response => {
+        const gameResponse = response.data;
 
-      // Submit a GA ping for this game
-      submitModalAnalytic(host, ReactGA, game.name);
+        // Submit a GA ping for this game
+        submitModalAnalytic(host, ReactGA, game.name);
 
-      // If no name has been provided, use the previously displayed name
-      // Attach the relevant release date and platforms to the new api response
-      gameResponse[0].name = gameResponse.name === undefined ? game.name : gameResponse[0].name;
-      gameResponse[0].jsReleaseDate = date;
-      gameResponse[0].platforms = platforms;
+        // If no name has been provided, use the previously displayed name
+        // Attach the relevant release date and platforms to the new api response
+        gameResponse[0].name = gameResponse.name === undefined ? game.name : gameResponse[0].name;
+        gameResponse[0].jsReleaseDate = date;
+        gameResponse[0].platforms = platforms;
 
-      this.setState({
-        modalGame: gameResponse[0],
-        loading: false
+        this.setState({
+          modalGame: gameResponse[0],
+          loading: false
+        });
+      })
+      .catch(err => {
+        console.log(err);
       });
-    })
-    .catch(err => {
-      console.log(err)
-    });
 
     // Show the modal and veil
     document.getElementById('modal').classList.remove('is-hidden');
@@ -206,7 +210,7 @@ class App extends React.Component {
       <Router history={history}>
         <div className="App" role="main">
           <div className="body-panel">
-            <Route path="/">
+            <Route path="*">
               <SidePanel
                 month={this.state.months[this.state.currentMonth-1]}
                 monthId={this.state.currentMonth}

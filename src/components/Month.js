@@ -1,66 +1,60 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Day from './Day';
-import moment from 'moment';
 
 function daysInThisMonth(i) {
   var now = new Date();
   return new Date(now.getFullYear(), i, 0).getDate();
 }
 
-class Month extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      date: new Date(),
-      days: daysInThisMonth(props.monthId),
-      games: props.games
-    };
-  }
+function Month(props) {
+  const [days] = useState(daysInThisMonth(props.monthId));
+  const [games, setGames] = useState(props.games);
+  const [displayDays, setDisplayDays] = useState([]);
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      games: nextProps.games
-    });
-  }
+  useEffect(() => {
+    setGames(props.games);
+  }, [props.games]);
 
-  daysInThisMonth() {
-    const now = new Date();
-    return new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-  }
-
-  componentDidMount() {
-    const currentDate = moment().format('DD MMMM YYYY');
+  useEffect(() => {
+    const currentDate = new Date().toLocaleDateString('en-gb', { year: 'numeric', month: 'long', day: 'numeric' }).replaceAll(' ','');
     if (document.getElementById(currentDate)) {
       document.getElementById(currentDate).scrollIntoView();
     }
-  }
+  }, [displayDays]);
 
-  render() {
-    const gameList = this.state.games;
-    const monthClasses = '';
+  useEffect(() => {
     const dateMap = [];
     const monthDays = [];
 
-    for (let i = 1; i <= this.state.days; i++) {
-      dateMap.push({ date: i, games: []})
+    for (let i = 1; i <= days; i++) {
+      dateMap.push({ date: i, games: []});
     }
 
-    if (gameList.length > 0) {
-      for (let i = 0; i < gameList.length; i++) {
-        let releaseDate = new Date(gameList[i].date*1000);
-        const date = releaseDate.getDate();
-        dateMap[date-1].games.push(gameList[i]);
-      }
+    if (games && games.length > 0) {
+      games.forEach(game => {
+        const gameDate = new Date(game.date*1000).getDate();
+        dateMap[gameDate-1].games.push(game);
+      });
     }
 
     dateMap.forEach((element, index) => {
-      monthDays.push(<Day displayModal={this.props.displayDayModal} key={index} games={element.games} className={element.className} dayId={element.date} monthId={this.props.monthId}/>);
+      monthDays.push(
+        <Day
+          displayModal={props.displayDayModal}
+          key={index}
+          games={element.games}
+          className={element.className}
+          dayId={element.date}
+          monthId={props.monthId}
+        />
+      );
     });
+    setDisplayDays(monthDays);
+  }, [games]);
 
-    return <div id="monthView" className={`${monthClasses}${this.props.className}`}>
-      {monthDays}
-    </div>;
-  }
+  return <div id="monthView" className={`${props.className}`}>
+    {displayDays}
+  </div>;
 }
 
 export default Month;

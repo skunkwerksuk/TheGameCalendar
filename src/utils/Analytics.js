@@ -1,5 +1,5 @@
 export const submitFilterAnalytic = (host, ReactGA, value) => {
-  if (host != "localhost") {
+  if (host != 'localhost') {
     ReactGA.event({
       category: 'filter',
       action: 'Filtered by platform',
@@ -12,7 +12,7 @@ export const submitFilterAnalytic = (host, ReactGA, value) => {
 };
 
 export const submitSearchAnalytic = (host, ReactGA, value) => {
-  if (host != "localhost") {
+  if (host != 'localhost') {
     ReactGA.event({
       category: 'search',
       action: 'Searched for a game',
@@ -25,7 +25,7 @@ export const submitSearchAnalytic = (host, ReactGA, value) => {
 };
 
 export const submitModalAnalytic = (host, ReactGA, value) => {
-  if (host != "localhost") {
+  if (host != 'localhost') {
     ReactGA.modalview(value);
     return true;
   } else {
@@ -34,7 +34,7 @@ export const submitModalAnalytic = (host, ReactGA, value) => {
 };
 
 export const submitPageViewAnalytic = (host, ReactGA, value) => {
-  if (host != "localhost") {
+  if (host != 'localhost') {
     ReactGA.pageview(value);
     return true;
   } else {
