@@ -1,5 +1,5 @@
 import React from 'react';
-import { getPlatformLogo } from '../utils/ImageService';
+import { getPlatformLogo } from '../services/ImageService';
 
 const status = {
   0: 'Released',

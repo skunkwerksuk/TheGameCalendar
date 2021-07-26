@@ -6,11 +6,7 @@ import {
   Redirect
 } from 'react-router-dom';
 import Month from './Month';
-import axios from 'axios';
-
-// const url = 'http://game-calendar-web-service.us-east-2.elasticbeanstalk.com/';
-// const url = 'http://localhost:3001/';
-const url = 'https://6ogt74v5b6.execute-api.us-east-2.amazonaws.com/dev/';
+import { getGamesByMonthYear, getGamesByMonthYearArray } from '../services/GamesService';
 
 function daysInMonth(inMonth) {
   const now = new Date();
@@ -72,7 +68,7 @@ function Calendar(props) {
     const toDate = new Date(currentYear, currentMonth - 1, daysInMonth(currentMonth), 23, 59, 59);
     const platformFilters = filterProps.platforms;
     
-    let response = await axios.get(`${url}release-dates?fromDate=${fromDate}&toDate=${toDate}`);
+    let response = await getGamesByMonthYear(currentMonth, currentYear);
     const responseGamesPerMonth = [];
 
     for (let i = 1; i <= 12; i++) {
@@ -93,7 +89,7 @@ function Calendar(props) {
     if (!gamesPerMonth[newMonth-1].gamesUnfiltered || gamesPerMonth[newMonth-1].gamesUnfiltered.length == 0) {
       const fromDate = new Date(currentYear, newMonth-1, 1, 0, 0, 0);
       const toDate = new Date(currentYear, newMonth-1, daysInMonth(newMonth), 23, 59, 59);
-      const result = await axios.get(`${url}release-dates?fromDate=${fromDate}&toDate=${toDate}`);
+      const result = await getGamesByMonthYear(newMonth, currentYear);
       let newArr = [...gamesPerMonth];
       newArr[newMonth-1].gamesUnfiltered = result.data;
       newArr[newMonth-1].games = result.data;
@@ -105,6 +101,7 @@ function Calendar(props) {
     return gamesPerMonth[monthId].games ? gamesPerMonth[monthId].games.length : 0;
   };
 
+  // TODO: Remove
   const padMonths = async () => {
     // Get the next two consecutive months and their years
     const nextMonth = currentMonth === 12 ? 1 : currentMonth + 1;
@@ -117,29 +114,33 @@ function Calendar(props) {
     const lastYear = currentMonth === 1 ? currentYear - 1 : currentYear;
 
     const callArray = [];
+    const callArray2 = [];
 
     // Get next month's games
     if (checkMonthForGames(nextMonth - 1) == 0) {
       const fromDate = new Date(nextYear, nextMonth-1, 1, 0, 0, 0);
       const toDate = new Date(nextYear, nextMonth-1, daysInMonth(nextMonth), 23, 59, 59);
-      callArray.push(axios.get(`${url}release-dates?fromDate=${fromDate}&toDate=${toDate}`));
+      // callArray.push(axios.get(`${url}release-dates?fromDate=${fromDate}&toDate=${toDate}`));
+      callArray2.push({ month: nextMonth, year: nextYear });
     }
     
     // Get the following month's games
     if (checkMonthForGames(nextMonth2 - 1) == 0) {
       const fromDate = new Date(nextYear2, nextMonth2-1, 1, 0, 0, 0);
       const toDate = new Date(nextYear2, nextMonth2-1, daysInMonth(nextMonth2), 23, 59, 59);
-      callArray.push(axios.get(`${url}release-dates?fromDate=${fromDate}&toDate=${toDate}`));
+      // callArray.push(axios.get(`${url}release-dates?fromDate=${fromDate}&toDate=${toDate}`));
+      callArray2.push({ month: nextMonth2, year: nextYear2 });
     }
     
     // Get last month's games
     if (checkMonthForGames(lastMonth - 1) == 0) {
       const fromDate = new Date(lastYear, lastMonth-1, 1, 0, 0, 0);
       const toDate = new Date(lastYear, lastMonth-1, daysInMonth(lastMonth), 23, 59, 59);
-      callArray.push(axios.get(`${url}release-dates?fromDate=${fromDate}&toDate=${toDate}`));
+      // callArray.push(axios.get(`${url}release-dates?fromDate=${fromDate}&toDate=${toDate}`));
+      callArray2.push({ month: lastMonth, year: lastYear });
     }
 
-    let response = await axios.all(callArray);
+    let response = await getGamesByMonthYearArray(callArray2);
     let count = 0;
     let newArr = [...gamesPerMonth];
 

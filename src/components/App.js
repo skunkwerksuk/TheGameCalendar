@@ -1,17 +1,12 @@
 import React from 'react';
-import {
-  Router as Router,
-  Route,
-} from 'react-router-dom';
+import { Router as Router, Route } from 'react-router-dom';
 import '../styles/App.scss';
 import Calendar from './Calendar';
 import GameViewModal from './GameViewModal';
 import SidePanel from './SidePanel';
-import axios from 'axios';
-import {
-  createBrowserHistory
-} from 'history';
+import { createBrowserHistory } from 'history';
 import ReactGA from 'react-ga';
+import { getGameById } from '../services/GamesService';
 import { 
   submitFilterAnalytic,
   submitSearchAnalytic,
@@ -21,9 +16,6 @@ import {
 
 const history = createBrowserHistory();
 const host = window.location.hostname;
-// const apiUrl = 'http://game-calendar-web-service.us-east-2.elasticbeanstalk.com/';
-// const apiUrl = 'http://localhost:3001/';
-const apiUrl = 'https://6ogt74v5b6.execute-api.us-east-2.amazonaws.com/dev/';
 
 if (host != 'localhost') {
   const trackingId = 'UA-142536846-1';
@@ -167,31 +159,8 @@ class App extends React.Component {
     });
   }
 
-  displayDayModal = (game, date, platforms) => {
+  displayDayModal = async (game, date, platforms) => {
     this.setState({ loading: true });
-
-    // Get the selected game's details
-    axios.get(`${apiUrl}game?id=${game.id}`)
-      .then(response => {
-        const gameResponse = response.data;
-
-        // Submit a GA ping for this game
-        submitModalAnalytic(host, ReactGA, game.name);
-
-        // If no name has been provided, use the previously displayed name
-        // Attach the relevant release date and platforms to the new api response
-        gameResponse[0].name = gameResponse.name === undefined ? game.name : gameResponse[0].name;
-        gameResponse[0].jsReleaseDate = date;
-        gameResponse[0].platforms = platforms;
-
-        this.setState({
-          modalGame: gameResponse[0],
-          loading: false
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
 
     // Show the modal and veil
     document.getElementById('modal').classList.remove('is-hidden');
@@ -199,6 +168,24 @@ class App extends React.Component {
     document.getElementById('sidePanel').classList.add('modal-open');
     document.getElementById('body').classList.add('modal-open');
     document.getElementById('veil').classList.remove('is-hidden');
+
+    // Get the selected game's details
+    const response = await getGameById(game.id);
+    const gameResponse = response.data;
+
+    // Submit a GA ping for this game
+    submitModalAnalytic(host, ReactGA, game.name);
+
+    // If no name has been provided, use the previously displayed name
+    // Attach the relevant release date and platforms to the new api response
+    gameResponse[0].name = gameResponse.name === undefined ? game.name : gameResponse[0].name;
+    gameResponse[0].jsReleaseDate = date;
+    gameResponse[0].platforms = platforms;
+
+    this.setState({
+      modalGame: gameResponse[0],
+      loading: false
+    });
   }
 
   componentDidMount() {

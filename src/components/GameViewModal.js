@@ -1,7 +1,7 @@
 import React from 'react';
 import ImageGallery from './ImageGallery';
 import closeIcon from '../images/cross.svg';
-import { getPlatformLogo, getSocialIcon } from '../utils/ImageService';
+import { getPlatformLogo, getSocialIcon } from '../services/ImageService';
 
 function getSocialName(id) {
   switch (id) {
