@@ -77,7 +77,6 @@ class GameViewModal extends React.Component {
 
   render() {
     const displayGame = this.state.game;
-    console.log('Game modal displayed:',displayGame);
     let platformRenderList = [];
     const coverUrl = displayGame.cover ? `https:${displayGame.cover.url.replace('thumb', 'cover_big')}` : '';
     const bannerScreenshotUrl = displayGame.screenshots ? `https:${displayGame.screenshots[0].url.replace('thumb', 'screenshot_big_2x')}` : '';

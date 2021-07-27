@@ -16,6 +16,12 @@ import {
 
 const history = createBrowserHistory();
 const host = window.location.hostname;
+const hash = location.hash;
+
+if (hash && hash.includes('#!/')) {
+  // Check if we need to redirect a hash route created by S3
+  history.replace(hash.substr(3));
+}
 
 if (host != 'localhost') {
   const trackingId = 'UA-142536846-1';
@@ -31,13 +37,17 @@ if (host != 'localhost') {
 class App extends React.Component {
   constructor(props) {
     super(props);
+    const months = [ 'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    
+    const currentMonth = months.includes(location.pathname.substr(1)) ? months.indexOf(location.pathname.substr(1))+1 : new Date().getMonth()+1;
+
     this.state = {
-      currentMonth: (new Date().getMonth()+1),
+      currentMonth: currentMonth,
       currentYear: (new Date().getFullYear()),
       yearBoundary: 0,
-      months: [ 'January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'
-      ],
+      months: months,
       shortMonths: [ 'Jan', 'Feb', 'March', 'April', 'May', 'June',
         'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'
       ],

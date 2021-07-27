@@ -3,10 +3,12 @@ import React, { useState, useEffect } from 'react';
 import {
   Switch,
   Route,
-  Redirect
+  Redirect,
+  useHistory,
+  useLocation
 } from 'react-router-dom';
 import Month from './Month';
-import { getGamesByMonthYear, getGamesByMonthYearArray } from '../services/GamesService';
+import { getGamesByMonthYear, getGamesByMonthYearArray, newGetGamesByMonthYear } from '../services/GamesService';
 
 function daysInMonth(inMonth) {
   const now = new Date();
@@ -23,6 +25,7 @@ function Calendar(props) {
   const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
+  const loc = useLocation();
 
   useEffect(() => {
     getGamesForMonth(props.currentMonth);
@@ -45,16 +48,37 @@ function Calendar(props) {
 
     if (gamesPerMonth.length > 0) {
       for (let i = 1; i <= 12; i++) {
-        let route = i === currentMonth ? '/' : `/${monthNames[i-1]}`;
-        months.push(
-          <Route exact path={route} key={i}>
-            <Month
-              monthId={i}
-              games={gamesPerMonth[i-1].games}
-              displayDayModal={props.displayDayModal}
-            />
-          </Route>
-        );
+        if (i === currentMonth) {
+          months.push(
+            <Route exact path={['/',`/${monthNames[i-1]}`]} key={i}>
+              <Month
+                monthId={i}
+                games={gamesPerMonth[i-1].games}
+                displayDayModal={props.displayDayModal}
+              />
+            </Route>
+          );
+        } else {
+          months.push(
+            <Route path={`/${monthNames[i-1]}`} key={i}>
+              <Month
+                monthId={i}
+                games={gamesPerMonth[i-1].games}
+                displayDayModal={props.displayDayModal}
+              />
+            </Route>
+          );
+        }
+        // let route = i === currentMonth ? '/' : `/${monthNames[i-1]}`;
+        // months.push(
+        //   <Route path={route} key={i}>
+        //     <Month
+        //       monthId={i}
+        //       games={gamesPerMonth[i-1].games}
+        //       displayDayModal={props.displayDayModal}
+        //     />
+        //   </Route>
+        // );
       }
 
       setDisplayMonths(months);
@@ -63,37 +87,40 @@ function Calendar(props) {
   }, [gamesPerMonth]);
 
   useEffect(async () => {
-    // ComponentDidMount
-    const fromDate = new Date(currentYear, currentMonth - 1, 1, 0, 0, 0);
-    const toDate = new Date(currentYear, currentMonth - 1, daysInMonth(currentMonth), 23, 59, 59);
-    const platformFilters = filterProps.platforms;
+    // ComponentDidMount TODO: Check if needed
+    // const fromDate = new Date(currentYear, currentMonth - 1, 1, 0, 0, 0);
+    // const toDate = new Date(currentYear, currentMonth - 1, daysInMonth(currentMonth), 23, 59, 59);
+    // const platformFilters = filterProps.platforms;
     
-    let response = await getGamesByMonthYear(currentMonth, currentYear);
-    const responseGamesPerMonth = [];
+    // let response = await newGetGamesByMonthYear(currentMonth-1, currentYear);
+    // const responseGamesPerMonth = [];
+    // debugger;
+    // for (let i = 1; i <= 12; i++) {
+    //   const gamesUnfiltered = response.data.filter(currentGame => currentGame.m == i);
+    //   responseGamesPerMonth.push({
+    //     month: i,
+    //     games: gamesUnfiltered,
+    //     gamesUnfiltered
+    //   });
+    // }
 
-    for (let i = 1; i <= 12; i++) {
-      const gamesUnfiltered = response.data.filter(currentGame => currentGame.m == i);
-      responseGamesPerMonth.push({
-        month: i,
-        games: gamesUnfiltered,
-        gamesUnfiltered
-      });
-    }
-
-    setGamesPerMonth(responseGamesPerMonth);
+    // setGamesPerMonth(responseGamesPerMonth);
     // padMonths();
 
   }, []);
 
   const getGamesForMonth = async (newMonth) => {
     if (!gamesPerMonth[newMonth-1].gamesUnfiltered || gamesPerMonth[newMonth-1].gamesUnfiltered.length == 0) {
-      const fromDate = new Date(currentYear, newMonth-1, 1, 0, 0, 0);
-      const toDate = new Date(currentYear, newMonth-1, daysInMonth(newMonth), 23, 59, 59);
-      const result = await getGamesByMonthYear(newMonth, currentYear);
-      let newArr = [...gamesPerMonth];
-      newArr[newMonth-1].gamesUnfiltered = result.data;
-      newArr[newMonth-1].games = result.data;
-      runFilter(newArr);
+      const result = await newGetGamesByMonthYear(newMonth-1, currentYear);
+      
+      if (result) {
+        let newArr = [...gamesPerMonth];
+        newArr[newMonth-1].gamesUnfiltered = result.data.filteredDates;
+        newArr[newMonth-1].games = result.data.filteredDates;
+        runFilter(newArr);
+      } else {
+        console.warn(`No games available for ${newMonth}/${currentYear}`);
+      }
     }
   };
 
@@ -196,7 +223,7 @@ function Calendar(props) {
   return <div id="calendar" className="calendar">
     <Switch>
       {displayMonths}
-      <Route render={() => <Redirect to="/" />} />
+      {/* <Route render={() => <Redirect to="/" />} /> */}
     </Switch>
   </div>;
 }
