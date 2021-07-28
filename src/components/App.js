@@ -37,20 +37,13 @@ if (host != 'localhost') {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    const months = [ 'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'
-    ];
-    
+    const months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
     const currentMonth = months.includes(location.pathname.substr(1)) ? months.indexOf(location.pathname.substr(1))+1 : new Date().getMonth()+1;
 
     this.state = {
       currentMonth: currentMonth,
       currentYear: (new Date().getFullYear()),
       yearBoundary: 0,
-      months: months,
-      shortMonths: [ 'Jan', 'Feb', 'March', 'April', 'May', 'June',
-        'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'
-      ],
       filterProps: {
         platforms: [ ],
         nameText: ''
@@ -207,12 +200,8 @@ class App extends React.Component {
       <Router history={history}>
         <div className="App" role="main">
           <div className="body-panel">
-            <Route path="*">
+            <Route path={['/month-view/:month/:year', '/']}>
               <SidePanel
-                month={this.state.months[this.state.currentMonth-1]}
-                monthId={this.state.currentMonth}
-                currentYear={this.state.currentYear}
-                shortMonth={this.state.shortMonths[this.state.currentMonth-1]}
                 yearBoundary={this.state.yearBoundary}
                 nextMonth={this.nextMonth}
                 prevMonth={this.prevMonth}
@@ -221,8 +210,6 @@ class App extends React.Component {
                 search={this.search}
               />
               <Calendar
-                currentMonth={this.state.currentMonth}
-                currentYear={this.state.currentYear}
                 displayDayModal={this.displayDayModal}
                 filterProps={this.state.filterProps}
               />

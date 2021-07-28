@@ -1,6 +1,7 @@
 // Class example: m-b-20
-$spaceamounts: (5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 75, 100); // Adjust this to include the pixel amounts you need.
-$sides: (top, bottom, left, right); // Leave this variable alone
+// Generator for margin and padding classes (E.g. .m-b-10, .p-t-20)
+$spaceamounts: (5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 75, 100);
+$sides: (top, bottom, left, right);
 
 @each $space in $spaceamounts {
   @each $side in $sides {
