@@ -1,0 +1,27 @@
+@font-face {
+  font-family: 'GoodTimes';
+  src: url(../fonts/good_timing_bd-webfont.woff2) format('woff2');
+  src: url(../fonts/good_timing_bd-webfont.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'AzoSansBold';
+  src: url(../fonts/AzoSans-Bold.woff2) format('woff2');
+  src: url(../fonts/AzoSans-Bold.woff) format('woff');
+}
+
+.h2 {
+  color: $app-primary;
+  font-size: 36px;
+  margin: 20px 0;
+}
+
+.font--white {
+  color: $app-white;
+}
+
+.detail-sub-title {
+  font-weight: bold;
+  font-size: 16px;
+  color: $app-primary;
+}

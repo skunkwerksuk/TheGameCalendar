@@ -1,19 +1,19 @@
 .button {
-    cursor: pointer;
-  
-    &.primary {
-      // background-color: #445d68;
-      background-color: white;
-      color: $app-primary;
-      border: 0;
-      padding: 4px 20px;
-      font-size: 15px;
-      // color: white;
-      border-radius: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
 
-      &:hover {
-        background-color: #B4ACCC;
-        // color: white;
-      }
+  &.primary {
+    background-color: $app-primary;
+    color: $app-white;
+    border: 0;
+    padding: 10px 30px;
+    font-size: 18px;
+    border-radius: 4px;
+    font-weight: bold;
+
+    &:hover {
+      background-color: lighten($app-primary, 10%);
     }
   }
+}

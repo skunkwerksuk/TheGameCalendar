@@ -1,0 +1,56 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background-color: $app-primary;
+  color: $app-white;
+  font-family: 'AzoSans-Bold', Arial, Helvetica, sans-serif;
+
+  .body-container {
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.logo-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+
+  .logo-text {
+    color: $app-white;
+    font-size: 38px;
+    margin: 15px;
+
+    span:nth-child(2) {
+      color: $app-secondary;
+    }
+  }
+
+  svg {
+    height: 42px;
+    width: auto;
+  }
+}
+
+.search-bar {
+  border: 2px solid white;
+  border-radius: 4px;
+  padding: 5px 10px;
+  display: flex;
+
+  input {
+    border: 0;
+    background-color: $app-primary;
+    color: white;
+
+    &::placeholder {
+      color: white;
+    }
+  }
+
+  svg {
+    cursor: pointer;
+  }
+}

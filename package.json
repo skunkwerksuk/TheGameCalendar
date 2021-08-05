@@ -39,5 +39,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "stylelint": "^13.13.1",
+    "stylelint-config-airbnb": "0.0.0",
+    "stylelint-config-standard": "^22.0.0"
   }
 }

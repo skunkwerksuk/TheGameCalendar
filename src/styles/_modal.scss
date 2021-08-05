@@ -257,6 +257,25 @@
   position: absolute;
   top: 0;
   box-sizing: border-box;
+
+  // &::after {
+  //   position: absolute;
+  //   top: -8px;
+  //   bottom: -8px;
+  //   left: -8px;
+  //   right: -8px;
+  //   content: '';
+  //   z-index: -1;
+  //   border-radius: 50%;
+  // }
+
+  // &.right-circle::after {
+  //   background: linear-gradient(#5AFF15, #2A543B, #13004D);
+  // }
+
+  // &.left-circle::after {
+  //   background: linear-gradient(#13004D, #2A543B, #5AFF15);
+  // }
 }
 
 .js-simple-pie .pie.pie--over-fifty .right-circle {
@@ -272,13 +291,14 @@
 }
 
 .score--avg.js-simple-pie .pie .half-circle {
-  border-color: orange;
+  border-color: $app-primary;
 }
 
 .score--avg.js-simple-pie label {
-  background: #606060;
-  color: white;
-  font-weight: 500;
+  background: radial-gradient(rgba(174, 162, 212, 0) 0%, #AEA2D4);
+  color: $app-primary;
+  font-weight: 700;
+  z-index: 1;
 }
 
 // CSS LOADER

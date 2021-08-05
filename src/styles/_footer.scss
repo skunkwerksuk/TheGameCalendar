@@ -1,0 +1,14 @@
+.footer {
+  background-color: $app-primary;
+  color: $app-white;
+  overflow: hidden;
+
+  .footer-content {
+    flex-direction: column;
+  }
+}
+
+.signature {
+  text-align: center;
+  font-size: 14px;
+}

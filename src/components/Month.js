@@ -1,23 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import Day from './Day';
+import GameListItem from './GameListItem';
 import { newGetGamesByMonthYear } from '../services/GamesService';
 import { useParams } from 'react-router-dom';
 
-
-function daysInThisMonth(i) {
-  var now = new Date();
-  return new Date(now.getFullYear(), i, 0).getDate();
-}
-
 function Month(props) {
   const params = useParams();
-  const [days] = useState(daysInThisMonth(params.month ? params.month : (new Date().getMonth()+1)));
+  const monthNames = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const [games, setGames] = useState([]);
   const [unfilteredGames, setUnfilteredGames] = useState([]);
   const [displayDays, setDisplayDays] = useState([]);
   const [year, setYear] = useState(params.year ? params.year : (new Date().getFullYear()));
   const [month, setMonth] = useState(params.month ? params.month : (new Date().getMonth()+1));
   const [loading, setLoading] = useState(true);
+  document.title = 'GameCal | Upcoming video game releases';
 
   useEffect(() => {
     if (games.length > 0) {
@@ -28,8 +23,11 @@ function Month(props) {
   useEffect(() => {
     if (loading == false) {
       const currentDate = new Date().toLocaleDateString('en-gb', { year: 'numeric', month: 'long', day: 'numeric' }).replaceAll(' ','');
+      // document.getElementById('searchInput').value = '';
       if (document.getElementById(currentDate)) {
         document.getElementById(currentDate).scrollIntoView();
+      } else {
+        window.scrollTo(0, 0);
       }
     }
   }, [loading]);
@@ -60,32 +58,20 @@ function Month(props) {
 
   useEffect(() => {
     if (games != []) {
-      const dateMap = [];
       const monthDays = [];
-  
-      for (let i = 1; i <= days; i++) {
-        dateMap.push({ date: i, games: []});
-      }
-  
+
       if (games && games.length > 0) {
-        games.forEach(game => {
-          const gameDate = new Date(game.date*1000).getDate();
-          dateMap[gameDate-1].games.push(game);
+        console.log(games);
+        games.forEach((game, idx) => {
+          monthDays.push(
+            <GameListItem
+              displayModal={props.displayModal}
+              key={idx}
+              game={game}
+            />
+          );
         });
       }
-  
-      dateMap.forEach((element, index) => {
-        monthDays.push(
-          <Day
-            displayModal={props.displayDayModal}
-            key={index}
-            games={element.games}
-            className={element.className}
-            dayId={element.date}
-            monthId={props.monthId}
-          />
-        );
-      });
       setDisplayDays(monthDays);
     }
   }, [games]);
@@ -119,12 +105,23 @@ function Month(props) {
     return filteredGamesByMonth;
   };
 
-  return <div id="monthView" className={`${props.className}`}>
-    {
-      loading ?
-        <div className='loader-wrapper'><div className="loader" id="loader-1"></div></div> :
-        displayDays
-    }
+  return <div id="monthView">
+    <div className='p-h-15'>
+      <h2 className='h2'>{monthNames[month-1]}, {year}</h2>
+      <hr className='hr-light-grey' />
+    </div>
+    <div className="body-container month-view">
+      {
+        loading ?
+          <div className='loader-wrapper'><div className="loader" id="loader-1"></div></div> :
+          <>
+            {displayDays}
+            <div className='body-container m-b-15'>
+              <button className='button primary u-margin-0-auto' onClick={() => window.scrollTo(0, 0)}>Back to top</button>
+            </div>
+          </>
+      }
+    </div>
   </div>;
 }
 

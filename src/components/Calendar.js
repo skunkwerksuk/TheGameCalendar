@@ -7,7 +7,7 @@ import {
 import Month from './Month';
 
 function Calendar(props) {
-  return <div id="calendar" className="calendar">
+  return <div id="calendar" className="body-wrapper body-min-height">
     <Switch>
       <Route path={['/month-view/:month/:year', '/']}>
         <Month

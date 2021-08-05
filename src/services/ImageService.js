@@ -1,34 +1,56 @@
-import xbox from '../images/xbox.svg';
-import seriesX from '../images/seriesx.png';
-import nSwitch from '../images/switch.svg';
-import ps from '../images/ps.svg';
-import ps5 from '../images/ps5.svg';
-import pc from '../images/PC.svg';
-import mac from '../images/Mac.svg';
-import ios from '../images/iOS.svg';
-import linux from '../images/Linux.svg';
-import stadia from '../images/stadia.png';
-import steamVr from '../images/steamvr.svg';
-import oculusVr from '../images/oculusvr.svg';
-import wikiaLogo from '../images/fandom.svg';
-import wikipediaLogo from '../images/wikipedia.svg';
-import facebookLogo from '../images/facebook.svg';
-import twitterLogo from '../images/twitter.svg';
-import twitchLogo from '../images/twitch.png';
-import instagramLogo from '../images/instagram.svg';
-import youtubeLogo from '../images/youtube.svg';
-import steamLogo from '../images/steam.svg';
-import redditLogo from '../images/reddit.svg';
-import epicLogo from '../images/epic.svg';
-import gogLogo from '../images/gog.svg';
-import discordLogo from '../images/discord.svg';
+import xbox from '../images/platforms/xbox.svg';
+import xboxOG from '../images/platforms/xboxOG.png';
+import seriesX from '../images/platforms/seriesx.png';
+import xbox360 from '../images/platforms/xbox360.svg';
+import nSwitch from '../images/platforms/switch.svg';
+import ps from '../images/platforms/ps.svg';
+import ps2 from '../images/platforms/ps2.svg';
+import ps3 from '../images/platforms/ps3.svg';
+import ps5 from '../images/platforms/ps5.svg';
+import pc from '../images/platforms/PC.svg';
+import mac from '../images/platforms/Mac.svg';
+import ios from '../images/platforms/iOS.svg';
+import linux from '../images/platforms/Linux.svg';
+import stadia from '../images/platforms/stadia.png';
+import steamVr from '../images/platforms/steamvr.svg';
+import oculusVr from '../images/platforms/oculusvr.svg';
+import gameCube from '../images/platforms/gamecube.svg';
+import ds from '../images/platforms/ds.svg';
+import dsi from '../images/platforms/dsi.svg';
+import threeDS from '../images/platforms/3ds.svg';
+import wii from '../images/platforms/wii.svg';
+import wiiu from '../images/platforms/wiiu.svg';
+import gameBoy from '../images/platforms/gameboy.svg';
+import gameBoyColor from '../images/platforms/gameboycolor.svg';
+import gameBoyAdvance from '../images/platforms/gameboyadvance.png';
+
+import wikiaLogo from '../images/socials/fandom.svg';
+import wikipediaLogo from '../images/socials/wikipedia.svg';
+import facebookLogo from '../images/socials/facebook.svg';
+import twitterLogo from '../images/socials/twitter.svg';
+import twitchLogo from '../images/socials/twitch.png';
+import instagramLogo from '../images/socials/instagram.svg';
+import youtubeLogo from '../images/socials/youtube.svg';
+import steamLogo from '../images/socials/steam.svg';
+import redditLogo from '../images/socials/reddit.svg';
+import epicLogo from '../images/socials/epic.svg';
+import gogLogo from '../images/socials/gog.svg';
+import discordLogo from '../images/socials/discord.svg';
 
 export function getPlatformLogo(name) {
   switch (name) {
+  case 'Xbox':
+    return xboxOG;
   case 'Xbox One':
     return xbox;
   case 'Xbox Series':
     return seriesX;
+  case 'Xbox 360':
+    return xbox360;
+  case 'PlayStation 2':
+    return ps2;
+  case 'PlayStation 3':
+    return ps3;
   case 'PlayStation 4':
     return ps;
   case 'PlayStation 5':
@@ -46,10 +68,28 @@ export function getPlatformLogo(name) {
   case 'SteamVR':
     return steamVr;
   case 'Oculus VR':
-    return oculusVr;
+    return oculusVr;  
   case 'Google Stadia':
   case 'Stadia':
     return stadia;
+  case 'Nintendo GameCube':
+    return gameCube;
+  case 'Nintendo 3DS':
+    return threeDS;
+  case 'Nintendo DS':
+    return ds;
+  case 'Nintendo DSi':
+    return dsi;
+  case 'Wii':
+    return wii;
+  case 'Wii U':
+    return wiiu;
+  case 'Game Boy':
+    return gameBoy;
+  case 'Game Boy Color':
+    return gameBoyColor;
+  case 'Game Boy Advance':
+    return gameBoyAdvance;
   default:
     return '';
   }

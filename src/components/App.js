@@ -3,7 +3,11 @@ import { Router as Router, Route } from 'react-router-dom';
 import '../styles/App.scss';
 import Calendar from './Calendar';
 import GameViewModal from './GameViewModal';
-import SidePanel from './SidePanel';
+import CalendarPanel from './CalendarPanel';
+import Header from './Header';
+import Footer from './Footer';
+import GameView from './GameView';
+import Search from './Search';
 import { createBrowserHistory } from 'history';
 import ReactGA from 'react-ga';
 import { getGameById } from '../services/GamesService';
@@ -200,8 +204,9 @@ class App extends React.Component {
       <Router history={history}>
         <div className="App" role="main">
           <div className="body-panel">
-            <Route path={['/month-view/:month/:year', '/']}>
-              <SidePanel
+            <Header />
+            <Route exact path={['/month-view/:month/:year', '/']}>
+              <CalendarPanel
                 yearBoundary={this.state.yearBoundary}
                 nextMonth={this.nextMonth}
                 prevMonth={this.prevMonth}
@@ -218,6 +223,13 @@ class App extends React.Component {
                 loading={this.state.loading}
               />
             </Route>
+            <Route path={['/game-view/:gameId']}>
+              <GameView />
+            </Route>
+            <Route path={['/search-games/:searchTerm']}>
+              <Search />
+            </Route>
+            <Footer />
           </div>
         </div>
       </Router>

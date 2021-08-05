@@ -1,6 +1,13 @@
 @import './mixins.scss';
 @import './variables.scss';
 @import './utilities.scss';
+@import './typography.scss';
+@import './structure.scss'; //
+@import './header.scss'; //
+@import './footer.scss'; //
+@import './calendar.scss'; //
+@import './game-view.scss'; //
+@import './image-carousel'; //
 @import './game-item.scss';
 @import './inputs.scss';
 @import './buttons.scss';
@@ -8,33 +15,12 @@
 @import './modal.scss';
 @import './gallery.scss';
 
-body {
-  margin: 0;
-  // font-family: 'Open Sans', sans-serif;
-  font-family: Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  &.modal-open {
-    overflow: hidden;
-  }
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
-}
-
-body {
-  background-color: #fff;
-}
-
-.header-panel, .side-panel {
+.header-panel,
+.side-panel {
   box-sizing: border-box;
 }
 
 .body-panel {
-  display: flex;
-  z-index: 4;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -84,15 +70,16 @@ body {
 }
 
 .platforms {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
+
   .icon-wrapper {
     width: 25px;
     height: 25px;
     overflow: hidden;
     display: inline-block;
-    margin-right: 2px;
-    
+    margin-right: 5px;
+
     .platform-icon {
       width: 25px;
       height: 25px;
@@ -101,8 +88,8 @@ body {
 }
 
 .socials {
-  display: flex;
-  flex-direction: row;
+  // display: flex;
+  // flex-direction: row;
 
   .icon-wrapper {
     width: 30px;
@@ -110,7 +97,7 @@ body {
     overflow: hidden;
     display: inline-block;
     margin-right: 5px;
-    
+
     .platform-icon {
       width: 30px;
       height: 30px;

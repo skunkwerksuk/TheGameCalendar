@@ -1,12 +1,12 @@
 
 $app-primary: #13004d;
-$app-primary-white: #ffffff;
+$app-secondary: #5AFF15;
+$app-white: #ffffff;
 $app-primary-highlighted: #DEA021;
 
-$game-item-border: black;
+$light-grey: #E8E5EF;
+$grey: #54595F;
 
-@font-face {
-  font-family: 'GoodTimes';
-  src: url(../fonts/good_timing_bd-webfont.woff2) format('woff2');
-  src: url(../fonts/good_timing_bd-webfont.woff) format('woff');
-}
+$orange: #CE951F;
+
+$game-item-border: black;

@@ -1,0 +1,49 @@
+.image-carousel {
+  .display-image-wrapper {
+    display: flex;
+    margin: 20px 0;
+    justify-content: center;
+    height: 680px;
+
+    img {
+      max-width: 500px;
+      width: 100%;
+      align-self: center;
+    }
+  }
+}
+
+.thumbnail-carousel {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  padding: 0 21px;
+  box-sizing: border-box;
+
+  .nav-icon {
+    position: absolute;
+    border: 0;
+    background: white;
+    height: 100%;
+    padding: 0 10px;
+    cursor: pointer;
+
+    &--left { left: 0; }
+    &--right { right: 0; }
+
+    &.disabled {
+      pointer-events: none;
+
+      path {
+        fill: $light-grey;
+      }
+    }
+  }
+
+  .image {
+    width: 200px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: margin-left 0.5s;
+  }
+}

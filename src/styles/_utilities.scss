@@ -8,23 +8,33 @@ $sides: (top, bottom, left, right);
     .m-#{str-slice($side, 0, 1)}-#{$space} {
       margin-#{$side}: #{$space}px !important;
     }
-  
+
     .p-#{str-slice($side, 0, 1)}-#{$space} {
       padding-#{$side}: #{$space}px !important;
     }
   }
 }
 
+.p-h-15 {
+  box-sizing: border-box;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.p-v-15 {
+  box-sizing: border-box;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
 .u-display-none {
   display: none;
 }
 
-.hr {
-  border: 0;
-  border-top: 1px solid $app-primary;
-  width: 100%;
+.u-margin-0-auto {
+  margin: 0 auto;
 }
 
 .grey-text {
-  color: #4D4D4D;
+  color: $grey;
 }
