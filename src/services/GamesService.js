@@ -28,18 +28,3 @@ export function searchGamesByTerm(searchTerm) {
     console.log(err);
   });
 }
-
-// export function getGamesByMonthYearArray(arrayList) {
-//   const newArry = [];
-//   arrayList.forEach((item) => {
-//     newArry.push(getGamesByMonthYear(item.month, item.year));
-//   });
-
-//   return axios.all(newArry);
-// }
-
-
-function daysInMonth(inMonth) {
-  const now = new Date();
-  return new Date(now.getFullYear(), inMonth, 0).getDate();
-}

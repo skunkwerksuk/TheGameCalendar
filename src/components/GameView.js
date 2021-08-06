@@ -69,14 +69,13 @@ function GameView() {
     setLoading(true);
     const response = await getGameById(params.gameId);
     document.title = `${response.data.name} | GameCal`;
+    response.data.videos = response.data.videos && response.data.videos.length > 4 ? response.data.videos.slice(0,4) : response.data.videos;
     setGame(response.data);
   }, [params.gameId]);
 
   useEffect(() => {
     if(game && game.name && Object.keys(game.name).length) {
-      console.log(game);
-      setLoading(false);
-      
+      setLoading(false);      
     }
   }, [game]);
 
@@ -94,10 +93,10 @@ function GameView() {
           <div className='loader-wrapper'><div className="loader" id="loader-1"></div></div> :
           <div className='game-view'>
             <div id='sectionOneDetails' className='game-view-section col-wrapper'>
-              <div id='coverGallery' className='col-50 p-h-15'>
+              <div id='coverGallery' className='col-50'>
                 <ImageCarousel images={[game.cover, ...game.screenshots]} />
               </div>
-              <div id='coreGameData' className='col-50 p-h-15'>
+              <div id='coreGameData' className='col-50'>
                 <h2 className='h2'>{game.name}</h2>
                 <div className='description'>{`${game.summary.substr(0, 150)}...`}</div>
                 <div id='glanceCreators' className='glance-creators'>
@@ -160,7 +159,7 @@ function GameView() {
                   </ul>
                 </nav>
                 <section>
-                  <div className="tab1 tab-box--container">
+                  <div className="tab1 tab-box--container u-escape-characters">
                     {game.summary}
                   </div>
                   <div className="tab2 tab-box--container">

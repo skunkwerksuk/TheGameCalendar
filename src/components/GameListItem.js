@@ -54,9 +54,9 @@ function gameItem(props) {
       {props.game.human ?
         <div className='game-details'>
           <div className='game-title'>{game.name}</div>
-          <div className='release-date'><CalendarIcon className='m-r-5' /><span>{props.game.human}</span></div>
+          <div className='release-date'><CalendarIcon /><span>{props.game.human}</span></div>
           <div className='platforms'>{platformRenderList}</div>
-        </div> : 
+        </div> :
         <div className='game-details'>
           <div className='game-title game-title--full'>{game.name}</div>
           <div className='platforms'>{platformRenderList}</div>

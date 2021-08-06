@@ -2,7 +2,6 @@ import React from 'react';
 import { Router as Router, Route } from 'react-router-dom';
 import '../styles/App.scss';
 import Calendar from './Calendar';
-import GameViewModal from './GameViewModal';
 import CalendarPanel from './CalendarPanel';
 import Header from './Header';
 import Footer from './Footer';
@@ -10,11 +9,8 @@ import GameView from './GameView';
 import Search from './Search';
 import { createBrowserHistory } from 'history';
 import ReactGA from 'react-ga';
-import { getGameById } from '../services/GamesService';
 import { 
   submitFilterAnalytic,
-  submitSearchAnalytic,
-  submitModalAnalytic,
   submitPageViewAnalytic
 } from '../utils/Analytics';
 
@@ -50,76 +46,10 @@ class App extends React.Component {
       yearBoundary: 0,
       filterProps: {
         platforms: [ ],
-        nameText: ''
       },
       modalGame: {},
       loading: false
     };
-  }
-
-  nextMonth = () => {
-    // If we are within the 4 month navigation limit
-    if (this.state.yearBoundary < 4) {
-      this.setState({
-        yearBoundary: this.state.yearBoundary + 1
-      });
-      // this.state.yearBoundary++;
-      // If the current month is Dec then cycle the year and reset to January
-      if (this.state.currentMonth === 12) {
-        this.setState({
-          currentMonth: 1,
-          currentYear: this.state.currentYear + 1
-        });
-      } else {
-        // Else navigate to next month
-        this.setState({
-          currentMonth: this.state.currentMonth + 1
-        });
-      }
-      // Scroll to the top of the page
-      document.getElementById('monthView').scrollIntoView();
-    }
-  }
-
-  prevMonth = () => {
-    // If we are within the 4 month navigation limit
-    if (this.state.yearBoundary > -4) {
-      this.setState({
-        yearBoundary: this.state.yearBoundary - 1
-      });
-      // this.state.yearBoundary--;
-      // If the current month is Jan then cycle the year back and reset to December
-      if (this.state.currentMonth === 1) {
-        this.setState({
-          currentMonth: 12,
-          currentYear: this.state.currentYear - 1
-        });
-      } else {
-        // Else navigate to previous month
-        this.setState({
-          currentMonth: this.state.currentMonth - 1
-        });
-      }
-      // Scroll to the top of the page
-      document.getElementById('monthView').scrollIntoView();
-    }
-  }
-
-  search = (ev) => {
-    const input = ev.target;
-    // Only execute search for 3 or more characters
-    if (input && input.value.length > 2) {
-      // Submit a GA ping for this search term
-      submitSearchAnalytic(host, ReactGA, input.value);
-    }
-    this.setState(oldState => {
-      return {
-        filterProps: {
-          platforms: oldState.filterProps.platforms,
-          nameText: (input && input.value.length > 2) ? input.value : ''
-        }
-      };
-    });
   }
 
   setFilters = (ev) => {
@@ -134,7 +64,6 @@ class App extends React.Component {
         return {
           filterProps: {
             platforms: platforms,
-            nameText: state.filterProps.nameText
           }
         };
       });
@@ -144,7 +73,6 @@ class App extends React.Component {
         return {
           filterProps: {
             platforms: platforms,
-            nameText: state.filterProps.nameText
           }
         };
       });
@@ -166,35 +94,6 @@ class App extends React.Component {
     });
   }
 
-  displayDayModal = async (game, date, platforms) => {
-    this.setState({ loading: true });
-
-    // Show the modal and veil
-    document.getElementById('modal').classList.remove('is-hidden');
-    document.getElementById('calendar').classList.add('modal-open');
-    document.getElementById('sidePanel').classList.add('modal-open');
-    document.getElementById('body').classList.add('modal-open');
-    document.getElementById('veil').classList.remove('is-hidden');
-
-    // Get the selected game's details
-    const response = await getGameById(game.id);
-    const gameResponse = response.data;
-
-    // Submit a GA ping for this game
-    submitModalAnalytic(host, ReactGA, game.name);
-
-    // If no name has been provided, use the previously displayed name
-    // Attach the relevant release date and platforms to the new api response
-    gameResponse[0].name = gameResponse.name === undefined ? game.name : gameResponse[0].name;
-    gameResponse[0].jsReleaseDate = date;
-    gameResponse[0].platforms = platforms;
-
-    this.setState({
-      modalGame: gameResponse[0],
-      loading: false
-    });
-  }
-
   componentDidMount() {
     submitPageViewAnalytic(host, ReactGA, window.location.pathname + window.location.search);
   }
@@ -208,26 +107,18 @@ class App extends React.Component {
             <Route exact path={['/month-view/:month/:year', '/']}>
               <CalendarPanel
                 yearBoundary={this.state.yearBoundary}
-                nextMonth={this.nextMonth}
-                prevMonth={this.prevMonth}
-                setFilters={this.setFilters}
-                clearFilters={this.clearFilters}
-                search={this.search}
               />
               <Calendar
-                displayDayModal={this.displayDayModal}
+                setFilters={this.setFilters}
+                clearFilters={this.clearFilters}
                 filterProps={this.state.filterProps}
-              />
-              <GameViewModal
-                game={this.state.modalGame}
-                loading={this.state.loading}
               />
             </Route>
             <Route path={['/game-view/:gameId']}>
               <GameView />
             </Route>
             <Route path={['/search-games/:searchTerm']}>
-              <Search />
+              <Search reactGA={ReactGA} />
             </Route>
             <Footer />
           </div>

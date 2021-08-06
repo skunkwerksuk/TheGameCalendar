@@ -19,6 +19,7 @@ function Header() {
   return <header className="header body-wrapper">
     <div className="body-container p-h-15">
       <Link to='/' className='logo-link'><Logo /><h1 className="logo-text"><span>Game</span><span>Cal</span></h1></Link>
+      {/* <Link to='/' className='header-link'>Upcoming Releases</Link> */}
       <div className='search-bar'>
         <input id='searchInput' placeholder='Search' onKeyUp={searchHandler} />
         <SearchIcon onClick={searchRedirect} />

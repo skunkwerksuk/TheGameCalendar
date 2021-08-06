@@ -1,9 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import {
-  Switch,
-  Route
-} from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import Month from './Month';
 
 function Calendar(props) {
@@ -12,7 +9,8 @@ function Calendar(props) {
       <Route path={['/month-view/:month/:year', '/']}>
         <Month
           filters={props.filterProps}
-          displayDayModal={props.displayDayModal}
+          setFilters={props.setFilters}
+          clearFilters={props.clearFilters}
         />
       </Route>
     </Switch>

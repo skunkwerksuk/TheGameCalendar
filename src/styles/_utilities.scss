@@ -35,6 +35,6 @@ $sides: (top, bottom, left, right);
   margin: 0 auto;
 }
 
-.grey-text {
-  color: $grey;
+.u-flex-column {
+  flex-direction: column;
 }

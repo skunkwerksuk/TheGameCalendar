@@ -56,6 +56,7 @@ body {
 
 .col-wrapper {
   display: flex;
+  flex-direction: column;
 
   &.pipe-separated {
     .col:not(:last-child) {
@@ -64,10 +65,19 @@ body {
       padding-right: 20px;
     }
   }
+
+  @include for-tablet-portrait-up {
+    flex-direction: initial;
+  }
 }
 
 .col-50 {
-  width: 50%;
+  width: 100%;
+
+  @include for-tablet-portrait-up {
+    width: 50%;
+    margin: 0 10px;
+  }
 }
 
 .col-33 {

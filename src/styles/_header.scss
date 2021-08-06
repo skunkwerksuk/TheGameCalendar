@@ -20,8 +20,9 @@
 
   .logo-text {
     color: $app-white;
-    font-size: 38px;
-    margin: 15px;
+    font-size: 26px;
+    margin: 10px;
+    display: none;
 
     span:nth-child(2) {
       color: $app-secondary;
@@ -29,8 +30,36 @@
   }
 
   svg {
-    height: 42px;
+    height: 32px;
     width: auto;
+    margin: 10px 5px;
+  }
+
+  @include for-tablet-portrait-up {
+    .logo-text {
+      font-size: 38px;
+      margin: 15px;
+      display: block;
+    }
+
+    svg {
+      height: 42px;
+      width: auto;
+      margin: 0;
+    }
+  }
+}
+
+.header-link {
+  color: $app-white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  display: none;
+
+  @include for-tablet-portrait-up {
+    display: block;
   }
 }
 

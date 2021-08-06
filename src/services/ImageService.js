@@ -18,8 +18,16 @@ import gameCube from '../images/platforms/gamecube.svg';
 import ds from '../images/platforms/ds.svg';
 import dsi from '../images/platforms/dsi.svg';
 import threeDS from '../images/platforms/3ds.svg';
+import new3ds from '../images/platforms/new3ds.svg';
 import wii from '../images/platforms/wii.svg';
 import wiiu from '../images/platforms/wiiu.svg';
+import nes from '../images/platforms/nes.svg';
+import famicom from '../images/platforms/famicom.svg';
+import virtualConsole from '../images/platforms/virtualconsole.svg';
+import gameAndWatch from '../images/platforms/gameandwatch.svg';
+import amiga from '../images/platforms/amiga.svg';
+import snes from '../images/platforms/snes.svg';
+import n64 from '../images/platforms/n64.svg';
 import gameBoy from '../images/platforms/gameboy.svg';
 import gameBoyColor from '../images/platforms/gameboycolor.svg';
 import gameBoyAdvance from '../images/platforms/gameboyadvance.png';
@@ -76,6 +84,8 @@ export function getPlatformLogo(name) {
     return gameCube;
   case 'Nintendo 3DS':
     return threeDS;
+  case 'New Nintendo 3DS':
+    return new3ds;
   case 'Nintendo DS':
     return ds;
   case 'Nintendo DSi':
@@ -84,12 +94,26 @@ export function getPlatformLogo(name) {
     return wii;
   case 'Wii U':
     return wiiu;
+  case 'Nintendo Entertainment System (NES)':
+    return nes;
+  case 'Family Computer Disk System':
+    return famicom;
+  case 'Virtual Console (Nintendo)':
+    return virtualConsole;
+  case 'Game & Watch':
+    return gameAndWatch;
+  case 'Amiga':
+    return amiga;
+  case 'Nintendo 64':
+    return n64;
   case 'Game Boy':
     return gameBoy;
   case 'Game Boy Color':
     return gameBoyColor;
   case 'Game Boy Advance':
     return gameBoyAdvance;
+  case 'Super Nintendo Entertainment System (SNES)':
+    return snes;
   default:
     return '';
   }

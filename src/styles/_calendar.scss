@@ -1,8 +1,12 @@
 .calendar-panel-wrapper {
   position: sticky;
-  top: 75px;
+  top: 52px;
   background-color: $app-white;
   z-index: 1;
+
+  @include for-tablet-portrait-up {
+    top: 75px;
+  }
 }
 
 .calendar-panel {
@@ -22,6 +26,7 @@
     display: flex;
     padding: 5px;
     cursor: default;
+    color: $app-primary;
 
     .month-name {
       margin: auto;
@@ -60,4 +65,55 @@
 
 .month-view {
   flex-wrap: wrap;
+}
+
+.month-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter-wrapper {
+  position: relative;
+}
+
+.dropdown-anchor {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.filter-list {
+  list-style: none;
+  padding: 20px;
+  margin: 0;
+  background-color: white;
+  z-index: 1;
+  width: 180px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 20px 30px rgba(19, 0, 77, 0.16);
+  right: -10px;
+
+  .checkable {
+    margin: 10px 0;
+    cursor: pointer;
+
+    label {
+      cursor: pointer;
+    }
+  }
+}
+
+.dropdown-target {
+  display: none;
+  opacity: 0;
+  position: absolute;
+  transition: all 0.2s ease;
+}
+
+.dropdown-target:hover,
+.dropdown-anchor:hover > .dropdown-target {
+  visibility: visible;
+  opacity: 1;
+  display: block;
 }

@@ -1,7 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import GameListItem from './GameListItem';
+import filterIconUrl from '../images/filter.svg';
 import { newGetGamesByMonthYear } from '../services/GamesService';
 import { useParams } from 'react-router-dom';
+
+const filters = [
+  {
+    name: 'Xbox One',
+    value: 'Xbox One'
+  },
+  {
+    name: 'Xbox Series',
+    value: 'Xbox Series'
+  },
+  {
+    name: 'PlayStation 4',
+    value: 'PlayStation 4'
+  },
+  {
+    name: 'PlayStation 5',
+    value: 'PlayStation 5'
+  },
+  {
+    name: 'Nintendo Switch',
+    value: 'Nintendo Switch'
+  },
+  {
+    name: 'PC',
+    value: 'PC (Microsoft Windows)'
+  },
+  {
+    name: 'Stadia',
+    value: 'Stadia'
+  },
+];
 
 function Month(props) {
   const params = useParams();
@@ -23,7 +55,6 @@ function Month(props) {
   useEffect(() => {
     if (loading == false) {
       const currentDate = new Date().toLocaleDateString('en-gb', { year: 'numeric', month: 'long', day: 'numeric' }).replaceAll(' ','');
-      // document.getElementById('searchInput').value = '';
       if (document.getElementById(currentDate)) {
         document.getElementById(currentDate).scrollIntoView();
       } else {
@@ -59,9 +90,7 @@ function Month(props) {
   useEffect(() => {
     if (games != []) {
       const monthDays = [];
-
       if (games && games.length > 0) {
-        console.log(games);
         games.forEach((game, idx) => {
           monthDays.push(
             <GameListItem
@@ -80,34 +109,35 @@ function Month(props) {
     if (gamesToFilter == undefined || gamesToFilter.length == 0) {
       return [];
     }
-
     const filterByPlatforms = props.filters.platforms.length > 0;
-    const filterByName = props.filters.nameText.length > 0;
-    const filteredGamesByMonth = (filterByPlatforms || filterByName) ? gamesToFilter.filter(game => {
+
+    const filteredGamesByMonth = filterByPlatforms ? gamesToFilter.filter(game => {
       if (filterByPlatforms) {
         const platformMatches = game.platform.some(gamePlatform => {
           return props.filters.platforms.includes(gamePlatform.name);
         });
-        if (filterByName) {
-          const name = game.game.name.toLowerCase();
-          const searchText = props.filters.nameText.toLowerCase();
-          return platformMatches && name.indexOf(searchText) > -1;
-        } else {
-          return platformMatches;
-        }
-      } else if (filterByName) {
-        const name = game.game.name.toLowerCase();
-        const searchText = props.filters.nameText.toLowerCase();
-        return name.indexOf(searchText) > -1;
+        return platformMatches;
       }
     }) : gamesToFilter;
 
     return filteredGamesByMonth;
   };
 
-  return <div id="monthView">
+  return <div id="monthView" className='body-container u-flex-column'>
     <div className='p-h-15'>
-      <h2 className='h2'>{monthNames[month-1]}, {year}</h2>
+      <div className='month-panel'>
+        <h2 className='h2'>{monthNames[month-1]}, {year}</h2>
+        <div className='filter-wrapper dropdown-anchor'>
+          <img className='' src={filterIconUrl} />
+          <ul className='dropdown-target filter-list'>
+            {filters.map((filter, idx) => <li className="checkable" key={idx}>
+              <input onChange={props.setFilters} type="checkbox" name={filter.value} value={filter.value} id={filter.value} className="filter-checkbox" />
+              <label htmlFor={filter.value} id={filter.value + 'checkbox'}>{filter.name}</label>
+            </li>)}
+            <li><button className="button primary m-t-10" onClick={props.clearFilters}>Clear</button></li>
+          </ul>
+        </div>
+      </div>
       <hr className='hr-light-grey' />
     </div>
     <div className="body-container month-view">

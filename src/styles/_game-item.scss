@@ -4,7 +4,7 @@
   font-size: 12px;
   box-sizing: border-box;
   padding: 0;
-  margin: 15px;
+  margin: 5px;
   border-radius: 10px;
   box-shadow: 0 0 30px rgba(19, 0, 77, 0.08);
   cursor: pointer;
@@ -13,17 +13,12 @@
   -webkit-transition: margin 0.2s ease-out, box-shadow 0.2s ease-out;
   -moz-transition: margin 0.2s ease-out, box-shadow 0.2s ease-out;
   -o-transition: margin 0.2s ease-out, box-shadow 0.2s ease-out;
-
-  // 5 per row
-  width: calc(33.33% - 30px);
-
-  .popularity {
-    display: none;
-  }
+  width: calc(33.33% - 15px);
 
   &:hover {
     box-shadow: 0 20px 30px rgba(19, 0, 77, 0.16);
-    margin-top: 10px;
+    margin-top: 0;
+    margin-bottom: 10px;
   }
 
   &:active {
@@ -31,8 +26,6 @@
   }
 
   .game-cover {
-    // height: 340px;
-    // min-height: 56%;
     display: flex;
     align-items: center;
     overflow-y: clip;
@@ -45,45 +38,28 @@
     .game-status {
       @include ribbon(#7D5809, 0, 0.5em);
 
-      position: absolute;
+      padding: 2px 7px;
       right: -0.5em;
       bottom: 0.5em;
       width: auto;
       background-color: $orange;
       color: $app-white;
-      padding: 4px 12px;
-      box-sizing: border-box;
-      font-weight: bold;
-      font-size: 14px;
-      line-height: 1;
-
-      @include for-tablet-landscape-up {
-        @include ribbon(#7D5809, 0, 1em);
-
-        position: absolute;
-        right: -1em;
-        bottom: 1em;
-      }
     }
 
     .today-banner {
-      @include ribbon(darken($app-primary, 10%), 1em, 0);
+      @include ribbon(darken($app-primary, 10%), 0.5em, 0);
 
-      position: absolute;
-      left: -1em;
-      bottom: 1em;
+      left: -0.5em;
+      bottom: 0.5em;
       width: auto;
       background-color: $app-primary;
       color: $app-white;
       padding: 4px 12px;
-      box-sizing: border-box;
-      font-weight: bold;
-      font-size: 14px;
-      line-height: 1;
+      height: 23px;
       border: 1px solid $app-white;
 
       &::before {
-        top: calc(-1em - 1px);
+        top: calc(-0.5em - 1px);
       }
     }
 
@@ -97,20 +73,20 @@
   .game-details {
     position: relative;
     height: 115px;
-    padding: 10px;
+    padding: 8px;
     box-sizing: border-box;
     overflow: hidden;
     color: #13004d;
 
     .game-title {
-      height: 45%;
+      height: auto;
       overflow: hidden;
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
-      font-size: 18px;
+      font-size: 14px;
       font-weight: bold;
-      max-height: 38px;
+      max-height: 43px;
 
       &.game-title--full {
         height: auto;
@@ -120,23 +96,89 @@
 
     .release-date {
       color: $grey;
-      font-size: 14px;
+      font-size: 12px;
       display: flex;
       align-items: center;
 
       span {
         margin-top: 2px;
       }
+
+      svg {
+        height: 20px;
+        width: 20px;
+        margin-right: 1px;
+      }
     }
 
     .platforms {
       position: absolute;
       bottom: 10px;
+      flex-wrap: wrap;
+      max-height: 50px;
+      overflow: hidden;
+
+      .icon-wrapper {
+        width: 20px;
+        height: 20px;
+        overflow: hidden;
+        display: inline-block;
+        margin-right: 3px;
+        margin-top: 1px;
+
+        .platform-icon {
+          width: 20px;
+          height: 20px;
+        }
+      }
     }
   }
 
   @include for-tablet-portrait-up {
+    margin: 15px;
     width: calc(25% - 30px);
+
+    &:hover {
+      box-shadow: 0 20px 30px rgba(19, 0, 77, 0.16);
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+
+    .game-details {
+      padding: 10px;
+
+      .game-title {
+        height: 45%;
+        font-size: 18px;
+        max-height: 38px;
+      }
+
+      .platforms {
+        flex-wrap: nowrap;
+        max-height: 50px;
+
+        .icon-wrapper {
+          width: 25px;
+          height: 25px;
+          margin-right: 5px;
+
+          .platform-icon {
+            width: 25px;
+            height: 25px;
+          }
+        }
+      }
+
+      .release-date {
+        font-size: 12px;
+
+        svg {
+          height: 24px;
+          width: 24px;
+          margin-right: 1px;
+        }
+      }
+    }
   }
 
   @include for-desktop-up {
@@ -163,9 +205,23 @@
   height: 20px;
   color: $app-primary;
 
-  &.masterpiece { background-color: $app-secondary; }
-  &.great { background-color: #9CE37D; }
-  &.good { background-color: #D0E8AF; }
-  &.average { background-color: #FFCC8A; }
-  &.poor { background-color: #DB6B6B; }
+  &.masterpiece {
+    background-color: $app-secondary;
+  }
+
+  &.great {
+    background-color: #9ce37d;
+  }
+
+  &.good {
+    background-color: #d0e8af;
+  }
+
+  &.average {
+    background-color: #ffcc8a;
+  }
+
+  &.poor {
+    background-color: #db6b6b;
+  }
 }

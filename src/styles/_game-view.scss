@@ -29,15 +29,23 @@
 
 .describer {
   grid-column-start: 1;
-  grid-column-end: 2;
+  grid-column-end: end;
+
+  @include for-tablet-landscape-up {
+    grid-column-end: 2;
+  }
 }
 
 .detail,
 .detail-icons {
   font-size: 16px;
   color: $grey;
-  grid-column-start: 2;
+  grid-column-start: 1;
   grid-column-end: end;
+
+  @include for-tablet-landscape-up {
+    grid-column-start: 2;
+  }
 }
 
 .release-date-list {
@@ -85,7 +93,7 @@ $unactiveHoverColor: #dddddd;
     li {
       label {
         float: left;
-        padding: 15px 25px;
+        padding: 10px;
         box-sizing: border-box;
         border: 2px solid $app-primary;
         background: $app-white;
@@ -93,10 +101,15 @@ $unactiveHoverColor: #dddddd;
         text-align: center;
         width: 33.33%;
         cursor: pointer;
-        font-size: 16px;
+        font-size: 12px;
         font-weight: bold;
 
         &:hover { background: $unactiveHoverColor; }
+
+        @include for-tablet-portrait-up {
+          font-size: 16px;
+          padding: 15px 25px;
+        }
       }
 
       &:not(:last-child) label {
