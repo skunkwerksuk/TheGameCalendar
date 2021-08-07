@@ -54,7 +54,6 @@ function reviewPieUpdate() {
 
       leftCircle.style.transform = `rotate(${rotation}deg)`;
     }
-    
   }
 }
 
@@ -107,7 +106,10 @@ function GameView() {
                         {game.release_dates.map((date, idx) => <div key={idx}>
                           <li><span className='m-r-10'>{date.human} - </span><span className='platforms'>{generatePlatformIcons(date.platform)}</span></li>
                         </div>)}
-                      </ul> : <div></div>}
+                      </ul> :
+                      <span>
+                        {game.release_dates ? <>{game.release_dates[0].human}</> : <></>}
+                      </span>}
                   </span>
                   <span className='describer detail-sub-title'>{game.involved_companies.filter(item => item.developer).length > 1 ? 'Developers: ' : 'Developer: '}</span>
                   <span className='detail'>
@@ -126,7 +128,7 @@ function GameView() {
                   <div className='socials'>
                     <div>
                       {game.websites ? game.websites.map((item, idx) =>
-                        item.category !== 1 ? <div className='icon-wrapper' key={idx}><a target="_blank" rel="noopener noreferrer" href={item.url}><img title={getSocialName(item.category)} alt={getSocialName(item.category)} className='platform-icon' src={getSocialIcon(item.category)} /></a></div> : <span></span>
+                        item.category !== 1 ? <div className='icon-wrapper' key={idx}><a target="_blank" rel="noopener noreferrer" href={item.url}><img title={getSocialName(item.category)} alt={getSocialName(item.category)} className={`platform-icon ${item.category}`} src={getSocialIcon(item.category)} /></a></div> : <span></span>
                       ) : <span></span>}
                     </div>
                     {game.websites && game.websites.find(item => item.category === 1) ? <a className='button primary' href={game.websites.find(item => item.category === 1).url} target="_blank" rel="noopener noreferrer">Official Website</a> : <span></span>}

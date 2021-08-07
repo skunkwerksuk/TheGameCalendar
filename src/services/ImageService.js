@@ -41,6 +41,7 @@ import instagramLogo from '../images/socials/instagram.svg';
 import youtubeLogo from '../images/socials/youtube.svg';
 import steamLogo from '../images/socials/steam.svg';
 import redditLogo from '../images/socials/reddit.svg';
+import itchioLogo from '../images/socials/itchio.svg';
 import epicLogo from '../images/socials/epic.svg';
 import gogLogo from '../images/socials/gog.svg';
 import discordLogo from '../images/socials/discord.svg';
@@ -140,6 +141,8 @@ export function getSocialIcon(id) {
     return steamLogo;
   case 14:
     return redditLogo;
+  case 15:
+    return itchioLogo;
   case 16:
     return epicLogo;
   case 17:

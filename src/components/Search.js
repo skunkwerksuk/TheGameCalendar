@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import GameListItem from './GameListItem';
 import { searchGamesByTerm } from '../services/GamesService';
 import { useParams } from 'react-router-dom';
-import { submitSearchAnalytic } from '../utils/Analytics';
+// import { submitSearchAnalytic } from '../utils/Analytics';
 
-function Search(props) {
+function Search() {
   const params = useParams();
   const [displayGames, setDisplayGames] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -26,7 +26,7 @@ function Search(props) {
     setLoading(true);
     const { data } = await searchGamesByTerm(params.searchTerm);
 
-    submitSearchAnalytic(window.location.hostname, props.ReactGA, params.searchTerm);
+    // submitSearchAnalytic(window.location.hostname, props.ReactGA, params.searchTerm);
 
     if (data != []) {
       const gameList = [];
