@@ -15,5 +15,24 @@
     &:hover {
       background-color: lighten($app-primary, 10%);
     }
+
+    &.active-link {
+      background-color: $light-grey;
+      color: $app-primary;
+      cursor: pointer;
+    }
+  }
+}
+
+.filter-buttons-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+
+  .button {
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    padding: 10px 20px;
   }
 }

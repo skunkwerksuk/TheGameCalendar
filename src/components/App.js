@@ -7,12 +7,11 @@ import Header from './Header';
 import Footer from './Footer';
 import GameView from './GameView';
 import Search from './Search';
+import MostAnticipated from './MostAnticipated';
 import { createBrowserHistory } from 'history';
 import ReactGA from 'react-ga';
-import { 
-  submitFilterAnalytic,
-  submitPageViewAnalytic
-} from '../utils/Analytics';
+import { submitPageViewAnalytic } from '../utils/Analytics';
+import WeekView from './WeekView';
 
 const history = createBrowserHistory();
 const host = window.location.hostname;
@@ -37,61 +36,9 @@ if (host != 'localhost') {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    const months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
-    const currentMonth = months.includes(location.pathname.substr(1)) ? months.indexOf(location.pathname.substr(1))+1 : new Date().getMonth()+1;
-
     this.state = {
-      currentMonth: currentMonth,
-      currentYear: (new Date().getFullYear()),
       yearBoundary: 0,
-      filterProps: {
-        platforms: [ ],
-      },
-      modalGame: {},
-      loading: false
     };
-  }
-
-  setFilters = (ev) => {
-    const input = ev.target;
-    if (ev.target.checked) {
-      // Submit a GA ping for this filter
-      submitFilterAnalytic(host, ReactGA, input.value);
-
-      this.setState(state => {
-        const platforms = state.filterProps.platforms;
-        platforms.push(input.value);
-        return {
-          filterProps: {
-            platforms: platforms,
-          }
-        };
-      });
-    } else {
-      this.setState(state => {
-        const platforms = state.filterProps.platforms.filter(platform => platform != input.value);
-        return {
-          filterProps: {
-            platforms: platforms,
-          }
-        };
-      });
-    }
-  }
-
-  clearFilters = () => {
-    let checkboxes = document.getElementsByClassName('filter-checkbox');
-    for (let i = 0; i < checkboxes.length; i++) {
-      checkboxes[i].checked = false;
-    }
-    this.setState(state => {
-      return {
-        filterProps: {
-          platforms: [ ],
-          nameText: state.filterProps.nameText
-        }
-      };
-    });
   }
 
   componentDidMount() {
@@ -105,20 +52,20 @@ class App extends React.Component {
           <div className="body-panel">
             <Header />
             <Route exact path={['/month-view/:month/:year', '/']}>
-              <CalendarPanel
-                yearBoundary={this.state.yearBoundary}
-              />
-              <Calendar
-                setFilters={this.setFilters}
-                clearFilters={this.clearFilters}
-                filterProps={this.state.filterProps}
-              />
+              <CalendarPanel yearBoundary={this.state.yearBoundary} />
+              <Calendar />
+            </Route>
+            <Route exact path={['/week-view/']}>
+              <WeekView />
             </Route>
             <Route path={['/game-view/:gameId']}>
               <GameView />
             </Route>
             <Route path={['/search-games/:searchTerm']}>
               <Search reactGA={ReactGA} />
+            </Route>
+            <Route path={['/most-anticipated/:platform', '/most-anticipated',]}>
+              <MostAnticipated />
             </Route>
             <Footer />
           </div>

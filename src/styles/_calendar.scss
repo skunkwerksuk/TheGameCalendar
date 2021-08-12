@@ -117,3 +117,25 @@
   opacity: 1;
   display: block;
 }
+
+.week-view {
+  flex-wrap: wrap;
+  padding: 35px;
+  box-sizing: border-box;
+
+  h3 {
+    margin: 10px;
+    font-size: 24px;
+  }
+
+  .game-item {
+    width: calc(50% - 20px);
+    box-shadow: 0 20px 30px rgba(19, 0, 77, 0.16);
+    margin: 10px;
+    margin-bottom: 50px;
+
+    .game-details {
+      height: 95px;
+    }
+  }
+}

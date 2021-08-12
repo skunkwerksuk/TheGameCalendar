@@ -4,7 +4,6 @@
   z-index: 5;
   background-color: $app-primary;
   color: $app-white;
-  font-family: 'AzoSans-Bold', Arial, Helvetica, sans-serif;
 
   .body-container {
     justify-content: space-between;
@@ -22,7 +21,7 @@
     color: $app-white;
     font-size: 26px;
     margin: 10px;
-    display: none;
+    font-family: 'AzoSans-Bold', Arial, Helvetica, sans-serif;
 
     span:nth-child(2) {
       color: $app-secondary;
@@ -56,7 +55,6 @@
   font-size: 16px;
   font-weight: bold;
   text-transform: uppercase;
-  display: none;
 
   @include for-tablet-portrait-up {
     display: block;
@@ -73,6 +71,7 @@
     border: 0;
     background-color: $app-primary;
     color: white;
+    width: 100%;
 
     &::placeholder {
       color: white;

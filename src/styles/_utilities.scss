@@ -1,4 +1,3 @@
-// Class example: m-b-20
 // Generator for margin and padding classes (E.g. .m-b-10, .p-t-20)
 $spaceamounts: (5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 75, 100);
 $sides: (top, bottom, left, right);
@@ -37,4 +36,137 @@ $sides: (top, bottom, left, right);
 
 .u-flex-column {
   flex-direction: column;
+}
+
+// ***** PIE *****
+
+.js-simple-pie.score--avg {
+  font-size: 5.5em;
+}
+
+.js-simple-pie {
+  height: 1em;
+  width: 1em;
+  float: left;
+  margin: 15px;
+  position: relative;
+  font-size: 4em;
+}
+
+.js-simple-pie .pie {
+  height: 100%;
+  width: 100%;
+  clip: rect(0, 1em, 1em, 0.5em);
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+.js-simple-pie .pie.pie--over-fifty {
+  clip: rect(auto, auto, auto, auto);
+}
+
+.js-simple-pie label {
+  background: white;
+  border-radius: 50%;
+  bottom: 0.4em;
+  color: #808080;
+  cursor: default;
+  display: block;
+  font-size: 0.25em;
+  left: 0.4em;
+  line-height: 3.3em;
+  position: absolute;
+  right: 0.4em;
+  text-align: center;
+  top: 0.4em;
+}
+
+.js-simple-pie .pie .half-circle {
+  height: 100%;
+  width: 100%;
+  border: 0.1em solid #3498db;
+  border-radius: 50%;
+  clip: rect(0, 0.5em, 1em, 0);
+  left: 0;
+  position: absolute;
+  top: 0;
+  box-sizing: border-box;
+}
+
+.js-simple-pie .pie.pie--over-fifty .right-circle {
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.js-simple-pie .shadow {
+  height: 100%;
+  width: 100%;
+  border: 0.1em solid #bdc3c7;
+  border-radius: 50%;
+}
+
+.score--avg.js-simple-pie .pie .half-circle {
+  border-color: $app-primary;
+}
+
+.score--avg.js-simple-pie label {
+  background: radial-gradient(rgba(174, 162, 212, 0) 0%, #AEA2D4);
+  color: $app-primary;
+  font-weight: 700;
+  z-index: 1;
+}
+
+// ***** CSS SPINNER *****
+
+.loader-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  height: 80px;
+  width: 80px;
+  transform: translate(-50%, -50%);
+
+  @include for-tablet-landscape-up {
+    left: calc(50% + 10vw);
+  }
+}
+
+#loader-1::before,
+#loader-1::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  border: 10px solid transparent;
+  border-top-color: #e3e3e3;
+  box-sizing: border-box;
+}
+
+#loader-1::before {
+  z-index: 100;
+  animation: spin 1s infinite;
+}
+
+#loader-1::after {
+  border: 10px solid #ccc;
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }

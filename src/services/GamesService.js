@@ -28,3 +28,11 @@ export function searchGamesByTerm(searchTerm) {
     console.log(err);
   });
 }
+
+export function getMostAnticipatedGames(platform) {
+  return axios.get(`${newUrl}/games/most-anticipated/${platform ? platform : ''}`).then((response) => {
+    return response;
+  }).catch(err => {
+    console.log(err);
+  });
+}

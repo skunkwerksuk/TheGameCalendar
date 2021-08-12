@@ -205,23 +205,9 @@
   height: 20px;
   color: $app-primary;
 
-  &.masterpiece {
-    background-color: $app-secondary;
-  }
-
-  &.great {
-    background-color: #9ce37d;
-  }
-
-  &.good {
-    background-color: #d0e8af;
-  }
-
-  &.average {
-    background-color: #ffcc8a;
-  }
-
-  &.poor {
-    background-color: #db6b6b;
-  }
+  &.masterpiece { background-color: $app-secondary; }
+  &.great { background-color: #9ce37d; }
+  &.good { background-color: #d0e8af; }
+  &.average { background-color: #ffcc8a; }
+  &.poor { background-color: #db6b6b; }
 }

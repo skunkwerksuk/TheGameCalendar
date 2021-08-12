@@ -5,34 +5,13 @@ import { newGetGamesByMonthYear } from '../services/GamesService';
 import { useParams } from 'react-router-dom';
 
 const filters = [
-  {
-    name: 'Xbox One',
-    value: 'Xbox One'
-  },
-  {
-    name: 'Xbox Series',
-    value: 'Xbox Series'
-  },
-  {
-    name: 'PlayStation 4',
-    value: 'PlayStation 4'
-  },
-  {
-    name: 'PlayStation 5',
-    value: 'PlayStation 5'
-  },
-  {
-    name: 'Nintendo Switch',
-    value: 'Nintendo Switch'
-  },
-  {
-    name: 'PC',
-    value: 'PC (Microsoft Windows)'
-  },
-  {
-    name: 'Stadia',
-    value: 'Stadia'
-  },
+  { name: 'PlayStation 5', value: 'PlayStation 5' },
+  { name: 'Xbox Series', value: 'Xbox Series' },
+  { name: 'Nintendo Switch', value: 'Nintendo Switch' },
+  { name: 'PC', value: 'PC (Microsoft Windows)' },
+  { name: 'PlayStation 4', value: 'PlayStation 4' },
+  { name: 'Xbox One', value: 'Xbox One' },
+  { name: 'Stadia', value: 'Stadia' }
 ];
 
 function Month(props) {
@@ -43,8 +22,30 @@ function Month(props) {
   const [displayDays, setDisplayDays] = useState([]);
   const [year, setYear] = useState(params.year ? params.year : (new Date().getFullYear()));
   const [month, setMonth] = useState(params.month ? params.month : (new Date().getMonth()+1));
+  const [filteredPlatforms, setFilteredPlatforms] = useState([]);
   const [loading, setLoading] = useState(true);
   document.title = 'GameCal | Upcoming video game releases';
+
+
+  function setFilters(ev) {
+    const input = ev.target;
+    let platforms;
+
+    if (input.checked) {
+      platforms = [...filteredPlatforms, input.value];
+    } else {
+      platforms = filteredPlatforms.filter(platform => platform != input.value);
+    }
+    setFilteredPlatforms(platforms);
+  }
+
+  function clearFilters() {
+    let checkboxes = document.getElementsByClassName('filter-checkbox');
+    for (let i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = false;
+    }
+    setFilteredPlatforms([]);
+  }
 
   useEffect(() => {
     if (games.length > 0) {
@@ -68,13 +69,9 @@ function Month(props) {
     setMonth(params.month ? params.month : (new Date().getMonth()+1));
   }, [params.year, params.month]);
 
-  useEffect(async () => {
-    setGames(runFilter(unfilteredGames));
-  }, [props.filters]);
-
   useEffect(() => {
     setGames(runFilter(unfilteredGames));
-  }, [unfilteredGames]);
+  }, [filteredPlatforms, unfilteredGames]);
 
   useEffect(async () => {
     setLoading(true);
@@ -88,36 +85,25 @@ function Month(props) {
   }, [month]);
 
   useEffect(() => {
-    if (games != []) {
-      const monthDays = [];
-      if (games && games.length > 0) {
-        games.forEach((game, idx) => {
-          monthDays.push(
-            <GameListItem
-              displayModal={props.displayModal}
-              key={idx}
-              game={game}
-            />
-          );
-        });
-      }
-      setDisplayDays(monthDays);
+    const monthDays = [];
+    if (games && games != [] && games.length > 0) {
+      games.forEach((game, idx) => {
+        monthDays.push(<GameListItem displayModal={props.displayModal} key={idx} game={game} />);
+      });
     }
+    setDisplayDays(monthDays);
   }, [games]);
 
   const runFilter = (gamesToFilter = []) => {
     if (gamesToFilter == undefined || gamesToFilter.length == 0) {
       return [];
     }
-    const filterByPlatforms = props.filters.platforms.length > 0;
 
-    const filteredGamesByMonth = filterByPlatforms ? gamesToFilter.filter(game => {
-      if (filterByPlatforms) {
-        const platformMatches = game.platform.some(gamePlatform => {
-          return props.filters.platforms.includes(gamePlatform.name);
-        });
-        return platformMatches;
-      }
+    const filteredGamesByMonth = filteredPlatforms && filteredPlatforms.length > 0 ? gamesToFilter.filter(game => {
+      const platformMatches = game.platform.some(gamePlatform => {
+        return filteredPlatforms.includes(gamePlatform.name);
+      });
+      return platformMatches;
     }) : gamesToFilter;
 
     return filteredGamesByMonth;
@@ -131,10 +117,10 @@ function Month(props) {
           <img className='' src={filterIconUrl} />
           <ul className='dropdown-target filter-list'>
             {filters.map((filter, idx) => <li className="checkable" key={idx}>
-              <input onChange={props.setFilters} type="checkbox" name={filter.value} value={filter.value} id={filter.value} className="filter-checkbox" />
+              <input onChange={setFilters} type="checkbox" name={filter.value} value={filter.value} id={filter.value} className="filter-checkbox" />
               <label htmlFor={filter.value} id={filter.value + 'checkbox'}>{filter.name}</label>
             </li>)}
-            <li><button className="button primary m-t-10" onClick={props.clearFilters}>Clear</button></li>
+            <li><button className="button primary m-t-10" onClick={clearFilters}>Clear</button></li>
           </ul>
         </div>
       </div>

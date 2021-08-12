@@ -8,15 +8,12 @@
 @import './calendar.scss'; //
 @import './game-view.scss'; //
 @import './image-carousel'; //
+@import './hamburger'; //
 @import './game-item.scss';
-@import './inputs.scss';
 @import './buttons.scss';
 @import './nav.scss';
-@import './modal.scss';
-@import './gallery.scss';
 
-.header-panel,
-.side-panel {
+.header-panel {
   box-sizing: border-box;
 }
 
@@ -24,49 +21,8 @@
   -webkit-overflow-scrolling: touch;
 }
 
-.calendar {
-  margin-top: 50px;
-  background-color: white;
-  width: 100%;
-  -webkit-overflow-scrolling: touch;
-  color: #000;
-
-  @include for-tablet-landscape-up {
-    margin-top: 0;
-    width: 80vw;
-    margin-left: 20vw;
-    overflow: auto;
-  }
-
-  @include for-big-desktop-up {
-    width: 85vw;
-    margin-left: 15vw;
-  }
-}
-
-.month {
-  margin: 0 auto;
-  height: 96%;
-  display: flex;
-  flex-wrap: wrap;
-  width: calc(100% + 2px);
-  min-height: 550px;
-
-  &.is-hidden {
-    display: none;
-  }
-}
-
 .is-hidden {
   display: none;
-}
-
-.day-item {
-  width: 100%;
-  flex-wrap: wrap;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
 }
 
 .platforms {
@@ -88,9 +44,6 @@
 }
 
 .socials {
-  // display: flex;
-  // flex-direction: row;
-
   .icon-wrapper {
     width: 30px;
     height: 30px;
@@ -101,23 +54,6 @@
     .platform-icon {
       width: 30px;
       height: 30px;
-    }
-  }
-}
-
-.list-day {
-  padding: 5px;
-  display: block;
-
-  .date {
-    margin: 5px;
-    font-size: 20px;
-    color: $app-primary;
-  }
-
-  &.today {
-    .date {
-      text-decoration: underline;
     }
   }
 }

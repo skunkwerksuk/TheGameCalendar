@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import GameListItem from './GameListItem';
-import { searchGamesByTerm } from '../services/GamesService';
-import { useParams } from 'react-router-dom';
+import { getMostAnticipatedGames } from '../services/GamesService';
+import { Link, useParams } from 'react-router-dom';
 
-function Search() {
+const filters = [
+  { name: 'PlayStation 5', value: 167 },
+  { name: 'Xbox Series', value: 169 },
+  { name: 'Nintendo Switch', value: 130 },
+  { name: 'PC', value: 6 },
+  { name: 'PlayStation 4', value: 48 },
+  { name: 'Xbox One', value: 49 }
+];
+
+function MostAnticipated() {
   const params = useParams();
   const [displayGames, setDisplayGames] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -23,22 +32,29 @@ function Search() {
 
   useEffect(async () => {
     setLoading(true);
-    const { data } = await searchGamesByTerm(params.searchTerm);
-
-    if (data != []) {
+    const platform = params ? params.platform : null;
+    const { data } = await getMostAnticipatedGames(platform);
+    const newData = data.map(game => {
+      game.human = game.release_dates[0].human;
+      return game;
+    });
+    if (newData != []) {
       const gameList = [];
 
-      data.forEach((game, idx) => {
+      newData.forEach((game, idx) => {
         gameList.push(<GameListItem key={idx} game={game} />);
       });
 
       setDisplayGames(gameList);
     }
-  }, [params.searchTerm]);
+  }, [params.platform]);
 
   return <div id="searchView" className='body-wrapper body-min-height'>
     <div className='body-container--no-flex p-h-15'>
-      <h2 className='h2'>Search for: {params.searchTerm}</h2>
+      <h2 className='h2'>Most Anticipated {params && params.platform ? `${filters.find(filter => filter.value == params.platform).name} games` : 'New Releases'}</h2>
+      <div className='filter-buttons-wrapper'>
+        {filters.map((filter, idx) => <Link className={`button primary ${filter.value == params.platform ? 'active-link' : ''}`} key={idx} to={filter.value == params.platform ? '/most-anticipated' : `/most-anticipated/${filter.value}`}>{filter.name}</Link>)}
+      </div>
       <hr className='hr-light-grey' />
     </div>
     <div className="body-container month-view">
@@ -56,4 +72,4 @@ function Search() {
   </div>;
 }
 
-export default Search;
+export default MostAnticipated;

@@ -1,0 +1,123 @@
+.menu-toggle-wrapper {
+  display: block;
+  position: relative;
+  z-index: 1;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.menu-toggle-wrapper .menu-toggle-checkbox {
+  display: block;
+  width: 40px;
+  height: 32px;
+  position: absolute;
+  top: -7px;
+  left: -5px;
+  cursor: pointer;
+  opacity: 0;
+  z-index: 2;
+  -webkit-touch-callout: none;
+}
+
+.menu-toggle-wrapper .menu-hamburger--line {
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  background: #cdcdcd;
+  border-radius: 3px;
+  z-index: 1;
+  transform-origin: 4px 0;
+  transition:
+    transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+    background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+    opacity 0.55s ease;
+}
+
+.menu-toggle-wrapper .menu-hamburger--line:first-child {
+  transform-origin: 0% 0%;
+}
+
+.menu-toggle-wrapper .menu-hamburger--line:nth-last-child(2) {
+  transform-origin: 0% 100%;
+}
+
+.menu-toggle-wrapper .menu-toggle-checkbox:checked ~ .menu-hamburger--line {
+  opacity: 1;
+  transform: rotate(45deg) translate(-2px, -1px);
+  background: $app-white;
+}
+
+.menu-toggle-wrapper .menu-toggle-checkbox:checked ~ .menu-hamburger--line:nth-last-child(3) {
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+.menu-toggle-wrapper .menu-toggle-checkbox:checked ~ .menu-hamburger--line:nth-last-child(2) {
+  transform: rotate(-45deg) translate(0, -1px);
+}
+
+.menu-toggle-target {
+  position: fixed;
+  flex-direction: column;
+  left: 0;
+  right: 0;
+  top: 52px;
+  padding: 10px;
+  margin: 0;
+  display: none;
+  background: $app-primary;
+  list-style-type: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.menu-toggle-target li {
+  padding: 10px 0;
+  font-size: 22px;
+
+  a { color: $app-white; }
+}
+
+.menu-toggle-wrapper .menu-toggle-checkbox:checked ~ ul {
+  display: flex;
+}
+
+@include for-tablet-portrait-up {
+  .menu-toggle-target {
+    top: 75px;
+  }
+}
+
+@include for-tablet-landscape-up {
+  .menu-toggle-wrapper {
+    flex-grow: 1;
+
+    .menu-hamburger--line,
+    .menu-toggle-checkbox {
+      display: none;
+    }
+  }
+
+  .menu-toggle-target {
+    position: relative;
+    display: flex;
+    padding: 0;
+    top: 0;
+    padding-left: 5%;
+    color: white;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    list-style-type: none;
+    -webkit-font-smoothing: antialiased;
+
+    hr { display: none; }
+  }
+}
+
+@include for-desktop-up {
+  .menu-toggle-target {
+    padding-left: 10%;
+  }
+}

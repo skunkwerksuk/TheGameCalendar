@@ -46,9 +46,7 @@
     &.disabled {
       pointer-events: none;
 
-      path {
-        fill: $light-grey;
-      }
+      path { fill: $light-grey; }
     }
   }
 
