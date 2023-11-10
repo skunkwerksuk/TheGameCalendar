@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/runtime": "^7.14.6",
-    "axios": "^0.21.1",
+    "axios": "^1.6.0",
     "eslint": "^7.8.0",
     "eslint-plugin-react": "^7.24.0",
     "history": "^4.10.1",
